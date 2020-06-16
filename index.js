@@ -26,7 +26,10 @@ onCommand(client, 'rules',
 )
 
 onCommand(client, 'play', 'Starting Game', (msg) => startGame(client, msg.channel, msg));
-
-client.login(process.env.DISCORD_TOKEN);
-
 client.on('ready', () => console.log('Logged In'));
+
+const tryLogin = () => {
+  console.log('Login failed. Trying again');
+  setTimeout(() => client.login(process.env.DISCORD_TOKEN).catch(tryLogin), 1000);
+}
+client.login(process.env.DISCORD_TOKEN).catch(tryLogin);
