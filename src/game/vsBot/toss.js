@@ -1,4 +1,4 @@
-const ask = require('../util/ask');
+const ask = require('../../util/ask');
 
 const completeToss = (playerToss, cb) => {
   const myToss = Math.floor(Math.random()*2);
