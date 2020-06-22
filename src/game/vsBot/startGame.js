@@ -1,4 +1,4 @@
-const toss = require('./toss');
+const toss = require('../../util/toss');
 const ask = require('../../util/ask');
 const startInnings = require('./startInnings');
 
