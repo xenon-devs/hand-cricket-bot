@@ -1,5 +1,5 @@
 const toss = require('./toss');
-const ask = require('../util/ask');
+const ask = require('../../util/ask');
 const startInnings = require('./startInnings');
 
 function startGame(client, channel, msg) {

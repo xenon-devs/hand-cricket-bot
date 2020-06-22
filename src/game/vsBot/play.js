@@ -1,4 +1,4 @@
-const ask = require('../util/ask');
+const ask = require('../../util/ask');
 const getRandomFingers = require('./getRandomFingers');
 
 const showFingersHandler = (answer, client, player, channel, difficulty, cb) => {
