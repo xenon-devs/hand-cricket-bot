@@ -2,7 +2,7 @@ function ask(client, askTo, channel, question, onAnswerCb) {
   channel.send(`<@${askTo.id}> ${question}`);
 
   const notAnsweredHandler = () => {
-    channel.send(`<@${askTo.id}> You didn't answer in 15s, now your chance is gone.`)
+    channel.send(`<@${askTo.id}> You didn't answer in 20s, now your chance is gone.`)
     client.off('message', finalAnswerHandler);
   }
   let notAnsweredTimeout;
@@ -16,7 +16,7 @@ function ask(client, askTo, channel, question, onAnswerCb) {
     }
   }
 
-  notAnsweredTimeout = setTimeout(notAnsweredHandler, 15000);
+  notAnsweredTimeout = setTimeout(notAnsweredHandler, 20000);
   client.on('message', finalAnswerHandler);
 }
 
