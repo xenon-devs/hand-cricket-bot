@@ -1,4 +1,4 @@
-const ask = require('../../util/ask');
+const ask = require('./ask');
 
 const completeToss = (playerToss, cb) => {
   const myToss = Math.floor(Math.random()*2);
@@ -11,7 +11,7 @@ const completeToss = (playerToss, cb) => {
 
 const onTossDone = (tossWon, channel, cb) => {
   if (!tossWon) channel.send('You won the toss, but that doesn\'t mean you\'ll win the match');
-  else channel.send('I won the toss, this applies to the match as well.');
+  else channel.send('You lost the toss.');
 
   cb(tossWon);
 }
