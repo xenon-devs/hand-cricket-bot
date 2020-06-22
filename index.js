@@ -2,14 +2,15 @@ const Discord = require('discord.js');
 const { prefix } = require('./config.json');
 
 const onCommand = require('./src/util/command');
-const startGame = require('./src/game/startGame');
+const startGame = require('./src/game/vsBot/startGame');
+const startChallenge = require('./src/game/multiplayer/startChallenge');
 
 require('dotenv').config();
 const client = new Discord.Client();
 
 onCommand(client, 'help handcricket', `\
 ${prefix}play - Start a game with the bot.
-${prefix}challenge @player - Challenge a person to multiplayer battle (in DM).
+${prefix}challenge - Challenge a person to multiplayer battle (in DM).
 ${prefix}rules - Explain the rules.
 `)
 
@@ -27,6 +28,8 @@ onCommand(client, 'rules',
 )
 
 onCommand(client, 'play', 'Starting Game', (msg) => startGame(client, msg.channel, msg));
+onCommand(client, 'challenge', 'Starting Multiplayer Challenge', msg => startChallenge(client, msg.channel, msg));
+
 client.on('ready', () => console.log('Logged In'));
 
 const tryLogin = () => {

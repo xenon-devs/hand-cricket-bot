@@ -10,9 +10,10 @@ function ask(client, askTo, channel, question, onAnswerCb) {
   const finalAnswerHandler = msg => {
     if (msg.author.id === askTo.id && msg.channel.id === channel.id) {
       const answer = msg.content;
-      clearTimeout(notAnsweredTimeout)
+      
+      clearTimeout(notAnsweredTimeout);
       client.off('message', finalAnswerHandler);
-      onAnswerCb(answer);  
+      onAnswerCb(answer, msg);  
     }
   }
 
