@@ -1,9 +1,6 @@
 const ask = require('../util/ask');
 const getRandomFingers = require('./getRandomFingers');
 
-const fs = require('fs');
-const path = require('path');
-
 const showFingersHandler = (answer, client, player, channel, difficulty, cb) => {
   let fingers = Number(answer.toLowerCase().trim());
   if (isNaN(fingers) || fingers > 6 || fingers < 0) ask(client, player, channel, `Do you have *${answer}* fingers? Really?`, answer => showFingersHandler(answer, client, player, channel, difficulty, cb))

@@ -1,8 +1,6 @@
 const toss = require('./toss');
 const ask = require('../util/ask');
 const startInnings = require('./startInnings');
-const fs = require('fs');
-const path = require('path');
 
 function startGame(client, channel, msg) {
   const player = msg.author;
