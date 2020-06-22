@@ -9,7 +9,8 @@ const client = new Discord.Client();
 
 onCommand(client, 'help handcricket', `\
 ${prefix}play - Start a game with the bot.
-${prefix}rules - Explain the rules
+${prefix}challenge @player - Challenge a person to multiplayer battle (in DM).
+${prefix}rules - Explain the rules.
 `)
 
 onCommand(client, 'rules',
