@@ -1,4 +1,5 @@
 const ask = require('../../util/ask');
+const startMatch = require('./startMatch');
 
 function startChallenge(client, channel, msg) {
   const challenger = msg.author,
@@ -15,7 +16,7 @@ function startChallenge(client, channel, msg) {
     ask(client, opponent, stadium, 'Do you accept the challenge? (yes/no)', ans => {
       if (!(ans.trim().toLowerCase() == 'yes')) return stadium.send(`<@${opponent.id}> got scared :smirk:`);
       else {
-        
+        startMatch(client, stadium, challenger, opponent);
       }
     })
   })
