@@ -1,8 +1,21 @@
 import toss from '../../util/toss';
 import startInnings from './startInnings';
 import askBatBowl from '../../util/askBatBowl';
+import { Client, TextChannel, User } from 'discord.js';
 
-function startMatch(client, stadium, challenger, opponent) {
+/**
+ * 
+ * @param client The main discord.js client object.
+ * @param stadium The stadium AKA the channel where the match started.
+ * @param challenger The overconfident person who challenged.
+ * @param opponent The brave one who (may or may not have) accepted the challenge.
+ */
+function startMatch(
+  client: Client,
+  stadium: TextChannel,
+  challenger: User,
+  opponent: User
+) {
   stadium.send('Starting toss, opponent has to choose.');
   toss(opponent, client, stadium, tossWon => {
     // tossWon is true if challenger wins

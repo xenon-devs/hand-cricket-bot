@@ -13,7 +13,7 @@ type inningsCallback = (outputObj: {
  * @param batsman The discord.js User object for the batsman.
  * @param bowler The discord.js User object for the bowler.
  * @param isChase Wheter it is the first innings or the chase.
- * @param chaseScore The score to chase, if it is a chase.
+ * @param chaseTarget Thevtarget score to chase, if it is a chase.
  * @param cb Callback that is fired at the end of the innings.
  */
 function startInnings(
@@ -22,7 +22,7 @@ function startInnings(
   batsman: User,
   bowler: User,
   isChase: boolean,
-  chaseScore: number,
+  chaseTarget: number,
   cb: inningsCallback = console.log
 ) {
   stadium.send(`Starting innings in 5s, be ready in DM, <@${batsman.id}> is going to bat.`);
