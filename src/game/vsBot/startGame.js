@@ -1,5 +1,6 @@
 const toss = require('../../util/toss');
 const ask = require('../../util/ask');
+const askBatBowl = require('../../util/askBatBowl');
 const startInnings = require('./startInnings');
 
 function startGame(client, channel, msg) {
@@ -33,21 +34,10 @@ function startGame(client, channel, msg) {
         startInnings(client, channel, player, myTurn === 'bat', difficulty);
       }
       else {
-        const askBatBowlHandler = (client, player, channel, answer) => {
-          switch(answer.trim().toLowerCase()) {
-            case 'bat':
-              startInnings(client, channel, player, false, difficulty);
-              break;
-            case 'bowl':
-              startInnings(client, channel, player, true, difficulty);
-              break;
-            default:
-              ask(client, player, channel,'Can\'t you answer bat or bowl? Useless fellow.',  answer => askBatBowlHandler(client, player, channel, answer))
-              break; 
-          }
-        }
-  
-        ask(client, player, channel, 'Want to bat or bowl?', answer => askBatBowlHandler(client, player, channel, answer));
+        askBatBowl(client, player, channel, answer => {
+          if (answer == 'bat') startInnings(client, channel, player, false, difficulty);
+          else startInnings(client, channel, player, true, difficulty);
+        })
       }
     }), 3000)
 
