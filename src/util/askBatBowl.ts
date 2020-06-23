@@ -1,5 +1,5 @@
 import ask from './ask';
-import { TextChannel, Client, User } from 'discord.js';
+import { TextChannel, Client, User, DMChannel } from 'discord.js';
 
 /**
  * @description Asks the toss winning player whether they want to bat or bowl and waits for the reply.
@@ -14,7 +14,7 @@ function askBatBowl(
   channel: TextChannel,
   cb: Function = console.log
 ) {
-  const askBatBowlHandler = (client, askTo, channel, answer) => {
+  const askBatBowlHandler = (client: Client, askTo: User, channel: TextChannel, answer: string) => {
     switch(answer.trim().toLowerCase()) {
       case 'bat':
         cb('bat');

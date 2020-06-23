@@ -18,7 +18,8 @@ function startGame(
   const player = msg.author;
   
   ask(client, player, channel, 'Difficult Level(`easy`, `medium`, or `hard` ?)', answer => {
-    let difficulty;
+    let difficulty: number;
+
     switch(answer.trim().toLowerCase()) {
       case 'easy':
         difficulty = 0;
@@ -36,7 +37,7 @@ function startGame(
 
     channel.send('Game Starting in 3 seconds.');
 
-    setTimeout(() => toss(player, client, channel, tossWon => {
+    setTimeout(() => toss(player, client, channel, (tossWon: boolean) => {
       if (tossWon) {
         const batBowl = ['bat', 'bowl'];
         const myTurn = batBowl[Math.floor(Math.random()*2)];
@@ -45,7 +46,7 @@ function startGame(
         startInnings(client, channel, player, myTurn === 'bat', difficulty);
       }
       else {
-        askBatBowl(client, player, channel, answer => {
+        askBatBowl(client, player, channel, (answer: string) => {
           if (answer == 'bat') startInnings(client, channel, player, false, difficulty);
           else startInnings(client, channel, player, true, difficulty);
         })

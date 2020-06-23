@@ -1,5 +1,5 @@
 import 'discord.js/typings';
-import Discord from 'discord.js';
+import Discord, { Message, TextChannel } from 'discord.js';
 import { prefix } from './config.json';
 import onCommand from './src/util/command';
 import startGame from './src/game/vsBot/startGame';
@@ -27,8 +27,8 @@ onCommand(client, 'rules',
     .setTimestamp()
 )
 
-onCommand(client, 'play', 'Starting Game', (msg) => startGame(client, msg.channel, msg));
-onCommand(client, 'challenge', 'Starting Multiplayer Challenge', msg => startChallenge(client, msg.channel, msg));
+onCommand(client, 'play', 'Starting Game', (msg: Message) => startGame(client, msg.channel as TextChannel, msg));
+onCommand(client, 'challenge', 'Starting Multiplayer Challenge', (msg: Message) => startChallenge(client, msg.channel as TextChannel, msg));
 
 client.on('ready', () => console.log('Logged In'));
 

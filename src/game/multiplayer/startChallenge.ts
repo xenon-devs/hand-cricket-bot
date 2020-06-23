@@ -20,7 +20,7 @@ function startChallenge(
     const opponentMentions = ansMsg.mentions;
 
     if (opponentMentions.everyone) return stadium.send('Want to battle everyone at once? Who do you think you are?');
-    const opponent = opponentMentions.members.array()[0];
+    const opponent = opponentMentions.members.array()[0].user;
 
     if (opponent.id == challenger.id) return stadium.send('Challenging yourself? Scared to fight others? Lol.');
 
@@ -33,4 +33,4 @@ function startChallenge(
   })
 }
 
-module.exports = startChallenge;
+export default startChallenge;

@@ -41,33 +41,47 @@ function play(
   playerMoveHistory: number[],
   cb: playCallback
 ) {
-  ask(client, player, channel, `Show your fingers.. *Using keyboard stupid*`, answer => showFingersHandler(answer, client, player, channel, difficulty, playerFingers => {
-    const botFingers = getRandomFingers(playerFingers, isBotBatting, difficulty, playerMoveHistory);
+  ask(
+    client,
+    player,
+    channel,
+    `Show your fingers.. *Using keyboard stupid*`,
+    answer => showFingersHandler(
+      answer,
+      client,
+      player,
+      channel,
+      difficulty,
+      (playerFingers: number) => 
+      {
+        const botFingers = getRandomFingers(playerFingers, isBotBatting, difficulty, playerMoveHistory);
 
-    playerMoveHistory.push(playerFingers);
+        playerMoveHistory.push(playerFingers);
 
 
-    channel.send(`${botFingers}!`);
+        channel.send(`${botFingers}!`);
 
-    if (isBotBatting) {
-      if (botFingers === playerFingers) return cb({
-        botLost: true
-      })
-      else return cb({
-        botLost: false,
-        addBotScore: botFingers
-      })
-    }
-    else {
-      if (botFingers === playerFingers) return cb({
-        botLost: false
-      })
-      else return cb({
-        botLost: true,
-        addPlayerScore: playerFingers
-      })
-    }
-  }))
+        if (isBotBatting) {
+          if (botFingers === playerFingers) return cb({
+            botLost: true
+          })
+          else return cb({
+            botLost: false,
+            addBotScore: botFingers
+          })
+        }
+        else {
+          if (botFingers === playerFingers) return cb({
+            botLost: false
+          })
+          else return cb({
+            botLost: true,
+            addPlayerScore: playerFingers
+          })
+        }
+      }
+    )
+  )
 }
 
 export default play;

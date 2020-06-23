@@ -21,9 +21,9 @@ function askDM(
       onNotAnswerCb();
       client.off('message', finalAnswerHandler);
     }
-    let notAnsweredTimeout;
+    let notAnsweredTimeout: NodeJS.Timeout;
 
-    const finalAnswerHandler = msg => {
+    const finalAnswerHandler = (msg: Message) => {
       if (msg.author.id === askTo.id && msg.channel.id === dm.channel.id) {
         const answer = msg.content;
         

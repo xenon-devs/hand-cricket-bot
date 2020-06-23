@@ -21,7 +21,7 @@ function startInnings(
   chaseTarget?: number
 ) {
   channel.send('Starting Innings');
-  let playerMoveHistory = [];
+  let playerMoveHistory: number[] = [];
   let botScore = 0, playerScore = 0, isBatsmanPlaying = true;
 
   if (chase) {

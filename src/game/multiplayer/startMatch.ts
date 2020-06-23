@@ -17,13 +17,13 @@ function startMatch(
   opponent: User
 ) {
   stadium.send('Starting toss, opponent has to choose.');
-  toss(opponent, client, stadium, tossWon => {
+  toss(opponent, client, stadium, (tossWon: boolean) => {
     // tossWon is true if challenger wins
     const tossWinner = tossWon ? challenger : opponent;
     const tossLoser = tossWon ? opponent : challenger;
 
-    askBatBowl(client, tossWinner, stadium, answer => {
-      let batsman, bowler;
+    askBatBowl(client, tossWinner, stadium, (answer: string) => {
+      let batsman: User, bowler: User;
       if (answer == 'bat') batsman = tossWinner, bowler = tossLoser;
       else batsman = tossLoser, bowler = tossWinner;
 

@@ -1,4 +1,4 @@
-import play from  './play';
+import play, { playCb } from  './play';
 import { TextChannel, Client, User } from 'discord.js';
 
 type inningsCallback = (outputObj: {
@@ -32,7 +32,7 @@ function startInnings(
 
   let score = 0;
 
-  const playCbHandler = out => {
+  const playCbHandler: playCb = (out) => {
     if (out.bothAnswered) {
       if (out.batsmansAnswer == out.bowlersAnswer) {
         batsman.send(`Opponent showed ${out.bowlersAnswer}. You are out! What are you doing?`);

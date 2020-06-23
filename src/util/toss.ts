@@ -1,7 +1,7 @@
 import ask from './ask';
 import { Client, TextChannel, User } from 'discord.js';
 
-const completeToss = (playerToss: string, cb?: Function) => {
+const completeToss = (playerToss: string, cb?: (tossWon: boolean) => void) => {
   const myToss = Math.floor(Math.random()*2);
   
   const toss = playerToss === 'heads' ? 0 : 1;
@@ -40,7 +40,7 @@ const tossCheckHandler = (client: Client, player: User, channel: TextChannel, an
  */
 const toss = (player: User, client: Client, channel: TextChannel, cb?: Function) => {
   channel.send('TOSS:');  
-  ask(client, player, channel, 'Heads or Tails?', answer => tossCheckHandler(client, player, channel, answer, cb));
+  ask(client, player, channel, 'Heads or Tails?', (answer: string) => tossCheckHandler(client, player, channel, answer, cb));
 }
 
 export default toss;

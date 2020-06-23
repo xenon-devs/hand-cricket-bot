@@ -1,4 +1,6 @@
-import { Client, User, TextChannel } from "discord.js";
+import { Client, User, TextChannel, Message, DMChannel } from "discord.js";
+
+type onAnswerCb = (answer: string, msg: Message) => void;
 
 /**
  * @description Ask a question to a specific discord user and wait for the answer in a specific channel.
@@ -11,9 +13,9 @@ import { Client, User, TextChannel } from "discord.js";
 function ask(
   client: Client,
   askTo: User,
-  channel: TextChannel,
+  channel: TextChannel | DMChannel,
   question: string,
-  onAnswerCb: Function = (ans: string) => console.log(ans)
+  onAnswerCb: onAnswerCb = console.log
 ) {
   channel.send(`<@${askTo.id}> ${question}`);
 
@@ -21,9 +23,9 @@ function ask(
     channel.send(`<@${askTo.id}> You didn't answer in 20s, now your chance is gone.`)
     client.off('message', finalAnswerHandler);
   }
-  let notAnsweredTimeout;
+  let notAnsweredTimeout: NodeJS.Timeout;
 
-  const finalAnswerHandler = msg => {
+  const finalAnswerHandler = (msg: Message) => {
     if (msg.author.id === askTo.id && msg.channel.id === channel.id) {
       const answer = msg.content;
       
