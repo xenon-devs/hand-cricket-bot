@@ -1,4 +1,20 @@
-function askDM(client, askTo, question, onAnswerCb, onNotAnswerCb) {
+const { Client } = require("discord.js");
+
+/**
+ * @description Asks a question to a discord user in DM.
+ * @param {Client} client The main discord.js client object.
+ * @param {User} askTo Disccord.js user object of the user to ask.
+ * @param {String} question The question as a string.
+ * @param {function} onAnswerCb Callback which is fired if the user answers the question. With the answer and msg object as parameters.
+ * @param {function} onNotAnswerCb 
+ */
+function askDM(
+  client,
+  askTo,
+  question,
+  onAnswerCb = (ans, msg) => console.log(`Answered ${ans} by <@${msg.author.id}>`),
+  onNotAnswerCb = () => console.log('Not Answered')
+) {
   askTo.send(`<@${askTo.id}> ${question}`).then(dm => {
     const notAnsweredHandler = () => {
       askTo.send(`<@${askTo.id}> You didn't answer in 30s, now your chance is gone.`);
