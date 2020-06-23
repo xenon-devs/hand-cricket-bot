@@ -6,10 +6,20 @@ function startMatch(client, stadium, challenger, opponent) {
   stadium.send('Starting toss, opponent has to choose.');
   toss(opponent, client, stadium, tossWon => {
     // tossWon is true if challenger wins
+    const tossWinner = tossWon ? challenger : opponent;
+    const tossLoser = tossWon ? opponent : challenger;
 
-    askBatBowl(client, tossWon ? challenger : opponent, stadium, answer => {
-      if (answer == 'bat') startInnings(client, stadium, tossWon ? challenger : opponent, tossWon ? opponent : challenger);
-      else startInnings(client, stadium, tossWon ? opponent : challenger, tossWon ? challenger : opponent);
+    askBatBowl(client, tossWinner, stadium, answer => {
+      let batsman, bowler;
+      if (answer == 'bat') batsman = tossWinner, bowler = tossLoser;
+      else batsman = tossLoser, bowler = tossWinner;
+
+      startInnings(client, stadium, batsman, bowler, score => {
+        stadium.send(`First Innings over. Score: \`${score}\``);
+        // Display a scoreboard here.
+
+        startInnings(client, stadium, bowler, batsman);
+      })
     })
   })
 }

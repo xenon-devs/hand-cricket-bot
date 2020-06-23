@@ -10,12 +10,11 @@ function startInnings(client, stadium, batsman, bowler, cb = () => {}) {
 
   const playCbHandler = out => {
     if (out.bothAnswered) {
-      stadium.send(JSON.stringify(out));
       if (out.batsmansAnswer == out.bowlersAnswer) {
         batsman.send(`Opponent showed ${out.bowlersAnswer}. You are out! What are you doing?`);
-        bowler.send(`Opponent showed ${out.batsmansanswer}. Clean bowled! Great!`);
+        bowler.send(`Opponent showed ${out.batsmansAnswer}. Clean bowled! Great!`);
 
-        cb({ score });
+        cb(score);
       }
       else {
         score += out.batsmansAnswer;

@@ -5,7 +5,7 @@ function play(client, stadium, batsman, bowler, cb) {
   let batsmansAnswer, bowlersAnswer;
 
   const answerHandler = (player, ans, isBatsman) => {
-    if (ans > 6 || ans < 0 || Number(ans) == NaN) {
+    if (ans > 6 || ans < 0 || isNaN(Number(ans))) {
       askDM(client, player, `Do you have *${ans}* fingers? Really?`, ans => answerHandler(player, ans, isBatsman), () => {
         stadium.send(`Coward <@${player.id}> didn't respond so the match ended.`);
 
