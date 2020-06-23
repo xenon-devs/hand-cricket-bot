@@ -1,23 +1,23 @@
-const ask = require('./ask');
-const { Client, TextChannel } = require('discord.js');
+import ask from './ask';
+import { Client, TextChannel, User } from 'discord.js';
 
-const completeToss = (playerToss, cb) => {
+const completeToss = (playerToss: string, cb?: Function) => {
   const myToss = Math.floor(Math.random()*2);
   
-  playerToss = playerToss === 'heads' ? 0 : 1;
+  const toss = playerToss === 'heads' ? 0 : 1;
 
-  if (myToss === playerToss) cb(false);
+  if (toss === myToss) cb(false);
   else cb(true);
 }
 
-const onTossDone = (tossWon, channel, cb) => {
+const onTossDone = (tossWon: boolean, channel: TextChannel, cb?: Function) => {
   if (!tossWon) channel.send('You won the toss, but that doesn\'t mean you\'ll win the match');
   else channel.send('You lost the toss.');
 
   cb(tossWon);
 }
 
-const tossCheckHandler = (client, player, channel, answer, cb) => {
+const tossCheckHandler = (client: Client, player: User, channel: TextChannel, answer: string, cb?: Function) => {
   switch(answer.trim().toLowerCase()) {
     case 'heads':
       completeToss('heads', tossWon => onTossDone(tossWon, channel, cb))
@@ -38,9 +38,9 @@ const tossCheckHandler = (client, player, channel, answer, cb) => {
  * @param {TextChannel} channel The channel in which the coin is flipped.
  * @param {function} cb A callback that is run when the toss completes. The only parameter is a boolean which is true when the player loses (bot wins).
  */
-const toss = (player, client, channel, cb) => {
+const toss = (player: User, client: Client, channel: TextChannel, cb?: Function) => {
   channel.send('TOSS:');  
   ask(client, player, channel, 'Heads or Tails?', answer => tossCheckHandler(client, player, channel, answer, cb));
 }
 
-module.exports = toss;
+export default toss;

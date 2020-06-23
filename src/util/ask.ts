@@ -1,4 +1,4 @@
-const { Client } = require("discord.js");
+import { Client, User, TextChannel } from "discord.js";
 
 /**
  * @description Ask a question to a specific discord user and wait for the answer in a specific channel.
@@ -8,7 +8,13 @@ const { Client } = require("discord.js");
  * @param {String} question Question as a string (including ?).
  * @param {function} onAnswerCb Callback that fires when the answer is received. The only parameter is answer (string).
  */
-function ask(client, askTo, channel, question, onAnswerCb = ans => console.log(ans)) {
+function ask(
+  client: Client,
+  askTo: User,
+  channel: TextChannel,
+  question: string,
+  onAnswerCb: Function = (ans: string) => console.log(ans)
+) {
   channel.send(`<@${askTo.id}> ${question}`);
 
   const notAnsweredHandler = () => {
@@ -31,4 +37,4 @@ function ask(client, askTo, channel, question, onAnswerCb = ans => console.log(a
   client.on('message', finalAnswerHandler);
 }
 
-module.exports = ask;
+export default ask;

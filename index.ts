@@ -1,9 +1,9 @@
-const Discord = require('discord.js');
-const { prefix } = require('./config.json');
-
-const onCommand = require('./src/util/command');
-const startGame = require('./src/game/vsBot/startGame');
-const startChallenge = require('./src/game/multiplayer/startChallenge');
+import 'discord.js/typings';
+import Discord from 'discord.js';
+import { prefix } from './config.json';
+import onCommand from './src/util/command';
+import startGame from './src/game/vsBot/startGame';
+import startChallenge from './src/game/multiplayer/startChallenge';
 
 require('dotenv').config();
 const client = new Discord.Client();

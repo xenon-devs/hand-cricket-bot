@@ -1,4 +1,4 @@
-const { Client } = require("discord.js");
+import { Client, User, Message } from 'discord.js';
 
 /**
  * @description Asks a question to a discord user in DM.
@@ -9,11 +9,11 @@ const { Client } = require("discord.js");
  * @param {function} onNotAnswerCb 
  */
 function askDM(
-  client,
-  askTo,
-  question,
-  onAnswerCb = (ans, msg) => console.log(`Answered ${ans} by <@${msg.author.id}>`),
-  onNotAnswerCb = () => console.log('Not Answered')
+  client: Client,
+  askTo: User,
+  question: string,
+  onAnswerCb: Function = (ans: string, msg: Message) => console.log(`Answered ${ans} by <@${msg.author.id}>`),
+  onNotAnswerCb: Function = () => console.log('Not Answered')
 ) {
   askTo.send(`<@${askTo.id}> ${question}`).then(dm => {
     const notAnsweredHandler = () => {
@@ -39,4 +39,4 @@ function askDM(
 
 }
 
-module.exports = askDM;
+export default askDM;

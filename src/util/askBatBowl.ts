@@ -1,5 +1,5 @@
-const ask = require('./ask');
-const { TextChannel, Client } = require('discord.js');
+import ask from './ask';
+import { TextChannel, Client, User } from 'discord.js';
 
 /**
  * @description Asks the toss winning player whether they want to bat or bowl and waits for the reply.
@@ -8,7 +8,12 @@ const { TextChannel, Client } = require('discord.js');
  * @param {TextChannel} channel Discord.js text channel object to ask in.
  * @param {fucntion} cb Callback upon receiving the answer. With the only parameter being 'bat'|'bowl'.
  */
-function askBatBowl(client, askTo, channel, cb = console.log) {
+function askBatBowl(
+  client: Client,
+  askTo: User,
+  channel: TextChannel,
+  cb: Function = console.log
+) {
   const askBatBowlHandler = (client, askTo, channel, answer) => {
     switch(answer.trim().toLowerCase()) {
       case 'bat':
@@ -26,4 +31,4 @@ function askBatBowl(client, askTo, channel, cb = console.log) {
   ask(client, askTo, channel, 'Want to bat or bowl?', answer => askBatBowlHandler(client, askTo, channel, answer));
 }
 
-module.exports = askBatBowl;
+export default askBatBowl;
