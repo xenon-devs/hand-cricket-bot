@@ -7,7 +7,7 @@ function play(client, stadium, batsman, bowler, cb) {
   const answerHandler = (player, ans, isBatsman) => {
     if (ans > 6 || ans < 0 || Number(ans) == NaN) {
       askDM(client, player, `Do you have *${ans}* fingers? Really?`, ans => answerHandler(player, ans, isBatsman), () => {
-        stadium.send(`Coward <@${player.id} didn't respond so the match ended.`);
+        stadium.send(`Coward <@${player.id}> didn't respond so the match ended.`);
 
         if (!isBatsman) batsman.send(`Your coward opponent didn't respond so the match ended.`);
         else  bowler.send(`Your coward opponent didn't respond so the match ended.`);
@@ -31,21 +31,21 @@ function play(client, stadium, batsman, bowler, cb) {
   }
 
   askDM(client, batsman, 'Show me your fingers!... *Using keyboard stupid*', ans => answerHandler(batsman, ans, true), () => {
-    stadium.send(`Coward <@${player.id} didn't respond so the match ended.`);
+    stadium.send(`Coward <@${batsman.id}> didn't respond so the match ended.`);
     bowler.send(`Your coward opponent didn't respond so the match ended.`);
 
-    cb({
-      bothAnswered: false
-    })
+    // cb({
+    //   bothAnswered: false
+    // })
   })
 
   askDM(client, bowler, 'Show me your fingers!... *Using keyboard stupid*', ans => answerHandler(bowler, ans, false), () => {
-    stadium.send(`Coward <@${player.id} didn't respond so the match ended.`);
+    stadium.send(`Coward <@${bowler.id}> didn't respond so the match ended.`);
     batsman.send(`Your coward opponent didn't respond so the match ended.`);
 
-    cb({
-      bothAnswered: false
-    })
+    // cb({
+    //   bothAnswered: false
+    // })
   })
 }
 
