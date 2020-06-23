@@ -1,4 +1,3 @@
-import 'discord.js/typings';
 import Discord, { Message, TextChannel } from 'discord.js';
 import { prefix } from './config.json';
 import onCommand from './src/util/command';
