@@ -1,9 +1,20 @@
-const toss = require('../../util/toss');
-const ask = require('../../util/ask');
-const askBatBowl = require('../../util/askBatBowl');
-const startInnings = require('./startInnings');
+import toss from '../../util/toss';
+import ask from'../../util/ask';
+import askBatBowl from '../../util/askBatBowl';
+import startInnings from './startInnings';
+import { Client, TextChannel, Message } from 'discord.js';
 
-function startGame(client, channel, msg) {
+/**
+ * @description Starts a new match v/s bot.
+ * @param client The main discord.js Client object.
+ * @param channel The channel in which the match is happening.
+ * @param msg The command message that triggered the match.
+ */
+function startGame(
+  client: Client,
+  channel: TextChannel,
+  msg: Message
+) {
   const player = msg.author;
   
   ask(client, player, channel, 'Difficult Level(`easy`, `medium`, or `hard` ?)', answer => {
@@ -44,4 +55,4 @@ function startGame(client, channel, msg) {
   })
 }
 
-module.exports = startGame;
+export default startGame;
