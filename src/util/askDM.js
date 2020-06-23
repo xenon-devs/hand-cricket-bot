@@ -6,9 +6,9 @@ function askDM(client, askTo, question, onAnswerCb, onNotAnswerCb) {
       client.off('message', finalAnswerHandler);
     }
     let notAnsweredTimeout;
-  
+
     const finalAnswerHandler = msg => {
-      if (msg.author.id === askTo.id && msg.channel.id === dm.id) {
+      if (msg.author.id === askTo.id && msg.channel.id === dm.channel.id) {
         const answer = msg.content;
         
         clearTimeout(notAnsweredTimeout);

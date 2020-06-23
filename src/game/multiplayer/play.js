@@ -34,18 +34,18 @@ function play(client, stadium, batsman, bowler, cb) {
     stadium.send(`Coward <@${batsman.id}> didn't respond so the match ended.`);
     bowler.send(`Your coward opponent didn't respond so the match ended.`);
 
-    // cb({
-    //   bothAnswered: false
-    // })
+    cb({
+      bothAnswered: false
+    })
   })
 
   askDM(client, bowler, 'Show me your fingers!... *Using keyboard stupid*', ans => answerHandler(bowler, ans, false), () => {
     stadium.send(`Coward <@${bowler.id}> didn't respond so the match ended.`);
     batsman.send(`Your coward opponent didn't respond so the match ended.`);
 
-    // cb({
-    //   bothAnswered: false
-    // })
+    cb({
+      bothAnswered: false
+    })
   })
 }
 
