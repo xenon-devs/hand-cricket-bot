@@ -10,6 +10,7 @@ const client = new Discord.Client();
 onCommand(client, 'help handcricket', `\
 ${prefix}play - Start a game with the bot.
 ${prefix}challenge - Challenge a person to multiplayer battle (in DM).
+${prefix}dm - Sends a DM so that the user can play versus bot privately.
 ${prefix}rules - Explain the rules.
 `)
 
@@ -27,7 +28,8 @@ onCommand(client, 'rules',
 )
 
 onCommand(client, 'play', 'Starting Game', (msg: Message) => startGame(client, msg.channel as TextChannel, msg));
-onCommand(client, 'challenge', 'Starting Multiplayer Challenge', (msg: Message) => startChallenge(client, msg.channel as TextChannel, msg));
+onCommand(client, 'challenge', 'Starting Multiplayer Challenge', (msg: Message) => {if (msg.channel.type != 'dm') startChallenge(client, msg.channel as TextChannel, msg)});
+onCommand(client, 'dm', `You've received mail ;)`, (msg: Message) => msg.author.send('You can use any commands here.'));
 
 client.on('ready', () => console.log('Logged In'));
 
