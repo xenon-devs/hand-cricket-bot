@@ -1,11 +1,34 @@
-const askDM = require('../../util/askDM');
+import askDM from '../../util/askDM';
+import { Client, TextChannel, User } from 'discord.js';
 
-function play(client, stadium, batsman, bowler, cb) {
+type playCb = (outputObj: {
+  bothAnswered: boolean,
+  batsmansAnswer?: number, // Only present if bothAnswered is true
+  bowlersAnswer?: number
+}) => void
+
+/**
+ * @description Asks both the players to play (type finger numbers) in DM and waits for the reply.
+ * @param client The main discord.js client object
+ * @param stadium The stadium AKA discord channel where the match initially started.
+ * @param batsman The batsman's User object.
+ * @param bowler The bowler's User object.
+ * @param cb A callback that fires when both players answered (and also when one or both didn't answer but with an error).
+ */
+function play(
+  client: Client,
+  stadium: TextChannel,
+  batsman: User,
+  bowler: User,
+  cb: playCb
+) {
   let playersAnswered = 0;
   let batsmansAnswer, bowlersAnswer;
 
-  const answerHandler = (player, ans, isBatsman) => {
-    if (ans > 6 || ans < 0 || isNaN(Number(ans))) {
+  const answerHandler = (player: User, ans: string, isBatsman: boolean) => {
+    const answerNumber = Number(ans); // Convert string to number
+
+    if (answerNumber > 6 || answerNumber < 0 || isNaN(Number(answerNumber))) {
       askDM(client, player, `Do you have *${ans}* fingers? Really?`, ans => answerHandler(player, ans, isBatsman), () => {
         stadium.send(`Coward <@${player.id}> didn't respond so the match ended.`);
 
@@ -19,8 +42,8 @@ function play(client, stadium, batsman, bowler, cb) {
     }
     else {
       playersAnswered++;
-      if (isBatsman) batsmansAnswer = Number(ans);
-      else bowlersAnswer = Number(ans);
+      if (isBatsman) batsmansAnswer = answerNumber;
+      else bowlersAnswer = answerNumber;
 
       if (playersAnswered == 2) cb({
         bothAnswered: true,
@@ -49,4 +72,4 @@ function play(client, stadium, batsman, bowler, cb) {
   })
 }
 
-module.exports = play;
+export default play;

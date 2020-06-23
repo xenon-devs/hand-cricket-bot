@@ -1,7 +1,18 @@
-const ask = require('../../util/ask');
-const startMatch = require('./startMatch');
+import ask from '../../util/ask';
+import startMatch from './startMatch';
+import { Client, TextChannel, Message } from 'discord.js';
 
-function startChallenge(client, channel, msg) {
+/**
+ * @description Starts the match between two players on running a command.
+ * @param client The main discord.js client object
+ * @param channel The channel in which the match started.
+ * @param msg The msg which started the command.
+ */
+function startChallenge(
+  client: Client,
+  channel: TextChannel,
+  msg: Message
+) {
   const challenger = msg.author,
     stadium = channel;
 

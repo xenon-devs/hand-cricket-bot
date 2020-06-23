@@ -1,6 +1,6 @@
-const toss = require('../../util/toss');
-const startInnings = require('./startInnings');
-const askBatBowl = require('../../util/askBatBowl');
+import toss from '../../util/toss';
+import startInnings from './startInnings';
+import askBatBowl from '../../util/askBatBowl';
 
 function startMatch(client, stadium, challenger, opponent) {
   stadium.send('Starting toss, opponent has to choose.');
@@ -14,7 +14,7 @@ function startMatch(client, stadium, challenger, opponent) {
       if (answer == 'bat') batsman = tossWinner, bowler = tossLoser;
       else batsman = tossLoser, bowler = tossWinner;
 
-      startInnings(client, stadium, batsman, bowler, false, null, score => {
+      startInnings(client, stadium, batsman, bowler, false, null,({score}) => {
         stadium.send(`First Innings over. Score: \`${score}\``);
         // Display a scoreboard here.
 
@@ -24,4 +24,4 @@ function startMatch(client, stadium, challenger, opponent) {
   })
 }
 
-module.exports = startMatch;
+export default startMatch;
