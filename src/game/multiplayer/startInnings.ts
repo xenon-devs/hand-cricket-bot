@@ -1,9 +1,10 @@
 import play, { playCb } from  './play';
 import { TextChannel, Client, User } from 'discord.js';
 
-type inningsCallback = (outputObj: {
+export type inningsCallback = (outputObj: {
   score: number,
-  chaseWon?: boolean
+  chaseWon?: boolean,
+  chaseDraw?: boolean
 }) => void
 
 /**
@@ -36,14 +37,28 @@ function startInnings(
     if (out.bothAnswered) {
       if (out.batsmansAnswer == out.bowlersAnswer) {
         batsman.send(`Opponent showed ${out.bowlersAnswer}. You are out! What are you doing?`);
+        if (isChase && score == chaseTarget) return cb({
+          score,
+          chaseWon: false,
+          chaseDraw: true
+        })
+
         bowler.send(`Opponent showed ${out.batsmansAnswer}. Clean bowled! Great!`);
 
-        cb({score});
+        return cb({
+          score,
+          chaseWon: false
+        })
       }
       else {
         score += out.batsmansAnswer;
         batsman.send(`Opponent showed ${out.bowlersAnswer}. You scored ${out.batsmansAnswer} runs! Keep it up!`);
         bowler.send(`Opponent showed ${out.batsmansAnswer}. Your opponent scored ${out.batsmansAnswer} runs. What are you doing????`);
+
+        if (isChase && score > chaseTarget) return cb({
+          score,
+          chaseWon: true
+        })
 
         play(client, stadium, batsman, bowler, playCbHandler);
       }
