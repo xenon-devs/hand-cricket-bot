@@ -1,6 +1,6 @@
 const play = require('./play');
 
-function startInnings(client, stadium, batsman, bowler, cb = () => {}) {
+function startInnings(client, stadium, batsman, bowler, isChase, chaseScore, cb = () => {}) {
   stadium.send(`Starting innings in 5s, be ready in DM, <@${batsman.id}> is going to bat.`);
 
   batsman.send('You will be batting in 5s');

@@ -14,11 +14,11 @@ function startMatch(client, stadium, challenger, opponent) {
       if (answer == 'bat') batsman = tossWinner, bowler = tossLoser;
       else batsman = tossLoser, bowler = tossWinner;
 
-      startInnings(client, stadium, batsman, bowler, score => {
+      startInnings(client, stadium, batsman, bowler, false, null, score => {
         stadium.send(`First Innings over. Score: \`${score}\``);
         // Display a scoreboard here.
 
-        startInnings(client, stadium, bowler, batsman);
+        startInnings(client, stadium, bowler, batsman, true, score);
       })
     })
   })
