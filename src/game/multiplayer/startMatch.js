@@ -1,5 +1,5 @@
 const toss = require('../../util/toss');
-const ask = require('../../util/ask');
+const startInnings = require('./startInnings');
 const askBatBowl = require('../../util/askBatBowl');
 
 function startMatch(client, stadium, challenger, opponent) {
@@ -8,8 +8,8 @@ function startMatch(client, stadium, challenger, opponent) {
     // tossWon is true if challenger wins
 
     askBatBowl(client, tossWon ? challenger : opponent, stadium, answer => {
-      if (answer == 'bat');
-      else;
+      if (answer == 'bat') startInnings(client, stadium, tossWon ? challenger : opponent, tossWon ? opponent : challenger);
+      else startInnings(client, stadium, tossWon ? opponent : challenger, tossWon ? challenger : opponent);
     })
   })
 }
