@@ -1,6 +1,7 @@
 import toss from '../../util/toss';
-import startInnings, { inningsCallback } from './startInnings';
+import startInnings from './startInnings';
 import askBatBowl from '../../util/askBatBowl';
+import makeScoreboard from '../../util/scoreboard';
 import { Client, TextChannel, User } from 'discord.js';
 
 /**
@@ -29,7 +30,12 @@ function startMatch(
 
       startInnings(client, stadium, batsman, bowler, false, null,({score}) => {
         stadium.send(`First Innings over. Score: \`${score}\``);
-        // Display a scoreboard here.
+        stadium.send(makeScoreboard(client, {
+          player1: batsman,
+          player2: bowler,
+          hasPlayer2Played: false,
+          player1Score: score
+        }))
 
         startInnings(client, stadium, bowler, batsman, true, score, (outputObj) => {
           if (outputObj.chaseWon) {
@@ -47,6 +53,14 @@ function startMatch(
             batsman.send('You won :trophy:!');
             bowler.send('You lost :(');
           }
+
+          stadium.send(makeScoreboard(client, {
+            player1: batsman,
+            player2: bowler,
+            hasPlayer2Played: true,
+            player1Score: score,
+            player2Score: outputObj.score
+          }))
         })
       })
     })
