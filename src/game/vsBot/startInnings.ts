@@ -1,5 +1,6 @@
 import play from './play';
-import { Client, TextChannel, User } from 'discord.js';
+import { TextChannel, User } from 'discord.js';
+import DiscordClient from '../../util/DiscordClient';
 
 /**
  * @description Handles a full innings.
@@ -12,7 +13,7 @@ import { Client, TextChannel, User } from 'discord.js';
  * @param chaseTarget The target score to chase.
  */
 function startInnings(
-  client: Client,
+  client: DiscordClient,
   channel: TextChannel,
   player: User,
   botIsBatting: boolean,

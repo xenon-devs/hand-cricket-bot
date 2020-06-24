@@ -1,3 +1,4 @@
+import DiscordClient from './src/util/DiscordClient';
 import Discord, { Message, TextChannel } from 'discord.js';
 import { prefix } from './config.json';
 import onCommand from './src/util/command';
@@ -7,7 +8,7 @@ import startChallenge from './src/game/multiplayer/startChallenge';
 import { config } from 'dotenv';
 config(); // Import .env environment variables
 
-const client = new Discord.Client();
+const client = new DiscordClient();
 
 onCommand(client, 'help handcricket', `\
 ${prefix}play - Start a game with the bot.

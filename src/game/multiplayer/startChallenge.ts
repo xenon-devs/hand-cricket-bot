@@ -1,5 +1,6 @@
 import ask from '../../util/ask';
 import startMatch from './startMatch';
+import DiscordClient from '../../util/DiscordClient';
 import { Client, TextChannel, Message } from 'discord.js';
 
 /**
@@ -9,7 +10,7 @@ import { Client, TextChannel, Message } from 'discord.js';
  * @param msg The msg which started the command.
  */
 function startChallenge(
-  client: Client,
+  client: DiscordClient,
   channel: TextChannel,
   msg: Message
 ) {

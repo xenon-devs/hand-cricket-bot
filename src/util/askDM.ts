@@ -1,15 +1,16 @@
-import { Client, User, Message } from 'discord.js';
+import { User, Message } from 'discord.js';
+import DiscordClient from './DiscordClient';
 
 /**
  * @description Asks a question to a discord user in DM.
- * @param {Client} client The main discord.js client object.
+ * @param {DiscordClient} client The main discord.js client object.
  * @param {User} askTo Disccord.js user object of the user to ask.
  * @param {String} question The question as a string.
  * @param {function} onAnswerCb Callback which is fired if the user answers the question. With the answer and msg object as parameters.
  * @param {function} onNotAnswerCb 
  */
 function askDM(
-  client: Client,
+  client: DiscordClient,
   askTo: User,
   question: string,
   onAnswerCb: Function = (ans: string, msg: Message) => console.log(`Answered ${ans} by <@${msg.author.id}>`),

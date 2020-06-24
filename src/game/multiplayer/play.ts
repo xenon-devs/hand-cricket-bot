@@ -1,5 +1,6 @@
 import askDM from '../../util/askDM';
-import { Client, TextChannel, User } from 'discord.js';
+import { TextChannel, User } from 'discord.js';
+import DiscordClient from '../../util/DiscordClient';
 
 export type playCb = (outputObj: {
   bothAnswered: boolean,
@@ -9,14 +10,14 @@ export type playCb = (outputObj: {
 
 /**
  * @description Asks both the players to play (type finger numbers) in DM and waits for the reply.
- * @param client The main discord.js client object
+ * @param client The main discord.js client object.
  * @param stadium The stadium AKA discord channel where the match initially started.
  * @param batsman The batsman's User object.
  * @param bowler The bowler's User object.
  * @param cb A callback that fires when both players answered (and also when one or both didn't answer but with an error).
  */
 function play(
-  client: Client,
+  client: DiscordClient,
   stadium: TextChannel,
   batsman: User,
   bowler: User,

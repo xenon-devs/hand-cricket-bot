@@ -2,7 +2,8 @@ import toss from '../../util/toss';
 import ask from'../../util/ask';
 import askBatBowl from '../../util/askBatBowl';
 import startInnings from './startInnings';
-import { Client, TextChannel, Message } from 'discord.js';
+import { TextChannel, Message } from 'discord.js';
+import DiscordClient from '../../util/DiscordClient';
 
 /**
  * @description Starts a new match v/s bot.
@@ -11,7 +12,7 @@ import { Client, TextChannel, Message } from 'discord.js';
  * @param msg The command message that triggered the match.
  */
 function startGame(
-  client: Client,
+  client: DiscordClient,
   channel: TextChannel,
   msg: Message
 ) {

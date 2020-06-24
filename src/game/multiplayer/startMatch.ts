@@ -2,7 +2,8 @@ import toss from '../../util/toss';
 import startInnings from './startInnings';
 import askBatBowl from '../../util/askBatBowl';
 import makeScoreboard from '../../util/scoreboard';
-import { Client, TextChannel, User } from 'discord.js';
+import { TextChannel, User } from 'discord.js';
+import DiscordClient from '../../util/DiscordClient';
 
 /**
  * @description Starts a multiplayer match.
@@ -12,7 +13,7 @@ import { Client, TextChannel, User } from 'discord.js';
  * @param opponent The brave one who (may or may not have) accepted the challenge.
  */
 function startMatch(
-  client: Client,
+  client: DiscordClient,
   stadium: TextChannel,
   challenger: User,
   opponent: User

@@ -1,5 +1,6 @@
 import play, { playCb } from  './play';
 import { TextChannel, Client, User } from 'discord.js';
+import DiscordClient from '../../util/DiscordClient';
 
 export type inningsCallback = (outputObj: {
   score: number,
@@ -18,7 +19,7 @@ export type inningsCallback = (outputObj: {
  * @param cb Callback that is fired at the end of the innings.
  */
 function startInnings(
-  client: Client,
+  client: DiscordClient,
   stadium: TextChannel,
   batsman: User,
   bowler: User,

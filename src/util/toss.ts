@@ -1,5 +1,6 @@
 import ask from './ask';
-import { Client, TextChannel, User } from 'discord.js';
+import { TextChannel, User } from 'discord.js';
+import DiscordClient from './DiscordClient';
 
 const completeToss = (playerToss: string, cb?: (tossWon: boolean) => void) => {
   const myToss = Math.floor(Math.random()*2);
@@ -17,7 +18,7 @@ const onTossDone = (tossWon: boolean, channel: TextChannel, cb?: Function) => {
   cb(tossWon);
 }
 
-const tossCheckHandler = (client: Client, player: User, channel: TextChannel, answer: string, cb?: Function) => {
+const tossCheckHandler = (client: DiscordClient, player: User, channel: TextChannel, answer: string, cb?: Function) => {
   switch(answer.trim().toLowerCase()) {
     case 'heads':
       completeToss('heads', tossWon => onTossDone(tossWon, channel, cb))
@@ -38,7 +39,7 @@ const tossCheckHandler = (client: Client, player: User, channel: TextChannel, an
  * @param {TextChannel} channel The channel in which the coin is flipped.
  * @param {function} cb A callback that is run when the toss completes. The only parameter is a boolean which is true when the player loses (bot wins).
  */
-const toss = (player: User, client: Client, channel: TextChannel, cb?: Function) => {
+const toss = (player: User, client: DiscordClient, channel: TextChannel, cb?: Function) => {
   channel.send('TOSS:');  
   ask(client, player, channel, 'Heads or Tails?', (answer: string) => tossCheckHandler(client, player, channel, answer, cb));
 }

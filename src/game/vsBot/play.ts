@@ -1,12 +1,13 @@
 import ask from '../../util/ask';
 import getRandomFingers from './getRandomFingers';
-import { Client, User, TextChannel } from 'discord.js';
+import { User, TextChannel } from 'discord.js';
+import DiscordClient from '../../util/DiscordClient';
 
 type playCallback = (outputObj: {botLost: boolean, addBotScore?: number, addPlayerScore?: number}) => void;
 
 const showFingersHandler = (
   answer: string,
-  client: Client,
+  client: DiscordClient,
   player: User,
   channel: TextChannel,
   difficulty: number,
@@ -33,7 +34,7 @@ const showFingersHandler = (
  * @param cb The callback that is fired when the player answers.
  */
 function play(
-  client: Client,
+  client: DiscordClient,
   player: User,
   channel: TextChannel,
   isBotBatting: boolean,
