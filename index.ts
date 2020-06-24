@@ -30,8 +30,16 @@ onCommand(client, 'rules',
 )
 
 onCommand(client, 'play', 'Starting Game', (msg: Message) => startGame(client, msg.channel as TextChannel, msg));
-onCommand(client, 'challenge', 'Starting Multiplayer Challenge', (msg: Message) => {if (msg.channel.type != 'dm') startChallenge(client, msg.channel as TextChannel, msg)});
 onCommand(client, 'dm', `You've received mail ;)`, (msg: Message) => msg.author.send('You can use any commands here.'));
+
+onCommand(
+  client,
+  'challenge',
+  'Starting Multiplayer Challenge',
+  (msg: Message) => {
+    if (msg.channel.type != 'dm') startChallenge(client, msg.channel as TextChannel, msg)
+  }
+)
 
 client.on('ready', () => console.log('Logged In'));
 
