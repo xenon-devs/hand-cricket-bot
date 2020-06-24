@@ -11,4 +11,3 @@ Open https://discord.com/api/oauth2/authorize?client_id=721390046715969576&permi
 4. Clone this repo and host it
 5. Add a `.env` variable named `DISCORD_TOKEN` and put the token there.
 6. Add the bot to your server (this step is more difficult than you think so google it)
-NOTE: A heroku procfile has already been added if you want to host it on Heroku (That's where I host it)
