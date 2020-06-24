@@ -37,7 +37,7 @@ function ask(
   }
 
   notAnsweredTimeout = setTimeout(notAnsweredHandler, 20000);
-  client.on('message', finalAnswerHandler);
+  client.onMsg({handler: finalAnswerHandler});
 }
 
 export default ask;

@@ -10,10 +10,12 @@ import DiscordClient from './DiscordClient';
  * @param {function} cb A callback that is fired when the command is run.
  */
 function onCommand(client: DiscordClient, command: string, output:  (string | MessageEmbed), cb?: Function) {
-  client.on('message', msg => {
-    if (msg.content.toLowerCase() === `${prefix}${command}`) {
-      msg.channel.send(output);
-      if (cb) cb(msg);
+  client.onMsg({
+    handler: msg => {
+      if (msg.content.toLowerCase() === `${prefix}${command}`) {
+        msg.channel.send(output);
+        if (cb) cb(msg);
+      }
     }
   })
 }

@@ -35,7 +35,7 @@ function askDM(
     }
 
     notAnsweredTimeout = setTimeout(notAnsweredHandler, 30000);
-    client.on('message', finalAnswerHandler);
+    client.onMsg({handler: finalAnswerHandler});
   })
 
 }
