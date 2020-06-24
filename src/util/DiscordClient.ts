@@ -1,7 +1,8 @@
 import { Client, Message } from 'discord.js';
 
 export type onMessageHandler = {
-  handler: (msg: Message) => void
+  handler: (msg: Message) => void,
+  name: string
 }
 
 export default class DiscordClient extends Client {
@@ -24,5 +25,9 @@ export default class DiscordClient extends Client {
    */
   onMsg(msgHandler: onMessageHandler) {
     this.onMessageList.push(msgHandler);
+  }
+
+  offMsg(handlerName: string) {
+    this.onMessageList = this.onMessageList.filter(handler => handler.name != handlerName);
   }
 }
