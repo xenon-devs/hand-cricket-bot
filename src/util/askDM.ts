@@ -20,7 +20,7 @@ function askDM(
     const notAnsweredHandler = () => {
       askTo.send(`<@${askTo.id}> You didn't answer in 30s, now your chance is gone.`);
       onNotAnswerCb();
-      client.off('message', finalAnswerHandler);
+      client.offMsg(`dm-${question}@${askTo.id}#${dm.channel.id}`);
     }
     let notAnsweredTimeout: NodeJS.Timeout;
 
@@ -29,7 +29,7 @@ function askDM(
         const answer = msg.content;
         
         clearTimeout(notAnsweredTimeout);
-        client.off('message', finalAnswerHandler);
+        client.offMsg(`dm-${question}@${askTo.id}#${dm.channel.id}`);
         onAnswerCb(answer, msg);  
       }
     }
