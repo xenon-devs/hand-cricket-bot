@@ -5,7 +5,7 @@ import startGame from './src/game/vsBot/startGame';
 import startChallenge from './src/game/multiplayer/startChallenge';
 
 import { config } from 'dotenv';
-config();
+config(); // Import .env environment variables
 
 const client = new Discord.Client();
 
