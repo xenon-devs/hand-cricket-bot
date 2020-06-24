@@ -21,6 +21,7 @@ function startChallenge(
     const opponentMentions = ansMsg.mentions;
 
     if (opponentMentions.everyone) return stadium.send('Want to battle everyone at once? Who do you think you are?');
+    if (opponentMentions.members.array().length == 0) return stadium.send(`Don't want to battle anyone? Coward!`);
     const opponent = opponentMentions.members.array()[0].user;
 
     if (opponent.id == challenger.id) return stadium.send('Challenging yourself? Scared to fight others? Lol.');
