@@ -36,7 +36,9 @@ onCommand(
   client,
   'challenge',
   'Starting Multiplayer Challenge',
-  (msg: Message) => startChallenge(client, msg.channel as TextChannel, msg)
+  (msg: Message) => {
+    if (msg.channel.type != 'dm') startChallenge(client, msg.channel as TextChannel, msg)
+  }
 )
 
 client.on('ready', () => console.log('Logged In'));
