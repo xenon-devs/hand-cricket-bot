@@ -4,7 +4,9 @@ import onCommand from './src/util/command';
 import startGame from './src/game/vsBot/startGame';
 import startChallenge from './src/game/multiplayer/startChallenge';
 
-require('dotenv').config();
+import { config } from 'dotenv';
+config();
+
 const client = new Discord.Client();
 
 onCommand(client, 'help handcricket', `\
