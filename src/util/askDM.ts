@@ -35,7 +35,10 @@ function askDM(
     }
 
     notAnsweredTimeout = setTimeout(notAnsweredHandler, 30000);
-    client.onMsg({handler: finalAnswerHandler});
+    client.onMsg({
+      name: `dm-${question}@${askTo.id}#${dm.channel.id}`,
+      handler: finalAnswerHandler
+    })
   })
 
 }

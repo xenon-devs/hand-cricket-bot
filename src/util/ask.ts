@@ -26,18 +26,21 @@ function ask(
   }
   let notAnsweredTimeout: NodeJS.Timeout;
 
-  const finalAnswerHandler = (msg: Message) => {
+  const finalAnswerHandler = (msg: Message, timeout: NodeJS.Timeout) => {
     if (msg.author.id === askTo.id && msg.channel.id === channel.id) {
       const answer = msg.content;
       
-      clearTimeout(notAnsweredTimeout);
-      client.off('message', finalAnswerHandler);
-      onAnswerCb(answer, msg);  
+      clearTimeout(timeout);
+      client.offMsg(`${question}@${askTo.id}in${channel}`);
+      onAnswerCb(answer, msg);
     }
   }
 
   notAnsweredTimeout = setTimeout(notAnsweredHandler, 20000);
-  client.onMsg({handler: finalAnswerHandler});
+  client.onMsg({
+    name: `${question}@${askTo.id}#${channel.id}`,
+    handler: msg => finalAnswerHandler(msg, notAnsweredTimeout)
+  })
 }
 
 export default ask;

@@ -11,6 +11,7 @@ import DiscordClient from './DiscordClient';
  */
 function onCommand(client: DiscordClient, command: string, output:  (string | MessageEmbed), cb?: Function) {
   client.onMsg({
+    name: command,
     handler: msg => {
       if (msg.content.toLowerCase() === `${prefix}${command}`) {
         msg.channel.send(output);
