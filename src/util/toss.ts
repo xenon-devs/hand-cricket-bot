@@ -3,7 +3,7 @@ import { TextChannel, User } from 'discord.js';
 import DiscordClient from './DiscordClient';
 
 const completeToss = (playerToss: string, cb?: (tossWon: boolean) => void) => {
-  const myToss = Math.floor(Math.random()*2);
+  const myToss = Math.round(Math.random());
   
   const toss = playerToss === 'heads' ? 0 : 1;
 
