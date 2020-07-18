@@ -1,1 +1,1 @@
-bot: yarn start
+bot: yarn install && yarn start
