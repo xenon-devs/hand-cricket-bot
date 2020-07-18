@@ -29,9 +29,9 @@ function startMatch(
       if (answer == 'bat') batsman = tossWinner, bowler = tossLoser;
       else batsman = tossLoser, bowler = tossWinner;
 
-      startInnings(client, stadium, batsman, bowler, false, null,({score}) => {
-        stadium.send(`First Innings over. Score: \`${score}\``);
+      startInnings(client, stadium, batsman, bowler, false, null,({score, balls}) => {
         stadium.send(makeScoreboard(client, {
+          balls,
           player1: batsman,
           player2: bowler,
           hasPlayer2Played: false,
@@ -56,6 +56,7 @@ function startMatch(
           }
 
           stadium.send(makeScoreboard(client, {
+            balls: outputObj.balls,
             player1: batsman,
             player2: bowler,
             hasPlayer2Played: true,

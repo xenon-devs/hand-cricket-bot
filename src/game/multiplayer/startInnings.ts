@@ -4,6 +4,7 @@ import DiscordClient from '../../util/DiscordClient';
 
 export type inningsCallback = (outputObj: {
   score: number,
+  balls: number,
   chaseWon?: boolean,
   chaseDraw?: boolean
 }) => void
@@ -32,14 +33,17 @@ function startInnings(
   batsman.send('You will be batting in 5s');
   bowler.send('You will be bowling in 5s');
 
-  let score = 0;
+  let score = 0, balls = 0;
 
   const playCbHandler: playCb = (out) => {
     if (out.bothAnswered) {
+      balls++;
+
       if (out.batsmansAnswer == out.bowlersAnswer) {
         batsman.send(`Opponent showed ${out.bowlersAnswer}. You are out! What are you doing?`);
         if (isChase && score == chaseTarget) return cb({
           score,
+          balls,
           chaseWon: false,
           chaseDraw: true
         })
@@ -48,6 +52,7 @@ function startInnings(
 
         return cb({
           score,
+          balls,
           chaseWon: false
         })
       }
@@ -58,6 +63,7 @@ function startInnings(
 
         if (isChase && score > chaseTarget) return cb({
           score,
+          balls,
           chaseWon: true
         })
 
