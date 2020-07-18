@@ -1,0 +1,1 @@
+bot: yarn start
