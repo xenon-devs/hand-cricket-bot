@@ -1,9 +1,6 @@
 # hand-cricket-bot
 A discord bot that plays handcricket!
 
-### Add the bot to your server
-Open https://discord.com/api/oauth2/authorize?client_id=721390046715969576&permissions=0&scope=bot and ADD IT! (This is hosted by a third party because they needed it on their server, there is no guarantee that it will be hosted reliably)
-
 ### Self Hosting
 1. Create a discord app on https://discord.com/developers/applications
 2. Add a bot to the application
