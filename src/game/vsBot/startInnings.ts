@@ -1,9 +1,28 @@
-const play = require('./play');
+import play from './play';
+import { TextChannel, User } from 'discord.js';
+import DiscordClient from '../../util/DiscordClient';
 
-function startInnings(client, channel, player, botIsBatting, difficulty, chase = false, chaseTarget) {
+/**
+ * @description Handles a full innings.
+ * @param client The main discord.js Client object.
+ * @param channel The channel in which the match is happening.
+ * @param player The User object for the player who is playing.
+ * @param botIsBatting Whether the bot is batting.
+ * @param difficulty A number signifying the difficulty (0 -> easy; 1 -> medium; 2 -> hard)
+ * @param chase Whether it is the chase innings or not.
+ * @param chaseTarget The target score to chase.
+ */
+function startInnings(
+  client: DiscordClient,
+  channel: TextChannel,
+  player: User,
+  botIsBatting: boolean,
+  difficulty: number,
+  chase: boolean = false,
+  chaseTarget?: number
+) {
   channel.send('Starting Innings');
-  let playerMoveHistory = [];
-
+  let playerMoveHistory: number[] = [];
   let botScore = 0, playerScore = 0, isBatsmanPlaying = true;
 
   if (chase) {
@@ -66,4 +85,4 @@ function startInnings(client, channel, player, botIsBatting, difficulty, chase =
   }
 }
 
-module.exports = startInnings;
+export default startInnings;
