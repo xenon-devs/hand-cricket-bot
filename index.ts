@@ -10,7 +10,7 @@ config(); // Import .env environment variables
 
 const client = new DiscordClient();
 
-onCommand(client, 'help handcricket', `\
+onCommand(client, 'help', `\
 ${prefix}play - Start a game with the bot.
 ${prefix}challenge - Challenge a person to multiplayer battle (in DM).
 ${prefix}dm - Sends a DM so that the user can play versus bot privately.
