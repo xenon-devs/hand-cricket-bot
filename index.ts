@@ -10,12 +10,18 @@ config(); // Import .env environment variables
 
 const client = new DiscordClient();
 
-onCommand(client, 'help', `\
-${prefix}play - Start a game with the bot.
-${prefix}challenge - Challenge a person to multiplayer battle (in DM).
-${prefix}dm - Sends a DM so that the user can play versus bot privately.
-${prefix}rules - Explain the rules.
-`)
+onCommand(client, 'help',
+  new Discord.MessageEmbed()
+    .setColor('#0099ff')
+    .setTitle('Handcricketer Help')
+    .setDescription('Following is a list of all handcricketer commands.')
+    .addFields(
+      { name: `${prefix}play`, value: 'Start a game with the bot. This command will also work in a DM with the bot.' },
+      { name: `${prefix}challenge`, value: `Challenge a person to multiplayer battle (in DM)` },
+      { name: `${prefix}dm`, value: 'Sends a DM so that the user can play versus bot privately.' },
+      { name: `${prefix}rules - Explain the rules.`, value: `Explain the rules of the game.` }
+)
+.setTimestamp())
 
 onCommand(client, 'rules',
   new Discord.MessageEmbed()
