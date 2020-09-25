@@ -1,5 +1,8 @@
 # hand-cricket-bot
-A discord bot that plays handcricket!
+A discord bot that plays handcricket
+
+### Hosted
+This bot is hosted by @Eniamza. Invite it from [top.gg](https://top.gg/bot/709733907053936712)
 
 ### Self Hosting
 1. Create a discord app on https://discord.com/developers/applications
