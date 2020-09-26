@@ -14,7 +14,7 @@ This bot is hosted by [@Eniamza](https://github.com/Eniamza). Invite it from [to
 
 #### Optional top.gg integration
 1. List your bot on [top.gg](https://top.gg)
-2. Create a DBL API token [here](https://top.gg/api/)
+2. Create a DBL API token [here](https://top.gg/api/docs)
 3. Add another `.env` variable named `DBL_TOKEN` and put the token there.
 Your guild count will be posted on top.gg and vote count will be available in the stats command of the bot.
 
