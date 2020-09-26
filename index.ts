@@ -1,5 +1,5 @@
 import DiscordClient from './src/util/DiscordClient';
-import Discord, { Message, TextChannel } from 'discord.js';
+import Discord, { Message, TextChannel, MessageEmbed } from 'discord.js';
 import { prefix } from './config.json';
 import onCommand from './src/util/command';
 import startGame from './src/game/vsBot/startGame';
@@ -40,7 +40,18 @@ onCommand(client, 'rules',
 onCommand(client, 'play', 'Starting Game', (msg: Message) => startGame(client, msg.channel as TextChannel, msg));
 onCommand(client, 'dm', `You've received mail ;)`, (msg: Message) => msg.author.send('You can use any commands here.'));
 
-onCommand(client, 'stats', `Bot is in ${client.guilds.cache.array().length}servers.`);
+client.onMsg({
+  name: 'stats',
+  handler: msg => {
+    if (msg.content.trim().toLowerCase() == `${prefix}stats`) {
+      msg.channel.send(
+        new MessageEmbed()
+        .setTitle('Handcricketer Stats')
+        .addField('Servers', `${client.guilds.cache.array().length}`, true)
+      )
+    }
+  }
+})
 
 onCommand(
   client,
