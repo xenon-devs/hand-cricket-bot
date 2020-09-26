@@ -4,6 +4,7 @@ import DiscordClient from './DiscordClient';
 
 export enum Players { CHALLENGER, OPPONENT };
 export enum MatchResult { TIE, CHALLENGER_WON, OPPONENT_WON };
+export enum RoundResult { BATSMAN_SCORED, BATSMAN_OUT };
 
 export class Match {
   vsBot: boolean;
@@ -13,6 +14,7 @@ export class Match {
   client: DiscordClient;
 
   opener: Players;
+  currentBatsman: Players;
   result: MatchResult;
   ballsPlayed: number = 0;
   numInnings: number = 0;
@@ -55,5 +57,23 @@ export class Match {
     }
 
     return scoreboard;
+  }
+
+  inningsOver(result: RoundResult) { // Can be overridden
+
+  }
+
+  /**
+   *
+   * @param batsman Which player is the batsman
+   * @param batsmanPlayed Number of fingers
+   * @param bowlerPlayed Number of fingers
+   */
+  calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
+    if (batsmanPlayed === bowlerPlayed) this.inningsOver(RoundResult.BATSMAN_OUT);
+    else {
+      this.currentBatsman === Players.CHALLENGER ? this.challengerScore += batsmanPlayed : this.opponentScore += batsmanPlayed;
+      this.inningsOver(RoundResult.BATSMAN_SCORED);
+    }
   }
 }
