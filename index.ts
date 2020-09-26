@@ -39,6 +39,8 @@ onCommand(client, 'rules',
 onCommand(client, 'play', 'Starting Game', (msg: Message) => startGame(client, msg.channel as TextChannel, msg));
 onCommand(client, 'dm', `You've received mail ;)`, (msg: Message) => msg.author.send('You can use any commands here.'));
 
+onCommand(client, 'stats', `Bot is in ${client.guilds.cache.array().length}servers.`);
+
 onCommand(
   client,
   'challenge',
