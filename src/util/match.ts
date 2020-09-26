@@ -76,4 +76,8 @@ export class Match {
       this.inningsOver(RoundResult.BATSMAN_SCORED);
     }
   }
+
+  comment(commentry: string) {
+    this.stadium.send(`**Commentator**: ${commentry}`);
+  }
 }
