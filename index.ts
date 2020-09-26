@@ -19,7 +19,8 @@ onCommand(client, 'help',
       { name: `${prefix}play`, value: 'Start a game with the bot. This command will also work in a DM with the bot.' },
       { name: `${prefix}challenge`, value: `Challenge a person to multiplayer battle (in DM)` },
       { name: `${prefix}dm`, value: 'Sends a DM so that the user can play versus bot privately.' },
-      { name: `${prefix}rules - Explain the rules.`, value: `Explain the rules of the game.` }
+      { name: `${prefix}rules - Explain the rules.`, value: `Explain the rules of the game.` },
+      { name: `${prefix}stats`, value: 'Stats about the bot.'}
 )
 .setTimestamp())
 
