@@ -4,11 +4,18 @@ import { prefix } from './config.json';
 import onCommand from './src/util/command';
 import startGame from './src/game/vsBot/startGame';
 import startChallenge from './src/game/multiplayer/startChallenge';
+import DBL from 'dblapi.js';
 
 import { config } from 'dotenv';
 config(); // Import .env environment variables
 
 const client = new DiscordClient();
+let dbl: DBL | null = null;
+
+if (process.env.DBL_TOKEN) {
+  dbl = new DBL(process.env.DBL_TOKEN, client)
+  dbl.on('error', console.log)
+}
 
 onCommand(client, 'help',
   new Discord.MessageEmbed()
@@ -42,13 +49,20 @@ onCommand(client, 'dm', `You've received mail ;)`, (msg: Message) => msg.author.
 
 client.onMsg({
   name: 'stats',
-  handler: msg => {
+  handler: async msg => {
     if (msg.content.trim().toLowerCase() == `${prefix}stats`) {
-      msg.channel.send(
-        new MessageEmbed()
+      const statsEmbed = new MessageEmbed()
         .setTitle('Handcricketer Stats')
-        .addField('Servers', `${client.guilds.cache.array().length}`, true)
-      )
+        .addField('Servers', `\`${client.guilds.cache.array().length}\``, true)
+        .setThumbnail(client.user.displayAvatarURL())
+        .setAuthor('Hand Cricketer', client.user.displayAvatarURL())
+
+      if (dbl !== null) {
+        const botStats = await dbl.getBot(client.user.id);
+        statsEmbed.addField(`top.gg votes`, `\`${botStats.points}\``, true);
+      }
+
+      msg.channel.send(statsEmbed);
     }
   }
 })
