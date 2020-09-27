@@ -23,6 +23,7 @@ onCommand(client, 'help', '', async (msg: Message) => {
     .setTitle('Hand Cricketer Help')
     .setDescription('Following is a list of all Hand Cricketer commands.')
     .addFields(
+      { name: `${prefix}help`, value: 'Help Command.' },
       { name: `${prefix}play`, value: 'Start a game with the bot. This command will also work in a DM with the bot.' },
       { name: `${prefix}challenge`, value: `Challenge a person to multiplayer battle (in DM)` },
       { name: `${prefix}dm`, value: 'Sends a DM so that the user can play versus bot privately.' },
@@ -32,7 +33,13 @@ onCommand(client, 'help', '', async (msg: Message) => {
     .setTimestamp()
     .setThumbnail(client.user.displayAvatarURL())
     .addField('Vote and Invite', `[top.gg](https://top.gg/bot/${client.user.id})`, true)
-    .addField(`It's Open Source`, `[Github](https://github.com/HarshKhandeparkar)`, true)
+    .addField(`It's Open Source`, `[Github](https://github.com/HarshKhandeparkar/hand-cricket-bot)`, true)
+
+    if (dbl !== null) {
+      const botStats = await dbl.getBot(client.user.id);
+
+      if (botStats.support) helpEmbed.addField('Support Server', `[Join It!](${botStats.support})`, true);
+    }
 
     msg.channel.send(helpEmbed);
 })
