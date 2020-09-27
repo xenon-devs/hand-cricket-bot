@@ -17,22 +17,35 @@ if (process.env.DBL_TOKEN) {
   dbl.on('error', console.log)
 }
 
-onCommand(client, 'help',
-  new Discord.MessageEmbed()
+onCommand(client, 'help', '', async (msg: Message) => {
+  const helpEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
-    .setTitle('Handcricketer Help')
-    .setDescription('Following is a list of all handcricketer commands.')
+    .setTitle('Hand Cricketer Help')
+    .setDescription('Following is a list of all Hand Cricketer commands.')
     .addFields(
+      { name: `${prefix}help`, value: 'Help Command.' },
       { name: `${prefix}play`, value: 'Start a game with the bot. This command will also work in a DM with the bot.' },
       { name: `${prefix}challenge`, value: `Challenge a person to multiplayer battle (in DM)` },
       { name: `${prefix}dm`, value: 'Sends a DM so that the user can play versus bot privately.' },
       { name: `${prefix}rules - Explain the rules.`, value: `Explain the rules of the game.` },
       { name: `${prefix}stats`, value: 'Stats about the bot.'}
-)
-.setTimestamp())
+    )
+    .setTimestamp()
+    .setThumbnail(client.user.displayAvatarURL())
+    .addField('Vote and Invite', `[top.gg](https://top.gg/bot/${client.user.id})`, true)
+    .addField(`It's Open Source`, `[Github](https://github.com/HarshKhandeparkar/hand-cricket-bot)`, true)
 
-onCommand(client, 'rules',
-  new Discord.MessageEmbed()
+    if (dbl !== null) {
+      const botStats = await dbl.getBot(client.user.id);
+
+      if (botStats.support) helpEmbed.addField('Support Server', `[Join It!](${botStats.support})`, true);
+    }
+
+    msg.channel.send(helpEmbed);
+})
+
+onCommand(client, 'rules', '', async (msg: Message) => {
+  const rulesEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('Extremely Official Rules of Hand Cricket')
     .setDescription('One player bowls and the other bats. The player has to type any number between 0 and 6(representing the number of fingers), once the player enters, the bot will generate a random number as it\'s output.')
@@ -41,30 +54,30 @@ onCommand(client, 'rules',
       { name: '2. ', value: 'If the number of fingers do not match, the number of fingers on the batsman is the number of runs scored.' },
       { name: '3. ', value: 'All rules of cricket apply.' }
     )
+    .setThumbnail(client.user.displayAvatarURL())
     .setTimestamp()
-)
+
+  msg.channel.send(rulesEmbed);
+})
 
 onCommand(client, 'play', 'Starting Game', (msg: Message) => startGame(client, msg.channel as TextChannel, msg));
 onCommand(client, 'dm', `You've received mail ;)`, (msg: Message) => msg.author.send('You can use any commands here.'));
 
-client.onMsg({
-  name: 'stats',
-  handler: async msg => {
-    if (msg.content.trim().toLowerCase() == `${prefix}stats`) {
-      const statsEmbed = new MessageEmbed()
-        .setTitle('Handcricketer Stats')
-        .addField('Servers', `\`${client.guilds.cache.array().length}\``, true)
-        .setThumbnail(client.user.displayAvatarURL())
-        .setAuthor('Hand Cricketer', client.user.displayAvatarURL())
+onCommand(client, 'stats', '', async (msg: Message) => {
+  const statsEmbed = new MessageEmbed()
+    .setTitle('Hand Cricketer Stats')
+    .addField('Servers', `\`${client.guilds.cache.array().length}\``, true)
+    .setThumbnail(client.user.displayAvatarURL())
+    .setAuthor('Hand Cricketer', client.user.displayAvatarURL())
 
-      if (dbl !== null) {
-        const botStats = await dbl.getBot(client.user.id);
-        statsEmbed.addField(`top.gg votes`, `\`${botStats.points}\``, true);
-      }
+  if (dbl !== null) {
+    const botStats = await dbl.getBot(client.user.id);
+    statsEmbed.addField(`top.gg votes`, `\`${botStats.points}\``, true);
 
-      msg.channel.send(statsEmbed);
-    }
+    if (botStats.invite) statsEmbed.addField('Vote and Invite', `[top.gg](https://top.gg/${client.user.id})`, true);
   }
+
+  msg.channel.send(statsEmbed);
 })
 
 onCommand(

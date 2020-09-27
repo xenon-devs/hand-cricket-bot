@@ -14,7 +14,7 @@ function onCommand(client: DiscordClient, command: string, output:  (string | Me
     name: command,
     handler: msg => {
       if (msg.content.toLowerCase() === `${prefix}${command}`) {
-        msg.channel.send(output);
+        if (output !== '') msg.channel.send(output);
         if (cb) cb(msg);
       }
     }
