@@ -53,7 +53,7 @@ function play(
       player,
       channel,
       difficulty,
-      (playerFingers: number) => 
+      (playerFingers: number) =>
       {
         const botFingers = getRandomFingers(playerFingers, isBotBatting, difficulty, playerMoveHistory);
 

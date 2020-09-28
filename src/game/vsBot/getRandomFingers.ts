@@ -36,8 +36,8 @@ const getRandomFingers = (
 
     if (isBotBatting) {
       if (Math.min(Math.floor(seed), 6) === playersFingers) {
-        if (playersFingers === 6) seed -= difficultLevelModifierMap[difficulty]; 
-        else seed += difficultLevelModifierMap[difficulty]; 
+        if (playersFingers === 6) seed -= difficultLevelModifierMap[difficulty];
+        else seed += difficultLevelModifierMap[difficulty];
       }
     }
     else {

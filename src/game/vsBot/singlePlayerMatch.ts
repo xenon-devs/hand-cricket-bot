@@ -13,7 +13,7 @@ export class SinglePlayerMatch extends Match {
       this.opener = botWonToss ? Players.OPPONENT : Players.CHALLENGER;
       this.currentBatsman = botWonToss ? Players.OPPONENT : Players.CHALLENGER;
 
-      
+
     })
   }
 }

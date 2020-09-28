@@ -17,7 +17,7 @@ function startGame(
   msg: Message
 ) {
   const player = msg.author;
-  
+
   ask(client, player, channel, 'Difficult Level(`easy`, `medium`, or `hard` ?)', answer => {
     let difficulty: number;
 

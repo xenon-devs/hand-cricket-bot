@@ -29,7 +29,7 @@ function ask(
   const finalAnswerHandler = (msg: Message, timeout: NodeJS.Timeout) => {
     if (msg.author.id === askTo.id && msg.channel.id === channel.id) {
       const answer = msg.content;
-      
+
       clearTimeout(timeout);
       client.offMsg(`${question}@${askTo.id}#${channel.id}`);
       onAnswerCb(answer, msg);
