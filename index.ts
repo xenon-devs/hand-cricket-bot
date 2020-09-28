@@ -67,6 +67,7 @@ onCommand(client, 'stats', '', async (msg: Message) => {
   const statsEmbed = new MessageEmbed()
     .setTitle('Hand Cricketer Stats')
     .addField('Servers', `\`${client.guilds.cache.array().length}\``, true)
+    .addField('Users', `\`${client.guilds.cache.array().map(guild => guild.memberCount).reduce((a, b) => a + b)}\``, true)
     .setThumbnail(client.user.displayAvatarURL())
     .setAuthor('Hand Cricketer', client.user.displayAvatarURL())
 
