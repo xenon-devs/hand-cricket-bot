@@ -75,7 +75,7 @@ onCommand(client, 'stats', '', async (msg: Message) => {
     const botStats = await dbl.getBot(client.user.id);
     statsEmbed.addField(`top.gg votes`, `\`${botStats.points}\``, true);
 
-    if (botStats.invite) statsEmbed.addField('Vote and Invite', `[top.gg](https://top.gg/${client.user.id})`, true);
+    if (botStats.invite) statsEmbed.addField('Vote and Invite', `[top.gg](https://top.gg/bot/${client.user.id})`, true);
   }
 
   msg.channel.send(statsEmbed);
