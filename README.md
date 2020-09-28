@@ -1,5 +1,8 @@
 # hand-cricket-bot
-A discord bot that plays handcricket
+A discord bot that plays handcricket.
+
+![servers](https://top.gg/api/widget/servers/709733907053936712.svg)
+![votes](https://top.gg/api/widget/upvotes/709733907053936712.svg)
 
 ### Hosted
 This bot is hosted by [@Eniamza](https://github.com/Eniamza). Invite it from [top.gg](https://top.gg/bot/709733907053936712)
