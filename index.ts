@@ -17,6 +17,13 @@ if (process.env.DBL_TOKEN) {
   dbl.on('error', console.log)
 }
 
+client.user.setPresence({
+  activity: {
+    name: `${prefix}help`,
+    type: 'LISTENING'
+  }
+})
+
 onCommand(client, 'help', '', async (msg: Message) => {
   const helpEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
