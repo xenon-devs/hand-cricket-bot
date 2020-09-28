@@ -17,11 +17,13 @@ if (process.env.DBL_TOKEN) {
   dbl.on('error', console.log)
 }
 
-client.user.setPresence({
-  activity: {
-    name: `${prefix}help`,
-    type: 'LISTENING'
-  }
+client.on('ready', () => {
+  client.user.setPresence({
+    activity: {
+      name: `${prefix}help`,
+      type: 'LISTENING'
+    }
+  })
 })
 
 onCommand(client, 'help', '', async (msg: Message) => {
@@ -45,7 +47,7 @@ onCommand(client, 'help', '', async (msg: Message) => {
     if (dbl !== null) {
       const botStats = await dbl.getBot(client.user.id);
 
-      if (botStats.support) helpEmbed.addField('Support Server', `[Join It!](${botStats.support})`, true);
+      if (botStats.support) helpEmbed.addField('Support Server', `[Join It!](https://discord.gg/${botStats.support})`, true);
     }
 
     msg.channel.send(helpEmbed);
@@ -76,7 +78,6 @@ onCommand(client, 'stats', '', async (msg: Message) => {
     .addField('Servers', `\`${client.guilds.cache.array().length}\``, true)
     .addField('Users', `\`${client.guilds.cache.array().map(guild => guild.memberCount).reduce((a, b) => a + b)}\``, true)
     .setThumbnail(client.user.displayAvatarURL())
-    .setAuthor('Hand Cricketer', client.user.displayAvatarURL())
 
   if (dbl !== null) {
     const botStats = await dbl.getBot(client.user.id);
