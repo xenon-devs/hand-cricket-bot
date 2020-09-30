@@ -1,7 +1,7 @@
 import ask from '../../util/ask';
 import getRandomFingers from './getRandomFingers';
 import { User, TextChannel } from 'discord.js';
-import DiscordClient from '../../util/DiscordClient';
+import { DiscordClient } from '../../util/DiscordClient';
 
 type playCallback = (outputObj: {botLost: boolean, addBotScore?: number, addPlayerScore?: number}) => void;
 

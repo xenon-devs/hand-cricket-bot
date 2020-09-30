@@ -1,6 +1,6 @@
 import ask from '../../util/ask';
 import startMatch from './startMatch';
-import DiscordClient from '../../util/DiscordClient';
+import { DiscordClient } from '../../util/DiscordClient';
 import { Client, TextChannel, Message } from 'discord.js';
 
 /**

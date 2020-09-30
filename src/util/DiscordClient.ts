@@ -5,7 +5,7 @@ export type onMessageHandler = {
   name: string
 }
 
-export default class DiscordClient extends Client {
+export class DiscordClient extends Client {
   onMessageList: onMessageHandler[];
 
   constructor(clientOptions?: any) {

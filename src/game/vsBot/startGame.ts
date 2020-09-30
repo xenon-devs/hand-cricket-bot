@@ -3,7 +3,7 @@ import ask from'../../util/ask';
 import askBatBowl from '../../util/askBatBowl';
 import startInnings from './startInnings';
 import { TextChannel, Message } from 'discord.js';
-import DiscordClient from '../../util/DiscordClient';
+import { DiscordClient } from '../../util/DiscordClient';
 
 /**
  * @description Starts a new match v/s bot.

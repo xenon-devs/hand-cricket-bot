@@ -1,6 +1,6 @@
 import ask from './ask';
 import { TextChannel, User } from 'discord.js';
-import DiscordClient from './DiscordClient';
+import { DiscordClient } from './DiscordClient';
 
 const completeToss = (playerToss: string, cb?: (tossWon: boolean) => void) => {
   const myToss = Math.round(Math.random());

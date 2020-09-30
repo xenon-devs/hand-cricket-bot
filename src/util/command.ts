@@ -1,6 +1,6 @@
 import { prefix } from '../../config.json'
 import { MessageEmbed } from 'discord.js';
-import DiscordClient from './DiscordClient';
+import { DiscordClient } from './DiscordClient';
 
 /**
  * @description Set up a command listener.

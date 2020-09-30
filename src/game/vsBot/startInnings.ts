@@ -1,6 +1,6 @@
 import play from './play';
 import { TextChannel, User } from 'discord.js';
-import DiscordClient from '../../util/DiscordClient';
+import { DiscordClient } from '../../util/DiscordClient';
 
 /**
  * @description Handles a full innings.

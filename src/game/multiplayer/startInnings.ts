@@ -1,6 +1,6 @@
 import play, { playCb } from  './play';
 import { TextChannel, Client, User } from 'discord.js';
-import DiscordClient from '../../util/DiscordClient';
+import { DiscordClient } from '../../util/DiscordClient';
 
 export type inningsCallback = (outputObj: {
   score: number,

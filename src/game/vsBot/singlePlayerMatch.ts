@@ -1,5 +1,5 @@
 import { Match, Players } from '../../util/match';
-import DiscordClient from '../../util/DiscordClient';
+import { DiscordClient } from '../../util/DiscordClient';
 import { TextChannel, User } from 'discord.js';
 
 export class SinglePlayerMatch extends Match {

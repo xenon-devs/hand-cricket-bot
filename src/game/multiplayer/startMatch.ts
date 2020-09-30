@@ -3,7 +3,7 @@ import startInnings from './startInnings';
 import askBatBowl from '../../util/askBatBowl';
 import makeScoreboard from '../../util/scoreboard';
 import { TextChannel, User } from 'discord.js';
-import DiscordClient from '../../util/DiscordClient';
+import { DiscordClient } from '../../util/DiscordClient';
 
 /**
  * @description Starts a multiplayer match.

@@ -1,5 +1,5 @@
 import { MessageEmbed, User } from 'discord.js';
-import DiscordClient from './DiscordClient';
+import { DiscordClient } from './DiscordClient';
 
 export default function makeScoreboard(
   client: DiscordClient,

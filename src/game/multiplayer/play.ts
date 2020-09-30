@@ -1,6 +1,6 @@
 import askDM from '../../util/askDM';
 import { TextChannel, User } from 'discord.js';
-import DiscordClient from '../../util/DiscordClient';
+import { DiscordClient } from '../../util/DiscordClient';
 
 export type playCb = (outputObj: {
   bothAnswered: boolean,

@@ -1,5 +1,5 @@
 import { User, TextChannel, DMChannel, Message } from 'discord.js';
-import DiscordClient from './DiscordClient';
+import { DiscordClient } from './DiscordClient';
 
 /**
  * @description Ask a question to a specific discord user and wait for the answer in a specific channel.
