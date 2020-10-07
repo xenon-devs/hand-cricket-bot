@@ -26,7 +26,7 @@ client.on('ready', () => {
   })
 })
 
-onCommand(client, 'help', '', async (msg: Message) => {
+onCommand(client, 'help', '', async (msg: Message, prefix: string) => {
   const helpEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('Hand Cricketer Help')
