@@ -26,11 +26,15 @@ client.on('ready', () => {
   })
 })
 
-onCommand(client, 'help', '', async (msg: Message) => {
+onCommand(client, 'help', '', async (msg: Message, prefix: string) => {
   const helpEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('Hand Cricketer Help')
-    .setDescription('Following is a list of all Hand Cricketer commands.')
+    .setDescription(`\
+**Custom Prefix**: You can use a custom prefix in a certain server by changing the nickname of the bot to \`[prefix] Name\`. Here the prefix can be anything such as \`!\`, \`?\` or \`.\` and the rest of the nickname doesn't matter and can be anything.
+
+Following is a list of all Hand Cricketer commands.
+`)
     .addFields(
       { name: `${prefix}help`, value: 'Help Command.' },
       { name: `${prefix}play`, value: 'Start a game with the bot. This command will also work in a DM with the bot.' },

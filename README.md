@@ -4,6 +4,9 @@ A discord bot that plays handcricket.
 [![servers](https://top.gg/api/widget/servers/709733907053936712.svg)](https://top.gg/bot/709733907053936712)
 [![votes](https://top.gg/api/widget/upvotes/709733907053936712.svg)](https://top.gg/bot/709733907053936712)
 
+### Custom Prefix
+You can use a custom prefix in a certain server by changing the nick name of the bot to `[prefix] Name`. Here the prefix can be anything such as `!`, `?` or `.` and the rest of the name doesn't matter and can be anything.
+
 ### Hosted
 This bot is hosted by [@Eniamza](https://github.com/Eniamza). Invite it from [top.gg](https://top.gg/bot/709733907053936712)
 
