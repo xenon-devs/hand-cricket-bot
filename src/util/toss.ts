@@ -1,6 +1,6 @@
 import { ask, ErrorMessages } from './ask';
 import { TextChannel, User, DMChannel } from 'discord.js';
-import { DiscordClient } from './DiscordClient';
+import { DiscordClient } from './discord-client';
 
 export enum TossResult { HEADS, TAILS };
 export { ErrorMessages } from './ask';

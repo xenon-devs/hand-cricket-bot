@@ -1,6 +1,6 @@
 import { User, TextChannel, MessageEmbed } from 'discord.js';
 import { toss } from './toss';
-import { DiscordClient } from './DiscordClient';
+import { DiscordClient } from './discord-client';
 
 export enum Players { CHALLENGER, OPPONENT };
 export enum MatchResult { TIE, CHALLENGER_WON, OPPONENT_WON };

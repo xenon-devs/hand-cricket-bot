@@ -1,6 +1,6 @@
 import { prefix } from '../../config.json'
 import { MessageEmbed, Guild, Message } from 'discord.js';
-import { DiscordClient } from './DiscordClient';
+import { DiscordClient } from './discord-client';
 
 export function getPrefix(guild: Guild): string {
   let Prefix = prefix;

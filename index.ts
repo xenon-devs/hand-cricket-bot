@@ -1,4 +1,4 @@
-import { DiscordClient } from './src/util/DiscordClient';
+import { DiscordClient } from './src/util/discord-client';
 import Discord, { Message, TextChannel, MessageEmbed } from 'discord.js';
 import { prefix } from './config.json';
 import onCommand from './src/util/command';

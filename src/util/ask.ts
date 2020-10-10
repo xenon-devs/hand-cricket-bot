@@ -1,5 +1,5 @@
 import { User, TextChannel, DMChannel, Message } from 'discord.js';
-import { DiscordClient } from './DiscordClient';
+import { DiscordClient } from './discord-client';
 
 export enum ErrorMessages { DID_NOT_ANSWER };
 
