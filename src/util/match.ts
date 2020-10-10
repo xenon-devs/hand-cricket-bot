@@ -1,5 +1,5 @@
 import { User, TextChannel, MessageEmbed } from 'discord.js';
-import toss from './toss';
+import { toss } from './toss';
 import { DiscordClient } from './DiscordClient';
 
 export enum Players { CHALLENGER, OPPONENT };
