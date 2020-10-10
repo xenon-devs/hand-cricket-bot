@@ -1,9 +1,6 @@
 import { DiscordClient } from './src/util/discord-client';
 import Discord, { Message, TextChannel, MessageEmbed } from 'discord.js';
 import { prefix } from './config.json';
-import onCommand from './src/util/command';
-import startGame from './src/game/vsBot/startGame';
-import startChallenge from './src/game/multiplayer/startChallenge';
 import DBL from 'dblapi.js';
 
 import { config } from 'dotenv';
@@ -26,7 +23,7 @@ client.on('ready', () => {
   })
 })
 
-onCommand(client, 'help', '', async (msg: Message, prefix: string) => {
+client.onCommand('help', '', async (msg: Message, prefix: string) => {
   const helpEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('Hand Cricketer Help')
@@ -57,7 +54,7 @@ Following is a list of all Hand Cricketer commands.
     msg.channel.send(helpEmbed);
 })
 
-onCommand(client, 'rules', '', async (msg: Message) => {
+client.onCommand('rules', '', async (msg: Message) => {
   const rulesEmbed = new Discord.MessageEmbed()
     .setColor('#0099ff')
     .setTitle('Extremely Official Rules of Hand Cricket')
@@ -73,10 +70,10 @@ onCommand(client, 'rules', '', async (msg: Message) => {
   msg.channel.send(rulesEmbed);
 })
 
-onCommand(client, 'play', 'Starting Game', (msg: Message) => startGame(client, msg.channel as TextChannel, msg));
-onCommand(client, 'dm', `You've received mail ;)`, (msg: Message) => msg.author.send('You can use any commands here.'));
+// client.onCommand('play', 'Starting Game', (msg: Message) => startGame(client, msg.channel as TextChannel, msg));
+client.onCommand('dm', `You've received mail ;)`, (msg: Message) => msg.author.send('You can use any commands here.'));
 
-onCommand(client, 'stats', '', async (msg: Message) => {
+client.onCommand('stats', '', async (msg: Message) => {
   const statsEmbed = new MessageEmbed()
     .setTitle('Hand Cricketer Stats')
     .addField('Servers', `\`${client.guilds.cache.array().length}\``, true)
@@ -93,16 +90,15 @@ onCommand(client, 'stats', '', async (msg: Message) => {
   msg.channel.send(statsEmbed);
 })
 
-onCommand(
-  client,
-  'challenge',
-  'Starting Multiplayer Challenge',
-  (msg: Message) => {
-    if (msg.channel.type != 'dm') startChallenge(client, msg.channel as TextChannel, msg)
-  }
-)
+// client.onCommand(
+//   'challenge',
+//   'Starting Multiplayer Challenge',
+//   (msg: Message) => {
+//     if (msg.channel.type != 'dm') startChallenge(client, msg.channel as TextChannel, msg)
+//   }
+// )
 
-client.on('ready', () => console.log('Logged In'));
+client.on('ready', () => console.log('Logged in as ', client.user.username));
 
 const tryLogin = () => {
   console.log('Login failed. Trying again');
