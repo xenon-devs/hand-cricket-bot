@@ -1,4 +1,6 @@
-import { Client, Message } from 'discord.js';
+import { Client, Message, MessageEmbed } from 'discord.js';
+import { prefix } from '../../config.json'
+import { getPrefix } from './get-prefix';
 
 export type onMessageHandler = {
   handler: (msg: Message) => void,
@@ -30,4 +32,24 @@ export class DiscordClient extends Client {
   offMsg(handlerName: string) {
     this.onMessageList = this.onMessageList.filter(handler => handler.name != handlerName);
   }
+
+  /**
+ * @description Set up a command listener.
+ * @param client The main discord.js client object.
+ * @param command Command as a string (without prefix).
+ * @param output A direct string or embed output to be sent in the same channel.
+ * @param cb A callback that is fired when the command is run.
+ */
+onCommand(command: string, output:  (string | MessageEmbed), cb?: (msg: Message, prefix: string) => void) {
+  this.onMsg({
+    name: command,
+    handler: msg => {
+      const customPrefix: string = (msg.channel.type === 'dm') ? prefix : getPrefix(msg.guild);
+      if (msg.content.toLowerCase() === `${customPrefix}${command}`) {
+        if (output !== '') msg.channel.send(output);
+        if (cb) cb(msg, customPrefix);
+      }
+    }
+  })
+}
 }
