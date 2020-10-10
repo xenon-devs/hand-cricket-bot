@@ -1,34 +1,24 @@
-import ask from './ask';
-import { TextChannel, User } from 'discord.js';
+import { ask, ErrorMessages } from './ask';
+import { TextChannel, User, DMChannel } from 'discord.js';
 import { DiscordClient } from './DiscordClient';
 
-const completeToss = (playerToss: string, cb?: (tossWon: boolean) => void) => {
-  const myToss = Math.round(Math.random());
+export enum TossResult { HEADS, TAILS };
+export { ErrorMessages } from './ask';
 
-  const toss = playerToss === 'heads' ? 0 : 1;
-
-  if (toss === myToss) cb(false);
-  else cb(true);
-}
-
-const onTossDone = (tossWon: boolean, channel: TextChannel, cb?: Function) => {
-  if (!tossWon) channel.send('You won the toss, but that doesn\'t mean you\'ll win the match');
-  else channel.send('You lost the toss.');
-
-  cb(tossWon);
-}
-
-const tossCheckHandler = (client: DiscordClient, player: User, channel: TextChannel, answer: string, cb?: Function) => {
-  switch(answer.trim().toLowerCase()) {
-    case 'heads':
-      completeToss('heads', tossWon => onTossDone(tossWon, channel, cb))
-      break;
-    case 'tails':
-      completeToss('tails', tossWon => onTossDone(tossWon, channel, cb))
-      break;
-    default:
-      ask(client, player, channel,'Can\'t you answer heads or tails? Useless fellow.',  answer => tossCheckHandler(client, player, channel, answer, cb))
-      break;
+const doToss = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel, tossMsg: string): Promise<TossResult> => {
+  try {
+    const tossAnswer = await ask(client, player, channel, tossMsg, 10);
+    switch (tossAnswer.answer.trim().toLowerCase()) {
+      case 'heads':
+        return TossResult.HEADS;
+      case 'tails':
+        return TossResult.TAILS;
+      default:
+        return await doToss(player, client, channel, 'Is that a joke? Should I clap? Answer again.');
+    }
+  }
+  catch (e) {
+    throw e;
   }
 }
 
@@ -37,11 +27,13 @@ const tossCheckHandler = (client: DiscordClient, player: User, channel: TextChan
  * @param player Discord.js User object of the player who selects the toss.
  * @param client The main discord.js client object.
  * @param channel The channel in which the coin is flipped.
- * @param cb A callback that is run when the toss completes. The only parameter is a boolean which is true when the player loses (bot wins).
  */
-const toss = (player: User, client: DiscordClient, channel: TextChannel, cb?: Function) => {
+export const toss = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel) => {
   channel.send('TOSS:');
-  ask(client, player, channel, 'Heads or Tails?', (answer: string) => tossCheckHandler(client, player, channel, answer, cb));
+  try {
+    return await doToss(player, client, channel, 'Heads or Tails?');
+  }
+  catch (e) {
+    throw <ErrorMessages>e;
+  }
 }
-
-export default toss;
