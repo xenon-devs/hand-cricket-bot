@@ -16,6 +16,11 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+"@hushyar-goenkar/discordjs-custom-bot-client@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@hushyar-goenkar/discordjs-custom-bot-client/-/discordjs-custom-bot-client-1.0.1.tgz#e36adbdbe00ee477276e7edff08348ac9562b7bc"
+  integrity sha512-7b7RyX30el4TeVyDdi0NijtrPypQElNrFmSweADLUWWyGRrWHrK7hlpZAh3o6HaC6E+tCTT8sSKtWzrWa22dZw==
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
