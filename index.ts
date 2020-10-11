@@ -1,7 +1,9 @@
 import { DiscordClient } from './src/util/discord-client';
-import Discord, { Message, TextChannel, MessageEmbed } from 'discord.js';
+import Discord, { Message, MessageEmbed, TextChannel, DMChannel } from 'discord.js';
 import { prefix } from './config.json';
 import DBL from 'dblapi.js';
+
+import { Match } from './src/util/match';
 
 import { config } from 'dotenv';
 config(); // Import .env environment variables
@@ -70,7 +72,7 @@ client.onCommand('rules', '', async (msg: Message) => {
   msg.channel.send(rulesEmbed);
 })
 
-// client.onCommand('play', 'Starting Game', (msg: Message) => startGame(client, msg.channel as TextChannel, msg));
+client.onCommand('play', 'Starting Game', (msg: Message) => new Match(client, <TextChannel>msg.channel, msg.author));
 client.onCommand('dm', `You've received mail ;)`, (msg: Message) => msg.author.send('You can use any commands here.'));
 
 client.onCommand('stats', '', async (msg: Message) => {

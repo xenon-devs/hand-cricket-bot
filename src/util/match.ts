@@ -27,6 +27,10 @@ export class Match {
     this.client = client;
     this.challenger = challenger;
     this.stadium = stadium;
+
+    this.calculateRoundResult(1, 2);
+    this.calculateRoundResult(6, 2);
+    this.calculateRoundResult(2, 2);
   }
 
   getScoreBoard() {
@@ -59,8 +63,16 @@ export class Match {
     return scoreboard;
   }
 
-  inningsOver(result: RoundResult) { // Can be overridden
+  matchOver() {
 
+  }
+
+  inningsOver() { // Can be overridden
+    this.numInnings++;
+    if (this.numInnings === 2) this.matchOver();
+    if (this.numInnings === 1) {
+      this.stadium.send(this.getScoreBoard());
+    }
   }
 
   /**
@@ -70,10 +82,9 @@ export class Match {
    * @param bowlerPlayed Number of fingers
    */
   calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
-    if (batsmanPlayed === bowlerPlayed) this.inningsOver(RoundResult.BATSMAN_OUT);
+    if (batsmanPlayed === bowlerPlayed) this.inningsOver();
     else {
       this.currentBatsman === Players.CHALLENGER ? this.challengerScore += batsmanPlayed : this.opponentScore += batsmanPlayed;
-      this.inningsOver(RoundResult.BATSMAN_SCORED);
     }
   }
 
