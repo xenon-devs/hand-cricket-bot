@@ -64,15 +64,13 @@ export class Match {
   }
 
   matchOver() {
-
+    this.stadium.send(this.getScoreBoard());
   }
 
   inningsOver() { // Can be overridden
     this.numInnings++;
     if (this.numInnings === 2) this.matchOver();
-    if (this.numInnings === 1) {
-      this.stadium.send(this.getScoreBoard());
-    }
+    if (this.numInnings === 1) this.stadium.send(this.getScoreBoard());
   }
 
   /**
