@@ -24,7 +24,7 @@ export class SinglePlayerMatch extends Match {
           else this.opener = Players.OPPONENT;
 
           this.comment(`Challenger won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
-          this.play();
+          //this.play();
         }
         catch (e) {
           this.comment(`The challenger walked out of the stadium.`);
@@ -37,7 +37,7 @@ export class SinglePlayerMatch extends Match {
         else this.opener = Players.CHALLENGER;
 
         this.comment(`Opponent won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
-        this.play();
+        //this.play();
       }
     }
     catch (e) {

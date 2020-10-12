@@ -14,7 +14,7 @@ const doToss = async (player: User, client: DiscordClient, channel: TextChannel 
       case 'tails':
         return TossResult.TAILS;
       default:
-        return await doToss(player, client, channel, 'Is that a joke? Should I clap? Answer again.');
+        return await doToss(player, client, channel, 'Is that a joke? Should I laugh? Answer again.');
     }
   }
   catch (e) {
