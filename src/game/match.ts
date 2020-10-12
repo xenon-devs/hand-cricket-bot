@@ -23,7 +23,6 @@ export class Match {
   client: DiscordClient;
 
   opener: Players;
-  currentBatsman: Players;
   result: MatchResult;
   /** Balls played in each innings */
   ballsPlayed: [number, number] = [0, 0];
@@ -90,8 +89,10 @@ export class Match {
 
     this.ballsPlayed[this.numInnings]++;
 
-    if (this.currentBatsman === Players.CHALLENGER) this.calculateRoundResult(challengerFingers, opponentFingers);
-    else this.calculateRoundResult(opponentFingers, challengerFingers);
+    this.calculateRoundResult(
+      (this.opener === Players.CHALLENGER && this.numInnings === 0) ? challengerFingers : opponentFingers,
+      (this.opener === Players.CHALLENGER && this.numInnings === 0) ? opponentFingers : challengerFingers
+    )
   }
 
   matchOver() {
@@ -102,9 +103,9 @@ export class Match {
     this.stadium.send(this.getScoreBoard());
   }
 
-  inningsOver() { // Can be overridden
+  inningsOver() {
     this.numInnings++;
-    this.currentBatsman = this.currentBatsman === Players.CHALLENGER ? Players.OPPONENT : Players.CHALLENGER;
+
     if (this.numInnings === 2) this.matchOver();
     if (this.numInnings === 1) {
       this.stadium.send(this.getScoreBoard());
@@ -113,7 +114,6 @@ export class Match {
   }
 
   /**
-   *
    * @param batsman Which player is the batsman
    * @param batsmanPlayed Number of fingers
    * @param bowlerPlayed Number of fingers
