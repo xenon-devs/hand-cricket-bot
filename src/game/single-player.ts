@@ -20,8 +20,8 @@ export class SinglePlayerMatch extends Match {
       if (tossAnswer === Math.floor(Math.random()*2)) {
         try {
           const batBowl = await askBatBowl(this.challenger, this.client, this.stadium);
-          if (batBowl === BatBowl.BAT) this.opener = this.currentBatsman = Players.CHALLENGER;
-          else this.opener = this.currentBatsman = Players.OPPONENT;
+          if (batBowl === BatBowl.BAT) this.opener = Players.CHALLENGER;
+          else this.opener = Players.OPPONENT;
 
           this.comment(`Challenger won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
           this.play();
@@ -33,8 +33,8 @@ export class SinglePlayerMatch extends Match {
       }
       else {
         const batBowl = Math.random() >= 0.5 ? BatBowl.BAT : BatBowl.BOWL;
-        if (batBowl === BatBowl.BAT) this.opener = this.currentBatsman = Players.OPPONENT;
-        else this.opener = this.currentBatsman = Players.CHALLENGER;
+        if (batBowl === BatBowl.BAT) this.opener = Players.OPPONENT;
+        else this.opener = Players.CHALLENGER;
 
         this.comment(`Opponent won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
         this.play();
