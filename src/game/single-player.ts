@@ -1,4 +1,4 @@
-import { Match, Players } from '../util/match';
+import { Match, Players } from './match';
 import { DiscordClient } from '../util/discord-client';
 import { TextChannel, User } from 'discord.js';
 import { ErrorMessages, ask } from '../util/ask';

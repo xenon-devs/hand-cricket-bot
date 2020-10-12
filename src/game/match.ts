@@ -1,6 +1,6 @@
 import { User, TextChannel, MessageEmbed, ClientUser } from 'discord.js';
-import { DiscordClient } from './discord-client';
-import { ErrorMessages } from './ask';
+import { DiscordClient } from '../util/discord-client';
+import { ErrorMessages } from '../util/ask';
 
 export enum Players {
   CHALLENGER = 'challenger',
