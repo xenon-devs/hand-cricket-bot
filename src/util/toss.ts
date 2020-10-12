@@ -7,7 +7,7 @@ export { ErrorMessages } from './ask';
 
 const doToss = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel, tossMsg: string): Promise<TossResult> => {
   try {
-    const tossAnswer = await ask(client, player, channel, tossMsg, 10);
+    const tossAnswer = await ask(client, player, channel, tossMsg);
     switch (tossAnswer.answer.trim().toLowerCase()) {
       case 'heads':
         return TossResult.HEADS;
