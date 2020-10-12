@@ -2,9 +2,19 @@ import { User, TextChannel, MessageEmbed, ClientUser } from 'discord.js';
 import { DiscordClient } from './discord-client';
 import { ErrorMessages } from './ask';
 
-export enum Players { CHALLENGER, OPPONENT };
-export enum MatchResult { TIE, CHALLENGER_WON, OPPONENT_WON };
-export enum RoundResult { BATSMAN_SCORED, BATSMAN_OUT };
+export enum Players {
+  CHALLENGER = 'challenger',
+  OPPONENT = 'opponent'
+}
+export enum MatchResult {
+  TIE = 'tie',
+  CHALLENGER_WON = 'challenger_won',
+  OPPONENT_WON = 'opponent_won'
+}
+export enum RoundResult {
+  BATSMAN_SCORED = 'batsman_scored',
+  BATSMAN_OUT = 'batsman_out'
+}
 
 export class Match {
   challenger: User;

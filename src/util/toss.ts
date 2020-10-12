@@ -2,7 +2,10 @@ import { ask, ErrorMessages } from './ask';
 import { TextChannel, User, DMChannel } from 'discord.js';
 import { DiscordClient } from './discord-client';
 
-export enum TossResult { HEADS, TAILS };
+export enum TossResult {
+  HEADS = 'heads',
+  TAILS = 'tails'
+}
 export { ErrorMessages } from './ask';
 
 const doToss = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel, tossMsg: string): Promise<TossResult> => {

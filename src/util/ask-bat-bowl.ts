@@ -2,7 +2,10 @@ import { ask, ErrorMessages } from './ask';
 import { TextChannel, User, DMChannel } from 'discord.js';
 import { DiscordClient } from './discord-client';
 
-export enum BatBowl { BAT, BOWL };
+export enum BatBowl {
+  BAT = 'bat',
+  BOWL = 'bowl'
+}
 export { ErrorMessages } from './ask';
 
 const doAsk = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel, msg: string): Promise<BatBowl> => {
