@@ -80,10 +80,10 @@ export class MultiPlayerMatch extends Match {
   }
 
   async getChallengerFingers(): Promise<ErrorMessages | number> {
-    return getPlayerFingers(this.client, this.stadium, this.challenger);
+    return getPlayerFingers(this.client, this.challenger.dmChannel, this.challenger);
   }
 
   async getOpponentFingers(): Promise<ErrorMessages | number> {
-    return getPlayerFingers(this.client, this.stadium, this.opponent);
+    return getPlayerFingers(this.client, this.opponent.dmChannel, this.opponent);
   }
 }
