@@ -96,7 +96,7 @@ client.onCommand('stats', '', async (msg: Message) => {
 
 client.onCommand(
   'challenge',
-  'Starting Multiplayer Challenge',
+  '',
   (msg: Message) => {
     if (msg.channel.type != 'dm') new MultiPlayerMatch(client, <TextChannel>msg.channel, msg.author);
   }
