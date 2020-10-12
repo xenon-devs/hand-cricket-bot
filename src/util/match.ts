@@ -95,6 +95,10 @@ export class Match {
   }
 
   matchOver() {
+    if (this.openerScore > this.chaserScore) this.result = this.opener === Players.CHALLENGER ? MatchResult.CHALLENGER_WON : MatchResult.OPPONENT_WON;
+    else if (this.openerScore === this.chaserScore) this.result = MatchResult.TIE;
+    else if (this.openerScore < this.chaserScore) this.result = this.opener === Players.CHALLENGER ? MatchResult.OPPONENT_WON : MatchResult.CHALLENGER_WON;
+
     this.stadium.send(this.getScoreBoard());
   }
 

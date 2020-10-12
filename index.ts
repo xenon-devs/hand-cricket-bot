@@ -1,5 +1,5 @@
 import { DiscordClient } from './src/util/discord-client';
-import Discord, { Message, MessageEmbed, TextChannel } from 'discord.js';
+import Discord, { Message, MessageEmbed, TextChannel, DMChannel } from 'discord.js';
 import { prefix } from './config.json';
 import DBL from 'dblapi.js';
 
