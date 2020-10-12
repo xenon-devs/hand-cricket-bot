@@ -25,11 +25,13 @@ export class Match {
   opener: Players;
   currentBatsman: Players;
   result: MatchResult;
+  /** Balls played in each innings */
   ballsPlayed: [number, number] = [0, 0];
+  /** Number of innings that were completed */
   numInnings: number = 0;
 
-  challengerScore: number = 0;
-  opponentScore: number = 0;
+  openerScore: number = 0;
+  chaserScore: number = 0;
 
   constructor(client: DiscordClient, stadium: TextChannel, challenger: User) {
     this.client = client;
@@ -52,8 +54,8 @@ export class Match {
     .addField(`Balls played in first innings`, this.ballsPlayed[0], true)
     .setDescription(this.numInnings === 1 ? `Mid Innings Score` : `Match End Score`)
 
-    scoreboard.addField(`Opener's score`, this.opener === Players.CHALLENGER ? this.challengerScore : this.opponentScore, true);
-    if (this.numInnings > 1) scoreboard.addField(`Chaser's score`, this.opener === Players.OPPONENT ? this.challengerScore : this.opponentScore, true);
+    scoreboard.addField(`Opener's score`, this.openerScore, true);
+    if (this.numInnings > 1) scoreboard.addField(`Chaser's score`, this.chaserScore, true);
 
     if (this.numInnings > 1) scoreboard.addField('Balls played in second innings', this.ballsPlayed[1], true);
 
@@ -115,7 +117,11 @@ export class Match {
   calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
     if (batsmanPlayed === bowlerPlayed) this.inningsOver();
     else {
-      this.currentBatsman === Players.CHALLENGER ? this.challengerScore += batsmanPlayed : this.opponentScore += batsmanPlayed;
+      if (this.numInnings > 1) this.chaserScore += batsmanPlayed;
+      else this.openerScore += batsmanPlayed;
+
+      if (this.numInnings === 1 && this.chaserScore > this.openerScore) this.inningsOver();
+
       this.play();
     }
   }
