@@ -82,9 +82,6 @@ export class MultiPlayerMatch extends Match {
   }
 
   async getOpponentFingers(): Promise<ErrorMessages | number> {
-    const fingers =  Math.min(Math.floor(Math.random()*7), 6);
-
-    this.stadium.send(`${fingers}!`);
-    return fingers;
+    return getPlayerFingers(this.client, this.stadium, this.opponent);
   }
 }
