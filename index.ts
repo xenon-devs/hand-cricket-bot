@@ -44,10 +44,10 @@ Following is a list of all Hand Cricketer commands.
     )
     .setTimestamp()
     .setThumbnail(client.user.displayAvatarURL())
-    .addField('Vote and Invite', `[top.gg](https://top.gg/bot/${client.user.id})`, true)
-    .addField(`It's Open Source`, `[Github](https://github.com/HarshKhandeparkar/hand-cricket-bot)`, true)
+    .addField(`It's Open Source`, `[Github](https://github.com/HarshKhandeparkar/hand-cricket-bot)`, true);
 
     if (dbl !== null) {
+      helpEmbed.addField('Vote and Invite', `[top.gg](https://top.gg/bot/${client.user.id})`, true);
       const botStats = await dbl.getBot(client.user.id);
 
       if (botStats.support) helpEmbed.addField('Support Server', `[Join It!](https://discord.gg/${botStats.support})`, true);
@@ -81,6 +81,7 @@ client.onCommand('stats', '', async (msg: Message) => {
     .addField('Servers', `\`${client.guilds.cache.array().length}\``, true)
     .addField('Users', `\`${client.guilds.cache.array().map(guild => guild.memberCount).reduce((a, b) => a + b)}\``, true)
     .setThumbnail(client.user.displayAvatarURL())
+    .setColor('RED');
 
   if (dbl !== null) {
     const botStats = await dbl.getBot(client.user.id);

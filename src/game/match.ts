@@ -90,8 +90,8 @@ export class Match {
     const challengerFingers = await this.getChallengerFingers();
     const opponentFingers = await this.getOpponentFingers();
 
-    if (challengerFingers === ErrorMessages.DID_NOT_ANSWER) return this.comment('Coward challenger did not play. Match Ended.');
-    if (opponentFingers === ErrorMessages.DID_NOT_ANSWER) return this.comment('Coward opponent did not play. Match Ended.');
+    if (challengerFingers === ErrorMessages.DID_NOT_ANSWER) return this.comment(`Coward challenger <@${this.challenger.id}> did not play. Match Ended.`);
+    if (opponentFingers === ErrorMessages.DID_NOT_ANSWER) return this.comment(`Coward opponent <@${this.opponent.id}> did not play. Match Ended.`);
 
     this.ballsPlayed[this.numInnings]++;
 
