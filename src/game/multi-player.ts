@@ -46,29 +46,29 @@ export class MultiPlayerMatch extends Match {
 
   async startMatch() {
     try {
-      const tossAnswer = await toss(this.challenger, this.client, this.stadium);
+      const tossAnswer = await toss(this.opponent, this.client, this.stadium);
 
-      if (tossAnswer === Math.floor(Math.random()*2)) {
-        try {
-          const batBowl = await askBatBowl(this.challenger, this.client, this.stadium);
-          if (batBowl === BatBowl.BAT) this.opener = Players.CHALLENGER;
-          else this.opener = Players.OPPONENT;
+      let tossWinner: Players;
+      if (tossAnswer === Math.floor(Math.random()*2)) tossWinner = Players.OPPONENT;
+      else tossWinner = Players.CHALLENGER;
 
-          this.comment(`Challenger won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
-          this.play();
-        }
-        catch (e) {
-          this.comment(`The challenger walked out of the stadium.`);
-          return e;
-        }
-      }
-      else {
-        const batBowl = Math.random() >= 0.5 ? BatBowl.BAT : BatBowl.BOWL;
-        if (batBowl === BatBowl.BAT) this.opener = Players.OPPONENT;
-        else this.opener = Players.CHALLENGER;
+      try {
+        const batBowl = await askBatBowl(
+          tossWinner === Players.CHALLENGER ? this.challenger : this.opponent,
+          this.client,
+          this.stadium
+        )
 
-        this.comment(`Opponent won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
+        if (batBowl === BatBowl.BAT) this.opener = tossWinner;
+        else this.opener = tossWinner === Players.CHALLENGER ? Players.OPPONENT : Players.CHALLENGER;
+
+        this.comment(`${tossWinner === Players.CHALLENGER ? 'Challenger' : 'Opponent'}\
+\ \ \ \ <@${tossWinner === Players.CHALLENGER ? this.challenger.id : this.opponent.id}> won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
         this.play();
+      }
+      catch (e) {
+        this.comment(`The challenger walked out of the stadium.`);
+        return e;
       }
     }
     catch (e) {
