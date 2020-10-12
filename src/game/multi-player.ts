@@ -30,7 +30,7 @@ export class MultiPlayerMatch extends Match {
 
               break;
             default:
-              this.comment(`<@${potentialOpponent.id} doesn't consider <@${this.challenger.id}> worthy of competing with.`);
+              this.comment(`<@${potentialOpponent.id}> doesn't consider <@${this.challenger.id}> worthy of competing with.`);
           }
         }
         catch (e) {
