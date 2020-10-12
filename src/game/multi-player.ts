@@ -1,17 +1,47 @@
 import { Match, Players } from './match';
 import { DiscordClient } from '../util/discord-client';
 import { TextChannel, User } from 'discord.js';
-import { ErrorMessages } from '../util/ask';
+import { ErrorMessages, ask } from '../util/ask';
 import { toss } from '../util/toss';
 import { askBatBowl, BatBowl } from '../util/ask-bat-bowl';
 import { getPlayerFingers } from '../util/get-player-fingers';
 
-export class SinglePlayerMatch extends Match {
+export class MultiPlayerMatch extends Match {
   constructor(client: DiscordClient, stadium: TextChannel, challenger: User) {
     super(client, stadium, challenger);
-    this.opponent = this.client.user;
 
-    this.startMatch();
+    this.selectOpponent();
+  }
+
+  async selectOpponent() {
+    try {
+      const opponentAnswer = await ask(this.client, this.challenger, this.stadium, `Whom do you want to challenge? (@mention)`);
+      if (opponentAnswer.msg.mentions.users.array()[0]) {
+        const potentialOpponent = opponentAnswer.msg.mentions.users.array()[0];
+
+        try {
+          const doesAccept = await ask(this.client, potentialOpponent, this.stadium, `Do you accept the challenge? (yes/no)`);
+
+          switch (doesAccept.answer.trim().toLowerCase()) {
+            case 'yes':
+              this.comment(`<@${potentialOpponent.id}> has accepted the challenge!`);
+              this.opponent = potentialOpponent;
+              this.startMatch();
+
+              break;
+            default:
+              this.comment(`<@${potentialOpponent.id} doesn't consider <@${this.challenger.id}> worthy of competing with.`);
+          }
+        }
+        catch (e) {
+          this.comment(`<@${potentialOpponent.id}> didn't have the courage to reply.`);
+        }
+      }
+      else this.comment(`Challenger <@${this.challenger.id}> either couldn't find a worthy opponent or got scared and ran away.`);
+    }
+    catch (e) {
+      this.comment(`Challenger <@${this.challenger.id}> ran straight to the loo.`);
+    }
   }
 
   async startMatch() {
