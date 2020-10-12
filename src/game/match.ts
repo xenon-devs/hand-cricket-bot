@@ -59,8 +59,10 @@ export class Match {
     scoreboard.addField('\u200b', '\u200b', true); // blank spacer
 
     if (this.numInnings > 1) scoreboard.addField(`Chaser's score`, this.chaserScore, true);
-    if (this.numInnings > 1) scoreboard.addField('Balls played in 2nd innings', this.ballsPlayed[1], true);
-    scoreboard.addField('\u200b', '\u200b', true); // blank spacer
+    if (this.numInnings > 1) {
+      scoreboard.addField('Balls played in 2nd innings', this.ballsPlayed[1], true);
+      scoreboard.addField('\u200b', '\u200b', true); // blank spacer
+    }
 
     switch (this.result) {
       case MatchResult.TIE:
