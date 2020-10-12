@@ -4,6 +4,7 @@ import { TextChannel, User } from 'discord.js';
 import { ErrorMessages, ask } from '../util/ask';
 import { toss } from '../util/toss';
 import { askBatBowl, BatBowl } from '../util/ask-bat-bowl';
+import { getPlayerFingers } from '../util/get-player-fingers';
 
 export class SinglePlayerMatch extends Match {
   constructor(client: DiscordClient, stadium: TextChannel, challenger: User) {
@@ -46,16 +47,10 @@ export class SinglePlayerMatch extends Match {
     }
   }
 
-  async getChallengerFingers(askString: string = `Show your fingers... *Using keyboard stupid*`): Promise<ErrorMessages | number> {
-    try {
-      const fingers = (await ask(this.client, this.challenger, this.stadium, askString, 60000)).answer.trim();
-      if (parseInt(fingers) <= 6 && parseInt(fingers) >= 0) return parseInt(fingers);
-      else return await this.getChallengerFingers(`:clap: :clap:. Answer again now.`);
-    }
-    catch (e) {
-      return e;
-    }
+  async getChallengerFingers(): Promise<ErrorMessages | number> {
+    return getPlayerFingers(this.client, this.stadium, this.challenger);
   }
+
   async getOpponentFingers(): Promise<ErrorMessages | number> {
     const fingers =  Math.min(Math.floor(Math.random()*7), 6);
 
