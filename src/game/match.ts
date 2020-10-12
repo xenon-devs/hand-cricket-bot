@@ -129,8 +129,7 @@ export class Match {
       else this.openerScore += batsmanPlayed;
 
       if (this.numInnings === 1 && this.chaserScore > this.openerScore) this.inningsOver();
-
-      this.play();
+      else this.play();
     }
   }
 
