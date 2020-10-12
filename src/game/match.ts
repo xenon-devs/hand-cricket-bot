@@ -59,7 +59,7 @@ export class Match {
     scoreboard.addField('\u200b', '\u200b', true); // blank spacer
 
     if (this.numInnings > 1) scoreboard.addField(`Chaser's score`, this.chaserScore, true);
-    if (this.numInnings > 1) scoreboard.addField('Balls played in second innings', this.ballsPlayed[1], true);
+    if (this.numInnings > 1) scoreboard.addField('Balls played in 2nd innings', this.ballsPlayed[1], true);
 
     switch (this.result) {
       case MatchResult.TIE:
@@ -124,7 +124,7 @@ export class Match {
   calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
     if (batsmanPlayed === bowlerPlayed) this.inningsOver();
     else {
-      if (this.numInnings > 1) this.chaserScore += batsmanPlayed;
+      if (this.numInnings === 1) this.chaserScore += batsmanPlayed;
       else this.openerScore += batsmanPlayed;
 
       if (this.numInnings === 1 && this.chaserScore > this.openerScore) this.inningsOver();
