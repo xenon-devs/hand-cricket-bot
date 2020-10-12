@@ -27,7 +27,7 @@ client.on('ready', () => {
 
 client.onCommand('help', '', async (msg: Message, prefix: string) => {
   const helpEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
+    .setColor('#6633bb')
     .setTitle('Hand Cricketer Help')
     .setDescription(`\
 **Custom Prefix**: You can use a custom prefix in a certain server by changing the nickname of the bot to \`[prefix] Name\`. Here the prefix can be anything such as \`!\`, \`?\` or \`.\` and the rest of the nickname doesn't matter and can be anything.
@@ -58,7 +58,7 @@ Following is a list of all Hand Cricketer commands.
 
 client.onCommand('rules', '', async (msg: Message) => {
   const rulesEmbed = new Discord.MessageEmbed()
-    .setColor('#0099ff')
+    .setColor('#116677')
     .setTitle('Extremely Official Rules of Hand Cricket')
     .setDescription('One player bowls and the other bats. The player has to type any number between 0 and 6(representing the number of fingers), once the player enters, the bot will generate a random number as it\'s output.')
     .addFields(
