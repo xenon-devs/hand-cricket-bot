@@ -1,6 +1,6 @@
-import { User, TextChannel, MessageEmbed } from 'discord.js';
-import { toss } from './toss';
+import { User, TextChannel, MessageEmbed, ClientUser } from 'discord.js';
 import { DiscordClient } from './discord-client';
+import { ErrorMessages } from './ask';
 
 export enum Players { CHALLENGER, OPPONENT };
 export enum MatchResult { TIE, CHALLENGER_WON, OPPONENT_WON };
@@ -8,7 +8,7 @@ export enum RoundResult { BATSMAN_SCORED, BATSMAN_OUT };
 
 export class Match {
   challenger: User;
-  opponent: User;
+  opponent: User | ClientUser;
   stadium: TextChannel;
   client: DiscordClient;
 
@@ -21,16 +21,14 @@ export class Match {
   challengerScore: number = 0;
   opponentScore: number = 0;
 
-  toss = toss;
-
   constructor(client: DiscordClient, stadium: TextChannel, challenger: User) {
     this.client = client;
     this.challenger = challenger;
     this.stadium = stadium;
+  }
 
-    this.calculateRoundResult(1, 2);
-    this.calculateRoundResult(6, 2);
-    this.calculateRoundResult(2, 2);
+  startMatch() { // To be overriden
+
   }
 
   getScoreBoard() {
@@ -44,10 +42,10 @@ export class Match {
     .addField(`Balls played in first innings`, this.ballsPlayed[0], true)
     .setDescription(this.numInnings === 1 ? `Mid Innings Score` : `Match End Score`)
 
-    if (this.numInnings > 1) scoreboard.addField('Balls played in second innings', this.ballsPlayed[1], true);
-
     scoreboard.addField(`Opener's score`, this.opener === Players.CHALLENGER ? this.challengerScore : this.opponentScore, true);
     if (this.numInnings > 1) scoreboard.addField(`Chaser's score`, this.opener === Players.OPPONENT ? this.challengerScore : this.opponentScore, true);
+
+    if (this.numInnings > 1) scoreboard.addField('Balls played in second innings', this.ballsPlayed[1], true);
 
     switch (this.result) {
       case MatchResult.TIE:
@@ -63,14 +61,39 @@ export class Match {
     return scoreboard;
   }
 
+  async getChallengerFingers(): Promise<ErrorMessages | number> { // To be overriden
+    return 3;
+  }
+
+  async getOpponentFingers(): Promise<ErrorMessages | number> { // To be overriden
+    return ErrorMessages.DID_NOT_ANSWER;
+  }
+
+  async play() {
+    const challengerFingers = await this.getChallengerFingers();
+    const opponentFingers = await this.getOpponentFingers();
+
+    if (challengerFingers === ErrorMessages.DID_NOT_ANSWER) return this.comment('Coward challenger did not play. Match Ended.');
+    if (opponentFingers === ErrorMessages.DID_NOT_ANSWER) return this.comment('Coward opponent did not play. Match Ended.');
+
+    this.ballsPlayed[this.numInnings]++;
+
+    if (this.currentBatsman === Players.CHALLENGER) this.calculateRoundResult(challengerFingers, opponentFingers);
+    else this.calculateRoundResult(opponentFingers, challengerFingers);
+  }
+
   matchOver() {
     this.stadium.send(this.getScoreBoard());
   }
 
   inningsOver() { // Can be overridden
     this.numInnings++;
+    this.currentBatsman = this.currentBatsman === Players.CHALLENGER ? Players.OPPONENT : Players.CHALLENGER;
     if (this.numInnings === 2) this.matchOver();
-    if (this.numInnings === 1) this.stadium.send(this.getScoreBoard());
+    if (this.numInnings === 1) {
+      this.stadium.send(this.getScoreBoard());
+      this.play();
+    }
   }
 
   /**
@@ -83,6 +106,7 @@ export class Match {
     if (batsmanPlayed === bowlerPlayed) this.inningsOver();
     else {
       this.currentBatsman === Players.CHALLENGER ? this.challengerScore += batsmanPlayed : this.opponentScore += batsmanPlayed;
+      this.play();
     }
   }
 
