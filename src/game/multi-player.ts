@@ -19,6 +19,8 @@ export class MultiPlayerMatch extends Match {
       if (opponentAnswer.msg.mentions.users.array()[0]) {
         const potentialOpponent = opponentAnswer.msg.mentions.users.array()[0];
 
+        if (potentialOpponent.id === this.challenger.id) return this.comment(`Challenger <@${this.challenger.id}> tried to battle themself. Wow, cowardness at its max.`);
+
         try {
           const doesAccept = await ask(this.client, potentialOpponent, this.stadium, `Do you accept the challenge? (yes/no)`);
 
