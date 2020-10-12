@@ -1,13 +1,13 @@
 import { Match, Players } from './match';
 import { DiscordClient } from '../util/discord-client';
-import { TextChannel, User } from 'discord.js';
+import { TextChannel, User, DMChannel } from 'discord.js';
 import { ErrorMessages } from '../util/ask';
 import { toss } from '../util/toss';
 import { askBatBowl, BatBowl } from '../util/ask-bat-bowl';
 import { getPlayerFingers } from '../util/get-player-fingers';
 
 export class SinglePlayerMatch extends Match {
-  constructor(client: DiscordClient, stadium: TextChannel, challenger: User) {
+  constructor(client: DiscordClient, stadium: TextChannel | DMChannel, challenger: User) {
     super(client, stadium, challenger);
     this.opponent = this.client.user;
 

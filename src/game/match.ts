@@ -1,4 +1,4 @@
-import { User, TextChannel, MessageEmbed, ClientUser } from 'discord.js';
+import { User, TextChannel, MessageEmbed, ClientUser, DMChannel } from 'discord.js';
 import { DiscordClient } from '../util/discord-client';
 import { ErrorMessages } from '../util/ask';
 
@@ -19,7 +19,7 @@ export enum RoundResult {
 export class Match {
   challenger: User;
   opponent: User | ClientUser;
-  stadium: TextChannel;
+  stadium: TextChannel | DMChannel;
   client: DiscordClient;
 
   opener: Players;
@@ -32,7 +32,7 @@ export class Match {
   openerScore: number = 0;
   chaserScore: number = 0;
 
-  constructor(client: DiscordClient, stadium: TextChannel, challenger: User) {
+  constructor(client: DiscordClient, stadium: TextChannel | DMChannel, challenger: User) {
     this.client = client;
     this.challenger = challenger;
     this.stadium = stadium;

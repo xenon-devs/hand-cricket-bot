@@ -4,6 +4,7 @@ import { prefix } from './config.json';
 import DBL from 'dblapi.js';
 
 import { SinglePlayerMatch } from './src/game/single-player';
+import { MultiPlayerMatch } from './src/game/multi-player';
 
 import { config } from 'dotenv';
 config(); // Import .env environment variables
@@ -72,7 +73,7 @@ client.onCommand('rules', '', async (msg: Message) => {
   msg.channel.send(rulesEmbed);
 })
 
-client.onCommand('play', 'Starting Game', async (msg: Message) => new SinglePlayerMatch(client, <TextChannel>msg.channel, msg.author));
+client.onCommand('play', 'Starting Game', async (msg: Message) => new SinglePlayerMatch(client, <TextChannel | DMChannel>msg.channel, msg.author));
 client.onCommand('dm', `You've received mail ;)`, (msg: Message) => msg.author.send('You can use any commands here.'));
 
 client.onCommand('stats', '', async (msg: Message) => {
@@ -93,13 +94,13 @@ client.onCommand('stats', '', async (msg: Message) => {
   msg.channel.send(statsEmbed);
 })
 
-// client.onCommand(
-//   'challenge',
-//   'Starting Multiplayer Challenge',
-//   (msg: Message) => {
-//     if (msg.channel.type != 'dm') startChallenge(client, msg.channel as TextChannel, msg)
-//   }
-// )
+client.onCommand(
+  'challenge',
+  'Starting Multiplayer Challenge',
+  (msg: Message) => {
+    if (msg.channel.type != 'dm') new MultiPlayerMatch(client, <TextChannel>msg.channel, msg.author);
+  }
+)
 
 client.on('ready', () => console.log('Logged in as ', client.user.username));
 
