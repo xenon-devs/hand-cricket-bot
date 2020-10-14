@@ -1,10 +1,10 @@
 import { Match, Players } from './match';
 import { DiscordClient } from '../util/discord-client';
 import { TextChannel, User } from 'discord.js';
-import { ErrorMessages, ask } from '../util/ask';
+import { ask } from '../util/ask';
 import { toss } from '../util/toss';
 import { askBatBowl, BatBowl } from '../util/ask-bat-bowl';
-import { getPlayerFingers } from '../util/get-player-fingers';
+import { getPlayerFingersDM } from '../util/get-player-fingers';
 
 export class MultiPlayerMatch extends Match {
   constructor(client: DiscordClient, stadium: TextChannel, challenger: User) {
@@ -65,7 +65,7 @@ export class MultiPlayerMatch extends Match {
         else this.opener = tossWinner === Players.CHALLENGER ? Players.OPPONENT : Players.CHALLENGER;
 
         this.comment(`${tossWinner === Players.CHALLENGER ? 'Challenger' : 'Opponent'}\
-\ \ \ \ <@${tossWinner === Players.CHALLENGER ? this.challenger.id : this.opponent.id}> won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
+ <@${tossWinner === Players.CHALLENGER ? this.challenger.id : this.opponent.id}> won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
         this.play();
       }
       catch (e) {
@@ -79,11 +79,11 @@ export class MultiPlayerMatch extends Match {
     }
   }
 
-  async getChallengerFingers(): Promise<ErrorMessages | number> {
-    return getPlayerFingers(this.client, this.challenger.dmChannel, this.challenger);
+  async getChallengerFingers() {
+    return getPlayerFingersDM(this.client, this.challenger);
   }
 
-  async getOpponentFingers(): Promise<ErrorMessages | number> {
-    return getPlayerFingers(this.client, this.opponent.dmChannel, this.opponent);
+  async getOpponentFingers() {
+    return getPlayerFingersDM(this.client, this.opponent);
   }
 }
