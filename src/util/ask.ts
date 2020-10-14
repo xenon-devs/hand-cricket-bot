@@ -11,19 +11,19 @@ export enum ErrorMessages {
  * @param askTo Discord.js user object of the user to ask.
  * @param channel Discord.js channel to ask the question in.
  * @param question Question as a string (including ?).
- * @param timeout Timeout in ms, default 20000.
+ * @param timeout Timeout in ms.
  */
-export async function ask(
+export async function askAQuestion(
   client: DiscordClient,
   askTo: User,
-  channel: TextChannel | DMChannel,
+  sendTo: User | TextChannel | DMChannel,
   question: string,
-  timeout = 20000
+  timeout: number
 ) {
-  return new Promise((resolve: (value: {answer: string, msg: Message}) => void, reject: (error: ErrorMessages) => void) => {
-    channel.send(`<@${askTo.id}> ${question}`);
+  return new Promise(async (resolve: (value: {answer: string, msg: Message}) => void, reject: (error: ErrorMessages) => void) => {
+    const channel = (await sendTo.send(`<@${askTo.id}> ${question}`)).channel;
     const notAnsweredHandler = async () => {
-      channel.send(`<@${askTo.id}> You didn't answer in ${timeout / 1000}s, now your chance is gone.`);
+      sendTo.send(`<@${askTo.id}> You didn't answer in ${timeout / 1000}s, now your chance is gone.`);
       client.offMsg(`${question}@${askTo.id}#${channel.id}`);
 
       reject(ErrorMessages.DID_NOT_ANSWER);
@@ -48,4 +48,38 @@ export async function ask(
       handler: finalAnswerHandler
     })
   })
+}
+
+/**
+ * @description Ask a question to a specific discord user and wait for the answer in a specific channel.
+ * @param client The main discord.js client object.
+ * @param askTo Discord.js user object of the user to ask.
+ * @param channel Discord.js channel to ask the question in.
+ * @param question Question as a string (including ?).
+ * @param timeout Timeout in ms, default 20000.
+ */
+export async function ask(
+  client: DiscordClient,
+  askTo: User,
+  channel: TextChannel | DMChannel,
+  question: string,
+  timeout = 20000
+) {
+  return askAQuestion(client, askTo, channel, question, timeout);
+}
+
+/**
+ * @description Ask a question to a specific discord user and wait for the answer in a specific channel.
+ * @param client The main discord.js client object.
+ * @param askTo Discord.js user object of the user to ask.
+ * @param question Question as a string (including ?).
+ * @param timeout Timeout in ms, default 20000.
+ */
+export async function askDM(
+  client: DiscordClient,
+  askTo: User,
+  question: string,
+  timeout = 20000
+) {
+  return askAQuestion(client, askTo, askTo, question, timeout);
 }
