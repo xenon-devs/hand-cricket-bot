@@ -87,8 +87,7 @@ export class Match {
   }
 
   async play() {
-    const challengerFingers = await this.getChallengerFingers();
-    const opponentFingers = await this.getOpponentFingers();
+    const [challengerFingers, opponentFingers] = await Promise.all([this.getChallengerFingers(), this.getOpponentFingers()]);
 
     if (challengerFingers === ErrorMessages.DID_NOT_ANSWER) return this.comment(`Coward challenger <@${this.challenger.id}> did not play. Match Ended.`);
     if (opponentFingers === ErrorMessages.DID_NOT_ANSWER) return this.comment(`Coward opponent <@${this.opponent.id}> did not play. Match Ended.`);
