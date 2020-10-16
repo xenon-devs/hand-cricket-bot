@@ -25,7 +25,8 @@ export class SinglePlayerMatch extends Match {
           else this.opener = Players.OPPONENT;
 
           this.comment(`Challenger won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
-          this.play();
+          this.comment(`Match starting in 5s`);
+          setTimeout(() => this.play(), 5000);
         }
         catch (e) {
           this.comment(`The challenger walked out of the stadium.`);
@@ -38,13 +39,21 @@ export class SinglePlayerMatch extends Match {
         else this.opener = Players.CHALLENGER;
 
         this.comment(`Opponent won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
-        this.play();
+        this.comment(`Match starting in 5s`);
+        setTimeout(() => this.play(), 5000);
       }
     }
     catch (e) {
       this.comment(`The challenger never entered the stadium.`);
       return e;
     }
+  }
+
+  calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
+    const opponentScore = (this.numInnings === 1 && this.opener === Players.OPPONENT) ? batsmanPlayed : bowlerPlayed; // Bot's score
+    this.stadium.send(`${opponentScore}!`);
+
+    super.calculateRoundResult(batsmanPlayed, bowlerPlayed);
   }
 
   async getChallengerFingers(): Promise<ErrorMessages | number> {
@@ -54,7 +63,6 @@ export class SinglePlayerMatch extends Match {
   async getOpponentFingers(): Promise<ErrorMessages | number> {
     const fingers =  Math.min(Math.floor(Math.random()*7), 6);
 
-    this.stadium.send(`${fingers}!`);
     return fingers;
   }
 }

@@ -17,7 +17,7 @@ const doAsk = async (player: User, client: DiscordClient, channel: TextChannel |
       case 'bowl':
         return BatBowl.BOWL;
       default:
-        return await doAsk(player, client, channel, 'Is that a joke? Should I clap? Answer again.');
+        return await doAsk(player, client, channel, 'Is that a joke? Should I laugh? Answer again.');
     }
   }
   catch (e) {

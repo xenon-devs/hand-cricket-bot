@@ -114,7 +114,8 @@ export class Match {
     if (this.numInnings === 2) this.matchOver();
     if (this.numInnings === 1) {
       this.stadium.send(this.getScoreBoard());
-      this.play();
+      this.comment(`Next innings starting in 5s`);
+      setTimeout(() => this.play(), 5000);
     }
   }
 
