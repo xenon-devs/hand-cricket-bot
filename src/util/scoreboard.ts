@@ -6,11 +6,12 @@ export function getScoreboard(
   client: DiscordClient,
   opponent: User,
   challenger: User,
+  opener: Players,
   numInnings: number,
   result: MatchResult,
   openerScore: number,
   chaserScore: number,
-  ballsPlayed: [number, number],
+  ballsPlayed: [number, number]
 ) {
   const scoreboard = new MessageEmbed()
     .setThumbnail(client.user.avatarURL())

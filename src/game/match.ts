@@ -56,11 +56,19 @@ export class Match {
   }
 
   forfeit(forfeiterId: string) {
-    if (this.opponent.id === forfeiterId || this.challenger.id === forfeiterId) {
-      this.result = this.opponent.id === forfeiterId ? MatchResult.OPPONENT_FORFEITED : MatchResult.CHALLENGER_FORFEITED;
+    if (this.challenger.id === forfeiterId) {
+      this.result = MatchResult.CHALLENGER_FORFEITED;
       this.stadium.send(this.getScoreBoard());
       this.associatedListeners.forEach(handlerName => this.client.offMsg(handlerName));
       return this.matchEndedCb();
+    }
+    else if (this.opponent) {
+      if (this.opponent.id === forfeiterId) {
+        this.result = MatchResult.OPPONENT_FORFEITED;
+        this.stadium.send(this.getScoreBoard());
+        this.associatedListeners.forEach(handlerName => this.client.offMsg(handlerName));
+        return this.matchEndedCb();
+      }
     }
   }
 
@@ -69,6 +77,7 @@ export class Match {
       this.client,
       this.opponent,
       this.challenger,
+      this.opener,
       this.numInnings,
       this.result,
       this.openerScore,
