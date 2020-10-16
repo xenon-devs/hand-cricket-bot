@@ -24,7 +24,7 @@ export class SinglePlayerMatch extends Match {
           if (batBowl === BatBowl.BAT) this.opener = Players.CHALLENGER;
           else this.opener = Players.OPPONENT;
 
-          this.comment(`Challenger won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
+          this.comment(`Challenger <@${this.challenger.id}> won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
           this.comment(`Match starting in 2s`);
           setTimeout(() => this.play(), 2000);
         }
@@ -38,7 +38,7 @@ export class SinglePlayerMatch extends Match {
         if (batBowl === BatBowl.BAT) this.opener = Players.OPPONENT;
         else this.opener = Players.CHALLENGER;
 
-        this.comment(`Opponent won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
+        this.comment(`Opponent <@${this.opponent.id}> won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
         this.comment(`Match starting in 2s`);
         setTimeout(() => this.play(), 2000);
       }
