@@ -16,11 +16,11 @@ export class SinglePlayerMatch extends Match {
 
   async startMatch() {
     try {
-      const tossAnswer = await toss(this.challenger, this.client, this.stadium);
+      const tossAnswer = await toss(this.challenger, this.client, this.stadium, (handlerName) => this.associatedListeners.push(handlerName));
 
       if (tossAnswer === Math.floor(Math.random()*2)) {
         try {
-          const batBowl = await askBatBowl(this.challenger, this.client, this.stadium);
+          const batBowl = await askBatBowl(this.challenger, this.client, this.stadium, (handlerName) => this.associatedListeners.push(handlerName));
           if (batBowl === BatBowl.BAT) this.opener = Players.CHALLENGER;
           else this.opener = Players.OPPONENT;
 
@@ -59,7 +59,7 @@ export class SinglePlayerMatch extends Match {
   }
 
   async getChallengerFingers(): Promise<ErrorMessages | number> {
-    return getPlayerFingers(this.client, this.stadium, this.challenger);
+    return getPlayerFingers(this.client, this.stadium, this.challenger, (handlerName) => this.associatedListeners.push(handlerName));
   }
 
   async getOpponentFingers(): Promise<ErrorMessages | number> {

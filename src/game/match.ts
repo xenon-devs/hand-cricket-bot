@@ -35,6 +35,8 @@ export class Match {
   openerScore: number = 0;
   chaserScore: number = 0;
 
+  associatedListeners: string[] = []; // Array of all associated onMsg listener names
+
   constructor(client: DiscordClient, stadium: TextChannel | DMChannel, challenger: User, matchEndedCb: () => void) {
     this.client = client;
     this.challenger = challenger;

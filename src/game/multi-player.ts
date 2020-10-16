@@ -15,7 +15,7 @@ export class MultiPlayerMatch extends Match {
 
   async selectOpponent() {
     try {
-      const opponentAnswer = await ask(this.client, this.challenger, this.stadium, `Whom do you want to challenge? (@mention)`);
+      const opponentAnswer = await ask(this.client, this.challenger, this.stadium, `Whom do you want to challenge? (@mention)`, 20000, (handlerName) => this.associatedListeners.push(handlerName));
       if (opponentAnswer.msg.mentions.users.array()[0]) {
         const potentialOpponent = opponentAnswer.msg.mentions.users.array()[0];
 
@@ -25,7 +25,7 @@ export class MultiPlayerMatch extends Match {
         }
 
         try {
-          const doesAccept = await ask(this.client, potentialOpponent, this.stadium, `Do you accept the challenge? (yes/no)`);
+          const doesAccept = await ask(this.client, potentialOpponent, this.stadium, `Do you accept the challenge? (yes/no)`, 20000, (handlerName) => this.associatedListeners.push(handlerName));
 
           switch (doesAccept.answer.trim().toLowerCase()) {
             case 'yes':
@@ -57,7 +57,7 @@ export class MultiPlayerMatch extends Match {
 
   async startMatch() {
     try {
-      const tossAnswer = await toss(this.opponent, this.client, this.stadium);
+      const tossAnswer = await toss(this.opponent, this.client, this.stadium, (handlerName) => this.associatedListeners.push(handlerName));
 
       let tossWinner: Players;
       if (tossAnswer === Math.floor(Math.random()*2)) tossWinner = Players.OPPONENT;
@@ -67,7 +67,8 @@ export class MultiPlayerMatch extends Match {
         const batBowl = await askBatBowl(
           tossWinner === Players.CHALLENGER ? this.challenger : this.opponent,
           this.client,
-          this.stadium
+          this.stadium,
+          (handlerName) => this.associatedListeners.push(handlerName)
         )
 
         if (batBowl === BatBowl.BAT) this.opener = tossWinner;
@@ -118,10 +119,10 @@ export class MultiPlayerMatch extends Match {
   }
 
   async getChallengerFingers() {
-    return getPlayerFingersDM(this.client, this.challenger);
+    return getPlayerFingersDM(this.client, this.challenger, (handlerName) => this.associatedListeners.push(handlerName));
   }
 
   async getOpponentFingers() {
-    return getPlayerFingersDM(this.client, this.opponent);
+    return getPlayerFingersDM(this.client, this.opponent, (handlerName) => this.associatedListeners.push(handlerName));
   }
 }
