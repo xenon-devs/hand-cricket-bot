@@ -4,7 +4,8 @@ import { getPrefix } from './get-prefix';
 
 export type onMessageHandler = {
   handler: (msg: Message) => void,
-  name: string
+  name: string,
+  onTurnOff?: (handler: onMessageHandler) => void
 }
 
 export class DiscordClient extends Client {
@@ -29,7 +30,12 @@ export class DiscordClient extends Client {
   }
 
   offMsg(handlerName: string) {
-    this.onMessageList.delete(handlerName);
+    if (this.onMessageList.has(handlerName)) {
+      const handler = this.onMessageList.get(handlerName);
+
+      if (handler.onTurnOff) handler.onTurnOff(handler);
+      this.onMessageList.delete(handlerName);
+    }
   }
 
   /**
