@@ -18,7 +18,8 @@ export async function askAQuestion(
   askTo: User,
   sendTo: User | TextChannel | DMChannel,
   question: string,
-  timeout: number
+  timeout: number,
+  onHandlerAdd = (handlerName: string) => {}
 ) {
   return new Promise(async (resolve: (value: {answer: string, msg: Message}) => void, reject: (error: ErrorMessages) => void) => {
     const channel = (await sendTo.send(`<@${askTo.id}> ${question}`)).channel;
@@ -30,13 +31,14 @@ export async function askAQuestion(
     }
     let notAnsweredTimeout: NodeJS.Timeout;
     notAnsweredTimeout = setTimeout(notAnsweredHandler, timeout);
+    const handlerName = `${question}@${askTo.id}#${channel.id}`;
 
     const finalAnswerHandler = (msg: Message) => {
       if (msg.author.id === askTo.id && msg.channel.id === channel.id) {
         const answer = msg.content;
 
         clearTimeout(notAnsweredTimeout);
-        client.offMsg(`${question}@${askTo.id}#${channel.id}`);
+        client.offMsg(handlerName);
         resolve({
           answer,
           msg
@@ -44,9 +46,10 @@ export async function askAQuestion(
       }
     }
     client.onMsg({
-      name: `${question}@${askTo.id}#${channel.id}`,
+      name: handlerName,
       handler: finalAnswerHandler
     })
+    onHandlerAdd(handlerName);
   })
 }
 
@@ -63,9 +66,10 @@ export async function ask(
   askTo: User,
   channel: TextChannel | DMChannel,
   question: string,
-  timeout = 20000
+  timeout = 20000,
+  onHandlerAdd = (handlerName: string) => {}
 ) {
-  return askAQuestion(client, askTo, channel, question, timeout);
+  return askAQuestion(client, askTo, channel, question, timeout, onHandlerAdd);
 }
 
 /**
@@ -79,7 +83,8 @@ export async function askDM(
   client: DiscordClient,
   askTo: User,
   question: string,
-  timeout = 20000
+  timeout = 20000,
+  onHandlerAdd = (handlerName: string) => {}
 ) {
-  return askAQuestion(client, askTo, askTo, question, timeout);
+  return askAQuestion(client, askTo, askTo, question, timeout, onHandlerAdd);
 }
