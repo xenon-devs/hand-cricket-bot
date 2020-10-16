@@ -12,6 +12,7 @@ export enum ErrorMessages {
  * @param channel Discord.js channel to ask the question in.
  * @param question Question as a string (including ?).
  * @param timeout Timeout in ms.
+ * @param onHandlerAdd A cb that is fired once an onMsg handler is added.
  */
 export async function askAQuestion(
   client: DiscordClient,
@@ -60,6 +61,7 @@ export async function askAQuestion(
  * @param channel Discord.js channel to ask the question in.
  * @param question Question as a string (including ?).
  * @param timeout Timeout in ms, default 20000.
+ * @param onHandlerAdd A cb that is fired once an onMsg handler is added.
  */
 export async function ask(
   client: DiscordClient,
@@ -78,6 +80,7 @@ export async function ask(
  * @param askTo Discord.js user object of the user to ask.
  * @param question Question as a string (including ?).
  * @param timeout Timeout in ms, default 20000.
+ * @param onHandlerAdd A cb that is fired once an onMsg handler is added.
  */
 export async function askDM(
   client: DiscordClient,

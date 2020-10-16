@@ -30,6 +30,7 @@ const doAsk = async (player: User, client: DiscordClient, channel: TextChannel |
  * @param player Discord.js User object of the player who selects the batting/bowling.
  * @param client The main discord.js client object.
  * @param channel The channel in which the coin is flipped.
+ * @param onHandlerAdd A cb that is fired once an onMsg handler is added.
  */
 export const askBatBowl = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel, onHandlerAdd: (handlerName: string) => void) => {
   try {
