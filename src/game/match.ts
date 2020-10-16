@@ -21,6 +21,7 @@ export class Match {
   opponent: User | ClientUser;
   stadium: TextChannel | DMChannel;
   client: DiscordClient;
+  matchEndedCb: () => void;
 
   opener: Players;
   result: MatchResult;
@@ -32,10 +33,11 @@ export class Match {
   openerScore: number = 0;
   chaserScore: number = 0;
 
-  constructor(client: DiscordClient, stadium: TextChannel | DMChannel, challenger: User) {
+  constructor(client: DiscordClient, stadium: TextChannel | DMChannel, challenger: User, matchEndedCb: () => void) {
     this.client = client;
     this.challenger = challenger;
     this.stadium = stadium;
+    this.matchEndedCb = matchEndedCb;
   }
 
   startMatch() { // To be overriden
@@ -89,8 +91,14 @@ export class Match {
   async play() {
     const [challengerFingers, opponentFingers] = await Promise.all([this.getChallengerFingers(), this.getOpponentFingers()]);
 
-    if (challengerFingers === ErrorMessages.DID_NOT_ANSWER) return this.comment(`Coward challenger <@${this.challenger.id}> did not play. Match Ended.`);
-    if (opponentFingers === ErrorMessages.DID_NOT_ANSWER) return this.comment(`Coward opponent <@${this.opponent.id}> did not play. Match Ended.`);
+    if (challengerFingers === ErrorMessages.DID_NOT_ANSWER) {
+      this.matchEndedCb();
+      return this.comment(`Coward challenger <@${this.challenger.id}> did not play. Match Ended.`);
+    }
+    if (opponentFingers === ErrorMessages.DID_NOT_ANSWER) {
+      this.matchEndedCb();
+      return this.comment(`Coward opponent <@${this.opponent.id}> did not play. Match Ended.`);
+    }
 
     this.ballsPlayed[this.numInnings]++;
 
@@ -109,6 +117,7 @@ export class Match {
     else if (this.openerScore < this.chaserScore) this.result = this.opener === Players.CHALLENGER ? MatchResult.OPPONENT_WON : MatchResult.CHALLENGER_WON;
 
     this.stadium.send(this.getScoreBoard());
+    return this.matchEndedCb();
   }
 
   inningsOver() {

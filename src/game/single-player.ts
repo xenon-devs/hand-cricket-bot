@@ -7,8 +7,8 @@ import { askBatBowl, BatBowl } from '../util/ask-bat-bowl';
 import { getPlayerFingers } from '../util/get-player-fingers';
 
 export class SinglePlayerMatch extends Match {
-  constructor(client: DiscordClient, stadium: TextChannel | DMChannel, challenger: User) {
-    super(client, stadium, challenger);
+  constructor(client: DiscordClient, stadium: TextChannel | DMChannel, challenger: User, matchEndedCb: () => void) {
+    super(client, stadium, challenger, matchEndedCb);
     this.opponent = this.client.user;
 
     this.startMatch();
@@ -29,6 +29,7 @@ export class SinglePlayerMatch extends Match {
           setTimeout(() => this.play(), 2000);
         }
         catch (e) {
+          this.matchEndedCb();
           this.comment(`The challenger walked out of the stadium.`);
           return e;
         }
@@ -44,6 +45,7 @@ export class SinglePlayerMatch extends Match {
       }
     }
     catch (e) {
+      this.matchEndedCb();
       this.comment(`The challenger never entered the stadium.`);
       return e;
     }

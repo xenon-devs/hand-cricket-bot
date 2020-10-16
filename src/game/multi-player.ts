@@ -7,8 +7,8 @@ import { askBatBowl, BatBowl } from '../util/ask-bat-bowl';
 import { getPlayerFingersDM } from '../util/get-player-fingers';
 
 export class MultiPlayerMatch extends Match {
-  constructor(client: DiscordClient, stadium: TextChannel, challenger: User) {
-    super(client, stadium, challenger);
+  constructor(client: DiscordClient, stadium: TextChannel, challenger: User, matchEndedCb: () => void) {
+    super(client, stadium, challenger, matchEndedCb);
 
     this.selectOpponent();
   }
@@ -19,7 +19,10 @@ export class MultiPlayerMatch extends Match {
       if (opponentAnswer.msg.mentions.users.array()[0]) {
         const potentialOpponent = opponentAnswer.msg.mentions.users.array()[0];
 
-        if (potentialOpponent.id === this.challenger.id) return this.comment(`Challenger <@${this.challenger.id}> tried to battle themself. Wow, cowardness at its max.`);
+        if (potentialOpponent.id === this.challenger.id) {
+          this.matchEndedCb();
+          return this.comment(`Challenger <@${this.challenger.id}> tried to battle themself. Wow, cowardness at its max.`);
+        }
 
         try {
           const doesAccept = await ask(this.client, potentialOpponent, this.stadium, `Do you accept the challenge? (yes/no)`);
@@ -32,16 +35,22 @@ export class MultiPlayerMatch extends Match {
 
               break;
             default:
+              this.matchEndedCb();
               this.comment(`<@${potentialOpponent.id}> doesn't consider <@${this.challenger.id}> worthy of competing with.`);
           }
         }
         catch (e) {
+          this.matchEndedCb();
           this.comment(`<@${potentialOpponent.id}> didn't have the courage to reply.`);
         }
       }
-      else this.comment(`Challenger <@${this.challenger.id}> either couldn't find a worthy opponent or got scared and ran away.`);
+      else {
+        this.matchEndedCb();
+        this.comment(`Challenger <@${this.challenger.id}> either couldn't find a worthy opponent or got scared and ran away.`);
+      }
     }
     catch (e) {
+      this.matchEndedCb();
       this.comment(`Challenger <@${this.challenger.id}> ran straight to the loo.`);
     }
   }
@@ -70,11 +79,13 @@ export class MultiPlayerMatch extends Match {
         setTimeout(() => this.play(), 2000);
       }
       catch (e) {
+        this.matchEndedCb();
         this.comment(`The challenger walked out of the stadium.`);
         return e;
       }
     }
     catch (e) {
+      this.matchEndedCb();
       this.comment(`The challenger never entered the stadium.`);
       return e;
     }

@@ -73,7 +73,6 @@ client.onCommand('rules', '', async (msg: Message) => {
   msg.channel.send(rulesEmbed);
 })
 
-client.onCommand('play', 'Starting Game', async (msg: Message) => new SinglePlayerMatch(client, <TextChannel | DMChannel>msg.channel, msg.author));
 client.onCommand('dm', `You've received mail ;)`, (msg: Message) => msg.author.send('You can use any commands here.'));
 
 client.onCommand('stats', '', async (msg: Message) => {
@@ -94,11 +93,38 @@ client.onCommand('stats', '', async (msg: Message) => {
   msg.channel.send(statsEmbed);
 })
 
+const current1PMatches: Map<string, SinglePlayerMatch> = new Map();
+const current2PMatches: Map<string, MultiPlayerMatch> = new Map();
+
+client.onCommand(
+  'play',
+  '',
+  async (msg: Message) => {
+    let eligibleToPlay = true;
+    current1PMatches.forEach(match => eligibleToPlay = !(match.challenger.id === msg.author.id));
+    current2PMatches.forEach(match => eligibleToPlay = !(match.challenger.id === msg.author.id || match.opponent.id === msg.author.id));
+
+    const matchId = msg.author.id;
+
+    if (eligibleToPlay) current1PMatches.set(matchId, new SinglePlayerMatch(client, <TextChannel | DMChannel>msg.channel, msg.author, () => current1PMatches.delete(matchId)));
+    else msg.channel.send(`Want to play two matches at once? Hahaha, your sense of humor is good.`);
+  }
+)
+
 client.onCommand(
   'challenge',
   '',
   (msg: Message) => {
-    if (msg.channel.type != 'dm') new MultiPlayerMatch(client, <TextChannel>msg.channel, msg.author);
+    if (msg.channel.type != 'dm') {
+      let eligibleToPlay = true;
+      current1PMatches.forEach(match => eligibleToPlay = !(match.challenger.id === msg.author.id));
+      current2PMatches.forEach(match => eligibleToPlay = !(match.challenger.id === msg.author.id || match.opponent.id === msg.author.id));
+
+      const matchId = msg.author.id;
+
+      if (eligibleToPlay) current2PMatches.set(matchId, new MultiPlayerMatch(client, <TextChannel>msg.channel, msg.author, () => current2PMatches.delete(matchId)));
+      else msg.channel.send(`Want to play two matches at once? Hahaha, your sense of humor is good.`);
+    }
   }
 )
 
