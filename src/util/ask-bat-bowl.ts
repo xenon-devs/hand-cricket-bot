@@ -8,16 +8,16 @@ export enum BatBowl {
 }
 export { ErrorMessages } from './ask';
 
-const doAsk = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel, msg: string): Promise<BatBowl> => {
+const doAsk = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel, msg: string, onHandlerAdd: (handlerName:string) => void): Promise<BatBowl> => {
   try {
-    const answer = await ask(client, player, channel, msg);
+    const answer = await ask(client, player, channel, msg, 20000, onHandlerAdd);
     switch (answer.answer.trim().toLowerCase()) {
       case 'bat':
         return BatBowl.BAT;
       case 'bowl':
         return BatBowl.BOWL;
       default:
-        return await doAsk(player, client, channel, 'Is that a joke? Should I laugh? Answer again.');
+        return await doAsk(player, client, channel, 'Is that a joke? Should I laugh? Answer again.', onHandlerAdd);
     }
   }
   catch (e) {
@@ -31,9 +31,9 @@ const doAsk = async (player: User, client: DiscordClient, channel: TextChannel |
  * @param client The main discord.js client object.
  * @param channel The channel in which the coin is flipped.
  */
-export const askBatBowl = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel) => {
+export const askBatBowl = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel, onHandlerAdd: (handlerName: string) => void) => {
   try {
-    return await doAsk(player, client, channel, 'Do you want to bat or bowl?');
+    return await doAsk(player, client, channel, 'Do you want to bat or bowl?', onHandlerAdd);
   }
   catch (e) {
     throw <ErrorMessages>e;
