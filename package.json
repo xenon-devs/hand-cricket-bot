@@ -7,7 +7,7 @@
   "scripts": {
     "start": "yarn build && node .",
     "build": "tsc",
-    "dev": "concurrently 'tsc -w' 'nodemon .'"
+    "dev": "concurrently 'tsc -w' 'nodemon . --watch dist/*'"
   },
   "dependencies": {
     "@hushyar-goenkar/discordjs-custom-bot-client": "^1.0.1",
