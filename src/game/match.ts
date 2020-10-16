@@ -69,7 +69,13 @@ export class Match {
     .addField(`Chaser`, `<@${ this.opener === Players.CHALLENGER ? this.opponent.id : this.challenger.id }>`, true)
     .addField('\u200b', '\u200b', true) // blank spacer
     .setColor('BLUE')
-    .setDescription(this.numInnings === 1 ? `Mid Innings Score` : `Match End Score`);
+    .setDescription(
+      (
+        this.numInnings === 2 ||
+        this.result === MatchResult.CHALLENGER_FORFEITED ||
+        this.result === MatchResult.OPPONENT_FORFEITED
+      )  ? `Match End Score`: `Mid Innings Score`
+    )
 
     scoreboard.addField(`Opener's score`, this.openerScore, true);
     scoreboard.addField(`Balls played in 1st innings`, this.ballsPlayed[0], true);
