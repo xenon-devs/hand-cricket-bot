@@ -79,6 +79,28 @@ export class MultiPlayerMatch extends Match {
     }
   }
 
+  inningsOver() {
+    this.opponent.send(`Innings over, see score board in <#${this.stadium.id}>`);
+    this.challenger.send(`Innings over, see score board in <#${this.stadium.id}>`);
+
+    super.inningsOver();
+  }
+
+  /**
+   * @param batsman Which player is the batsman
+   * @param batsmanPlayed Number of fingers
+   * @param bowlerPlayed Number of fingers
+   */
+  calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
+    const batsman = (this.numInnings === 0 && this.opener === Players.CHALLENGER) ? this.challenger : this.opponent;
+    const bowler = (this.numInnings === 0 && this.opener === Players.CHALLENGER) ? this.opponent : this.challenger;
+
+    batsman.send(`${bowlerPlayed}!`);
+    bowler.send(`${batsmanPlayed}!`);
+
+    super.calculateRoundResult(batsmanPlayed, bowlerPlayed);
+  }
+
   async getChallengerFingers() {
     return getPlayerFingersDM(this.client, this.challenger);
   }
