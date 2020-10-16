@@ -128,6 +128,15 @@ client.onCommand(
   }
 )
 
+client.onCommand(
+  'forfeit',
+  'Coward!',
+  (msg: Message) => {
+    current1PMatches.forEach(match => match.forfeit(msg.author.id));
+    current2PMatches.forEach(match => match.forfeit(msg.author.id));
+  }
+)
+
 client.on('ready', () => console.log('Logged in as ', client.user.username));
 
 const tryLogin = () => {
