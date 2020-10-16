@@ -9,7 +9,9 @@ export enum Players {
 export enum MatchResult {
   TIE = 'tie',
   CHALLENGER_WON = 'challenger_won',
-  OPPONENT_WON = 'opponent_won'
+  OPPONENT_WON = 'opponent_won',
+  CHALLENGER_FORFEITED = 'challenger_forfeited',
+  OPPONENT_FORFEITED = 'opponent_forfeited'
 }
 export enum RoundResult {
   BATSMAN_SCORED = 'batsman_scored',
@@ -44,6 +46,19 @@ export class Match {
 
   }
 
+  forfeit(forfeiterId: string) {
+    if (this.opponent.id === forfeiterId) {
+      this.result = MatchResult.OPPONENT_FORFEITED;
+      this.stadium.send(this.getScoreBoard());
+      return this.matchEndedCb();
+    }
+    else if (this.challenger.id === forfeiterId) {
+      this.result = MatchResult.CHALLENGER_FORFEITED;
+      this.stadium.send(this.getScoreBoard());
+      return this.matchEndedCb();
+    }
+  }
+
   getScoreBoard() {
     const scoreboard = new MessageEmbed()
     .setThumbnail(this.client.user.avatarURL())
@@ -75,6 +90,13 @@ export class Match {
         break;
       case MatchResult.CHALLENGER_WON:
         scoreboard.addField('Result', `<@${this.challenger.id}> won! :trophy:`, false);
+        break;
+      case MatchResult.CHALLENGER_FORFEITED:
+        scoreboard.addField('Result', `<@${this.challenger.id}> forfeited :expressionless:`, false);
+        break;
+      case MatchResult.OPPONENT_FORFEITED:
+        scoreboard.addField('Result', `<@${this.opponent.id}> forfeited :expressionless:`, false);
+        break;
     }
 
     return scoreboard;
