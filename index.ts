@@ -2,9 +2,7 @@ import { DiscordClient } from './src/util/discord-client';
 import { prefix } from './config.json';
 import DBL from 'dblapi.js';
 
-import { SinglePlayerMatch } from './src/game/single-player';
-import { MultiPlayerMatch } from './src/game/multi-player';
-
+import { setAllCommands } from './src/commands/all-commands';
 import { config } from 'dotenv';
 config(); // Import .env environment variables
 
@@ -24,6 +22,8 @@ client.on('ready', () => {
     }
   })
 })
+
+setAllCommands(client, dbl);
 
 client.on('ready', () => console.log('Logged in as ', client.user.username));
 
