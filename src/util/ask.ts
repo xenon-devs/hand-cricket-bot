@@ -24,21 +24,20 @@ export async function askAQuestion(
 ) {
   return new Promise(async (resolve: (value: {answer: string, msg: Message}) => void, reject: (error: ErrorMessages) => void) => {
     const channel = (await sendTo.send(`<@${askTo.id}> ${question}`)).channel;
+    const handlerName = `${question}@${askTo.id}#${channel.id}`;
+
     const notAnsweredHandler = async () => {
       sendTo.send(`<@${askTo.id}> You didn't answer in ${timeout / 1000}s, now your chance is gone.`);
-      client.offMsg(`${question}@${askTo.id}#${channel.id}`);
+      client.offMsg(handlerName);
 
       reject(ErrorMessages.DID_NOT_ANSWER);
     }
-    let notAnsweredTimeout: NodeJS.Timeout;
-    notAnsweredTimeout = setTimeout(notAnsweredHandler, timeout);
-    const handlerName = `${question}@${askTo.id}#${channel.id}`;
+    let notAnsweredTimeout: NodeJS.Timeout = client.setTimeout(notAnsweredHandler, timeout);
 
     const finalAnswerHandler = (msg: Message) => {
       if (msg.author.id === askTo.id && msg.channel.id === channel.id) {
         const answer = msg.content;
 
-        clearTimeout(notAnsweredTimeout);
         client.offMsg(handlerName);
         resolve({
           answer,
@@ -48,7 +47,8 @@ export async function askAQuestion(
     }
     client.onMsg({
       name: handlerName,
-      handler: finalAnswerHandler
+      handler: finalAnswerHandler,
+      onTurnOff: () => client.clearTimeout(notAnsweredTimeout)
     })
     onHandlerAdd(handlerName);
   })
