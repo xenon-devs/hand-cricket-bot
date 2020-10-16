@@ -50,7 +50,7 @@ export class SinglePlayerMatch extends Match {
   }
 
   calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
-    const opponentScore = (this.numInnings === 0 && this.opener === Players.OPPONENT) ? batsmanPlayed : bowlerPlayed; // Bot's score
+    const opponentScore = (this.numInnings === 0 && this.opener === Players.OPPONENT || this.numInnings === 1 && this.opener === Players.CHALLENGER) ? batsmanPlayed : bowlerPlayed; // Bot's score
     this.stadium.send(`${opponentScore}!`);
 
     super.calculateRoundResult(batsmanPlayed, bowlerPlayed);
