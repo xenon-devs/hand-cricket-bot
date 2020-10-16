@@ -39,8 +39,8 @@ export class SinglePlayerMatch extends Match {
         else this.opener = Players.CHALLENGER;
 
         this.comment(`Opponent won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
-        this.comment(`Match starting in 5s`);
-        setTimeout(() => this.play(), 5000);
+        this.comment(`Match starting in 2s`);
+        setTimeout(() => this.play(), 2000);
       }
     }
     catch (e) {
