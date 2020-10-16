@@ -66,8 +66,8 @@ export class MultiPlayerMatch extends Match {
 
         this.comment(`${tossWinner === Players.CHALLENGER ? 'Challenger' : 'Opponent'}\
  <@${tossWinner === Players.CHALLENGER ? this.challenger.id : this.opponent.id}> won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
-        this.comment(`Match starting in 5s`);
-        setTimeout(() => this.play(), 5000);
+        this.comment(`Match starting in 2s`);
+        setTimeout(() => this.play(), 2000);
       }
       catch (e) {
         this.comment(`The challenger walked out of the stadium.`);
@@ -93,8 +93,12 @@ export class MultiPlayerMatch extends Match {
    * @param bowlerPlayed Number of fingers
    */
   calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
-    const batsman = (this.numInnings === 0 && this.opener === Players.CHALLENGER) ? this.challenger : this.opponent;
-    const bowler = (this.numInnings === 0 && this.opener === Players.CHALLENGER) ? this.opponent : this.challenger;
+    const batsman = (
+      this.opener === Players.CHALLENGER && this.numInnings === 0 ||
+      this.opener === Players.OPPONENT && this.numInnings === 1
+    ) ? this.challenger : this.opponent;
+
+    const bowler = batsman === this.challenger ? this.opponent : this.challenger;
 
     batsman.send(`${bowlerPlayed}!`);
     bowler.send(`${batsmanPlayed}!`);

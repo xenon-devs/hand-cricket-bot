@@ -25,8 +25,8 @@ export class SinglePlayerMatch extends Match {
           else this.opener = Players.OPPONENT;
 
           this.comment(`Challenger won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
-          this.comment(`Match starting in 5s`);
-          setTimeout(() => this.play(), 5000);
+          this.comment(`Match starting in 2s`);
+          setTimeout(() => this.play(), 2000);
         }
         catch (e) {
           this.comment(`The challenger walked out of the stadium.`);
@@ -50,7 +50,7 @@ export class SinglePlayerMatch extends Match {
   }
 
   calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
-    const opponentScore = (this.numInnings === 1 && this.opener === Players.OPPONENT) ? batsmanPlayed : bowlerPlayed; // Bot's score
+    const opponentScore = (this.numInnings === 0 && this.opener === Players.OPPONENT) ? batsmanPlayed : bowlerPlayed; // Bot's score
     this.stadium.send(`${opponentScore}!`);
 
     super.calculateRoundResult(batsmanPlayed, bowlerPlayed);

@@ -94,9 +94,12 @@ export class Match {
 
     this.ballsPlayed[this.numInnings]++;
 
+    const openerFingers = (this.opener === Players.CHALLENGER) ? challengerFingers : opponentFingers;
+    const chaserFingers = (this.opener === Players.CHALLENGER) ? opponentFingers : challengerFingers;
+
     this.calculateRoundResult(
-      (this.opener === Players.CHALLENGER && this.numInnings === 0) ? challengerFingers : opponentFingers,
-      (this.opener === Players.CHALLENGER && this.numInnings === 0) ? opponentFingers : challengerFingers
+      (this.numInnings === 0) ? openerFingers : chaserFingers,
+      (this.numInnings === 0) ? chaserFingers : openerFingers
     )
   }
 
