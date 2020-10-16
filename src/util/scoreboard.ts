@@ -29,9 +29,9 @@ export function getScoreboard(
 
     if (opener) {
       scoreboard
-      .addField('\u200b', '\u200b', true) // blank spacer
       .addField(`Opener`, opener ? (opener === Players.OPPONENT ? `<@${opponent.id}>` : `<@${challenger.id}>`) : ':question:', true)
       .addField(`Chaser`, opener ? (opener === Players.CHALLENGER ? `<@${opponent.id}>` : `<@${challenger.id}>`) : ':question:', true)
+      .addField('\u200b', '\u200b', true) // blank spacer
     }
 
     if (numInnings > 0) {
