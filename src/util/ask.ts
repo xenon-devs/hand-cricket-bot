@@ -19,7 +19,7 @@ export async function askAQuestion(
   sendTo: User | TextChannel | DMChannel,
   question: string,
   timeout: number,
-  onHandlerAdd = (handlerName: string) => {}
+  onHandlerAdd: (handlerName: string) => void
 ) {
   return new Promise(async (resolve: (value: {answer: string, msg: Message}) => void, reject: (error: ErrorMessages) => void) => {
     const channel = (await sendTo.send(`<@${askTo.id}> ${question}`)).channel;
@@ -67,7 +67,7 @@ export async function ask(
   channel: TextChannel | DMChannel,
   question: string,
   timeout = 20000,
-  onHandlerAdd = (handlerName: string) => {}
+  onHandlerAdd: (handlerName: string) => void
 ) {
   return askAQuestion(client, askTo, channel, question, timeout, onHandlerAdd);
 }
@@ -84,7 +84,7 @@ export async function askDM(
   askTo: User,
   question: string,
   timeout = 20000,
-  onHandlerAdd = (handlerName: string) => {}
+  onHandlerAdd: (handlerName: string) => void
 ) {
   return askAQuestion(client, askTo, askTo, question, timeout, onHandlerAdd);
 }
