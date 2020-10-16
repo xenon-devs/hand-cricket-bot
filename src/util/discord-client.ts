@@ -8,11 +8,10 @@ export type onMessageHandler = {
 }
 
 export class DiscordClient extends Client {
-  onMessageList: onMessageHandler[];
+  onMessageList: Map<string, onMessageHandler> = new Map();
 
   constructor(clientOptions?: any) {
     super(clientOptions);
-    this.onMessageList = [];
 
     this.on('message', msg  => {
       return this.onMessageList.forEach(onMsgHandler => {
@@ -26,11 +25,11 @@ export class DiscordClient extends Client {
    * @param msgHandler An object with an even handler on the message event.
    */
   onMsg(msgHandler: onMessageHandler) {
-    this.onMessageList.push(msgHandler);
+    if (!this.onMessageList.has(msgHandler.name)) this.onMessageList.set(msgHandler.name, msgHandler);
   }
 
   offMsg(handlerName: string) {
-    this.onMessageList = this.onMessageList.filter(handler => handler.name != handlerName);
+    this.onMessageList.delete(handlerName);
   }
 
   /**
