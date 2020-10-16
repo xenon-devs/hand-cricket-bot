@@ -23,6 +23,7 @@ export class Match {
   opponent: User | ClientUser;
   stadium: TextChannel | DMChannel;
   client: DiscordClient;
+  /** Fired when the match ended, whether due to an error or otherwise */
   matchEndedCb: () => void;
 
   opener: Players;
@@ -54,14 +55,10 @@ export class Match {
   }
 
   forfeit(forfeiterId: string) {
-    if (this.opponent.id === forfeiterId) {
-      this.result = MatchResult.OPPONENT_FORFEITED;
+    if (this.opponent.id === forfeiterId || this.challenger.id === forfeiterId) {
+      this.result = this.opponent.id === forfeiterId ? MatchResult.OPPONENT_FORFEITED : MatchResult.CHALLENGER_FORFEITED;
       this.stadium.send(this.getScoreBoard());
-      return this.matchEndedCb();
-    }
-    else if (this.challenger.id === forfeiterId) {
-      this.result = MatchResult.CHALLENGER_FORFEITED;
-      this.stadium.send(this.getScoreBoard());
+      this.associatedListeners.forEach(handlerName => this.client.offMsg(handlerName));
       return this.matchEndedCb();
     }
   }
