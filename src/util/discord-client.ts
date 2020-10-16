@@ -39,7 +39,11 @@ export class DiscordClient extends Client {
  * @param output A direct string or embed output to be sent in the same channel.
  * @param cb A callback that is fired when the command is run.
  */
-onCommand(command: string, output:  (string | MessageEmbed), cb?: (msg: Message, prefix: string) => void) {
+onCommand(
+  command: string,
+  output:  (string | MessageEmbed),
+  cb?: (msg: Message, prefix: string) => void
+) {
   this.onMsg({
     name: command,
     handler: msg => {

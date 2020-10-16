@@ -37,7 +37,12 @@ export class Match {
 
   associatedListeners: string[] = []; // Array of all associated onMsg listener names
 
-  constructor(client: DiscordClient, stadium: TextChannel | DMChannel, challenger: User, matchEndedCb: () => void) {
+  constructor(
+    client: DiscordClient,
+    stadium: TextChannel | DMChannel,
+    challenger: User,
+    matchEndedCb: () => void
+  ) {
     this.client = client;
     this.challenger = challenger;
     this.stadium = stadium;
@@ -166,7 +171,10 @@ export class Match {
    * @param batsmanPlayed Number of fingers
    * @param bowlerPlayed Number of fingers
    */
-  calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
+  calculateRoundResult(
+    batsmanPlayed: number,
+    bowlerPlayed: number
+  ) {
     if (batsmanPlayed === bowlerPlayed) this.inningsOver();
     else {
       if (this.numInnings === 1) this.chaserScore += batsmanPlayed;

@@ -7,7 +7,12 @@ import { askBatBowl, BatBowl } from '../util/ask-bat-bowl';
 import { getPlayerFingers } from '../util/get-player-fingers';
 
 export class SinglePlayerMatch extends Match {
-  constructor(client: DiscordClient, stadium: TextChannel | DMChannel, challenger: User, matchEndedCb: () => void) {
+  constructor(
+    client: DiscordClient,
+    stadium: TextChannel | DMChannel,
+    challenger: User,
+    matchEndedCb: () => void
+  ) {
     super(client, stadium, challenger, matchEndedCb);
     this.opponent = this.client.user;
 
@@ -51,7 +56,10 @@ export class SinglePlayerMatch extends Match {
     }
   }
 
-  calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
+  calculateRoundResult(
+    batsmanPlayed: number,
+    bowlerPlayed: number
+  ) {
     const opponentScore = (this.numInnings === 0 && this.opener === Players.OPPONENT || this.numInnings === 1 && this.opener === Players.CHALLENGER) ? batsmanPlayed : bowlerPlayed; // Bot's score
     this.stadium.send(`${opponentScore}!`);
 

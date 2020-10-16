@@ -8,7 +8,13 @@ export enum BatBowl {
 }
 export { ErrorMessages } from './ask';
 
-const doAsk = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel, msg: string, onHandlerAdd: (handlerName:string) => void): Promise<BatBowl> => {
+const doAsk = async (
+  player: User,
+  client: DiscordClient,
+  channel: TextChannel | DMChannel,
+  msg: string,
+  onHandlerAdd: (handlerName:string) => void
+): Promise<BatBowl> => {
   try {
     const answer = await ask(client, player, channel, msg, 20000, onHandlerAdd);
     switch (answer.answer.trim().toLowerCase()) {
@@ -32,7 +38,12 @@ const doAsk = async (player: User, client: DiscordClient, channel: TextChannel |
  * @param channel The channel in which the coin is flipped.
  * @param onHandlerAdd A cb that is fired once an onMsg handler is added.
  */
-export const askBatBowl = async (player: User, client: DiscordClient, channel: TextChannel | DMChannel, onHandlerAdd: (handlerName: string) => void) => {
+export const askBatBowl = async (
+  player: User,
+  client: DiscordClient,
+  channel: TextChannel | DMChannel,
+  onHandlerAdd: (handlerName: string
+) => void) => {
   try {
     return await doAsk(player, client, channel, 'Do you want to bat or bowl?', onHandlerAdd);
   }

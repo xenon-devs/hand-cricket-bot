@@ -7,7 +7,12 @@ import { askBatBowl, BatBowl } from '../util/ask-bat-bowl';
 import { getPlayerFingersDM } from '../util/get-player-fingers';
 
 export class MultiPlayerMatch extends Match {
-  constructor(client: DiscordClient, stadium: TextChannel, challenger: User, matchEndedCb: () => void) {
+  constructor(
+    client: DiscordClient,
+    stadium: TextChannel,
+    challenger: User,
+    matchEndedCb: () => void
+  ) {
     super(client, stadium, challenger, matchEndedCb);
 
     this.selectOpponent();
@@ -104,7 +109,10 @@ export class MultiPlayerMatch extends Match {
    * @param batsmanPlayed Number of fingers
    * @param bowlerPlayed Number of fingers
    */
-  calculateRoundResult(batsmanPlayed: number, bowlerPlayed: number) {
+  calculateRoundResult(
+    batsmanPlayed: number,
+    bowlerPlayed: number
+  ) {
     const batsman = (
       this.opener === Players.CHALLENGER && this.numInnings === 0 ||
       this.opener === Players.OPPONENT && this.numInnings === 1
