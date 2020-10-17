@@ -27,7 +27,7 @@ export function getScoreboard(
 
     if (this.numInnings > 0) {
       scoreboard.addField(`Opener's score`, this.openerScore, true);
-      scoreboard.addField(`Overs played in 1st innings`, `${Math.floor(this.ballsPlayed[1]/6)}.${this.ballsPlayed[1]%6}`, true);
+      scoreboard.addField(`Overs played in 1st innings`, `${Math.floor(this.ballsPlayed[0]/6)}.${this.ballsPlayed[0]%6}`, true);
       scoreboard.addField('\u200b', '\u200b', true); // blank spacer
     }
 
