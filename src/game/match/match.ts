@@ -101,8 +101,8 @@ export class Match {
   ) {
     if (batsmanPlayed === bowlerPlayed) this.inningsOver();
     else {
-      if (this.numInnings === 1) this.chaserScore += batsmanPlayed;
-      else this.openerScore += batsmanPlayed;
+      if (this.numInnings === 1) this.chaserScore += batsmanPlayed; // randomize
+      else this.openerScore += batsmanPlayed; // 6s and 4s need msgs
 
       if (this.numInnings === 1 && this.chaserScore > this.openerScore) this.inningsOver();
       else this.play();

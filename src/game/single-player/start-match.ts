@@ -19,7 +19,7 @@ export async function startMatch(this: SinglePlayerMatch) {
       }
       catch (e) {
         this.matchEndedCb();
-        this.comment(`The challenger walked out of the stadium.`);
+        this.comment(`The challenger walked out of the stadium.`); // randomize
         return e;
       }
     }
@@ -35,7 +35,7 @@ export async function startMatch(this: SinglePlayerMatch) {
   }
   catch (e) {
     this.matchEndedCb();
-    this.comment(`The challenger never entered the stadium.`);
+    this.comment(`The challenger never entered the stadium.`); // randomize
     return e;
   }
 }

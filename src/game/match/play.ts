@@ -6,11 +6,11 @@ export async function play(this: Match) {
 
   if (challengerFingers === ErrorMessages.DID_NOT_ANSWER) {
     this.matchEndedCb();
-    return this.comment(`Coward challenger <@${this.challenger.id}> did not play. Match Ended.`);
+    return this.comment(`Challenger <@${this.challenger.id}> did not play. Match Ended.`); // randomize
   }
   if (opponentFingers === ErrorMessages.DID_NOT_ANSWER) {
     this.matchEndedCb();
-    return this.comment(`Coward opponent <@${this.opponent.id}> did not play. Match Ended.`);
+    return this.comment(`Opponent <@${this.opponent.id}> did not play. Match Ended.`); // randomize
   }
 
   this.ballsPlayed[this.numInnings]++;

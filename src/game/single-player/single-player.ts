@@ -26,7 +26,7 @@ export class SinglePlayerMatch extends Match {
     bowlerPlayed: number
   ) {
     const opponentScore = (this.numInnings === 0 && this.opener === Players.OPPONENT || this.numInnings === 1 && this.opener === Players.CHALLENGER) ? batsmanPlayed : bowlerPlayed; // Bot's score
-    this.stadium.send(`${opponentScore}!`);
+    this.stadium.send(`${opponentScore}!`); // randomize
 
     super.calculateRoundResult(batsmanPlayed, bowlerPlayed);
   }
