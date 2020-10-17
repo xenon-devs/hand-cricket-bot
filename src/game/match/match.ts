@@ -3,7 +3,6 @@ import { DiscordClient } from '../../util/discord-client';
 import { ErrorMessages } from '../../util/ask';
 
 import { getScoreboard } from './scoreboard';
-import { calculateRoundResult } from './calculate-round-result';
 import { play } from './play';
 import { forfeit } from './forfeit';
 
@@ -43,7 +42,6 @@ export class Match {
 
   associatedListeners: string[] = []; // Array of all associated onMsg listener names
 
-  protected calculateRoundResult = calculateRoundResult;
   protected getScoreBoard = getScoreboard;
   protected play = play;
   public forfeit = forfeit;
@@ -95,4 +93,24 @@ export class Match {
   protected comment(commentry: string) {
     this.stadium.send(`**Commentator**: ${commentry}`);
   }
+
+  /**
+   * @param batsman Which player is the batsman
+   * @param batsmanPlayed Number of fingers
+   * @param bowlerPlayed Number of fingers
+   */
+  protected calculateRoundResult(
+    batsmanPlayed: number,
+    bowlerPlayed: number
+  ) {
+    if (batsmanPlayed === bowlerPlayed) this.inningsOver();
+    else {
+      if (this.numInnings === 1) this.chaserScore += batsmanPlayed;
+      else this.openerScore += batsmanPlayed;
+
+      if (this.numInnings === 1 && this.chaserScore > this.openerScore) this.inningsOver();
+      else this.play();
+    }
+  }
+
 }
