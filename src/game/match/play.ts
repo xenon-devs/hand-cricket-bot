@@ -1,16 +1,18 @@
-import { Match, Players } from './match';
+import { Match, Players, MatchResult } from './match';
 import { ErrorMessages } from '../../util/ask';
 
 export async function play(this: Match) {
   const [challengerFingers, opponentFingers] = await Promise.all([this.getChallengerFingers(), this.getOpponentFingers()]);
 
   if (challengerFingers === ErrorMessages.DID_NOT_ANSWER) {
-    this.matchEndedCb();
-    return this.comment(`Challenger <@${this.challenger.id}> did not play. Match Ended.`); // randomize
+    this.result = MatchResult.CHALLENGER_LEFT;
+    this.stadium.send(this.getScoreBoard());
+    return this.matchEndedCb();
   }
   if (opponentFingers === ErrorMessages.DID_NOT_ANSWER) {
-    this.matchEndedCb();
-    return this.comment(`Opponent <@${this.opponent.id}> did not play. Match Ended.`); // randomize
+    this.result = MatchResult.CHALLENGER_LEFT;
+    this.stadium.send(this.getScoreBoard());
+    return this.matchEndedCb();
   }
 
   this.ballsPlayed[this.numInnings]++;

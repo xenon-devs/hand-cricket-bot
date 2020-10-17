@@ -15,7 +15,9 @@ export enum MatchResult {
   CHALLENGER_WON = 'challenger_won',
   OPPONENT_WON = 'opponent_won',
   CHALLENGER_FORFEITED = 'challenger_forfeited',
-  OPPONENT_FORFEITED = 'opponent_forfeited'
+  OPPONENT_FORFEITED = 'opponent_forfeited',
+  CHALLENGER_LEFT = 'challenger_left',
+  OPPONENT_LEFT = 'opponent_left'
 }
 export enum RoundResult {
   BATSMAN_SCORED = 'batsman_scored',

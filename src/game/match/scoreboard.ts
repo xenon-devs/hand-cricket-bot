@@ -14,7 +14,9 @@ export function getScoreboard(
       (
         this.numInnings === 2 ||
         this.result === MatchResult.CHALLENGER_FORFEITED ||
-        this.result === MatchResult.OPPONENT_FORFEITED
+        this.result === MatchResult.OPPONENT_FORFEITED ||
+        this.result === MatchResult.CHALLENGER_LEFT ||
+        this.result === MatchResult.OPPONENT_LEFT
       )  ? `Match End Score`: `Mid Innings Score`
     )
 
@@ -52,6 +54,12 @@ export function getScoreboard(
         break;
       case MatchResult.OPPONENT_FORFEITED:
         scoreboard.addField('Result', `<@${this.opponent.id}> forfeited :expressionless:`, false);
+        break;
+      case MatchResult.CHALLENGER_LEFT:
+        scoreboard.addField('Result', `<@${this.challenger.id}> left the match :(`, false);
+        break;
+      case MatchResult.OPPONENT_LEFT:
+        scoreboard.addField('Result', `<@${this.opponent.id}> left the match :(`, false);
         break;
     }
 
