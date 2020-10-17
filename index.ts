@@ -17,7 +17,7 @@ if (process.env.DBL_TOKEN) {
 client.on('ready', () => {
   client.user.setPresence({
     activity: {
-      name: `${prefix}help`,
+      name: `New Updates!`,
       type: 'LISTENING'
     }
   })
