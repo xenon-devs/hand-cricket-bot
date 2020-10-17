@@ -10,7 +10,7 @@ export function setForfeit(
 ) {
   client.onCommand(
     'forfeit',
-    'Coward!',
+    '',
     (msg: Message) => {
       current1PMatches.forEach(match => match.forfeit(msg.author.id));
       current2PMatches.forEach(match => match.forfeit(msg.author.id));
@@ -19,6 +19,6 @@ export function setForfeit(
 
   return {
     name: 'forfeit',
-    desc: `Forfeits the currently ongoing match. (Only for cowards)`
+    desc: `Forfeits the currently ongoing match.`
   }
 }
