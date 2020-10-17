@@ -58,10 +58,6 @@ export class Match {
     this.matchEndedCb = matchEndedCb;
   }
 
-  protected startMatch() { // To be overriden
-
-  }
-
   protected async getChallengerFingers(): Promise<ErrorMessages | number> { // To be overriden
     return 3;
   }
