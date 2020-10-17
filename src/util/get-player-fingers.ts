@@ -10,7 +10,7 @@ export async function getPlayerFingers(
   askString: string = `Show your fingers... *Using keyboard stupid*`
 ): Promise<ErrorMessages | number> {
   try {
-    const fingers = (await ask(client, player, stadium, askString, 60000, (handlerName) => this.associatedListeners.push(handlerName))).answer.trim();
+    const fingers = (await ask(client, player, stadium, askString, 60000, onHandlerAdd)).answer.trim();
     if (parseInt(fingers) <= 6 && parseInt(fingers) >= 0) return parseInt(fingers);
     else return await getPlayerFingers(client, stadium, player, onHandlerAdd, `:clap: :clap:. Answer again now.`);
   }
