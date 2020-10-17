@@ -9,6 +9,7 @@ import { setForfeit } from './commands/forfeit';
 import { setPlay } from './commands/play';
 import { setRules } from './commands/rules';
 import { setStats } from './commands/stats';
+import { setOngoing } from './commands/ongoing';
 
 import { setHelp } from './help';
 
@@ -48,6 +49,11 @@ export function setAllCommands(
   commandList.push(setStats(
     client,
     dbl
+  ))
+  commandList.push(setOngoing(
+    client,
+    current1PMatches,
+    current2PMatches
   ))
 
   setHelp(
