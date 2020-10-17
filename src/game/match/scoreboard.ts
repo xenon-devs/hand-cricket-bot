@@ -27,13 +27,13 @@ export function getScoreboard(
 
     if (this.numInnings > 0) {
       scoreboard.addField(`Opener's score`, this.openerScore, true);
-      scoreboard.addField(`Balls played in 1st innings`, this.ballsPlayed[0], true);
+      scoreboard.addField(`Overs played in 1st innings`, `${Math.floor(this.ballsPlayed[1]/6)}.${this.ballsPlayed[1]%6}`, true);
       scoreboard.addField('\u200b', '\u200b', true); // blank spacer
     }
 
     if (this.numInnings > 1) {
       scoreboard.addField(`Chaser's score`, this.chaserScore, true);
-      scoreboard.addField('Balls played in 2nd innings', this.ballsPlayed[1], true);
+      scoreboard.addField('Overs played in 2nd innings', `${Math.floor(this.ballsPlayed[1]/6)}.${this.ballsPlayed[1]%6}`, true);
       scoreboard.addField('\u200b', '\u200b', true); // blank spacer
     }
 
