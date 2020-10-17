@@ -1,7 +1,7 @@
 import { Message, TextChannel } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { SinglePlayerMatch } from '../../game/single-player';
-import { MultiPlayerMatch } from '../../game/multi-player';
+import { MultiPlayerMatch } from '../../game/multi-player/multi-player';
 
 export function setChallenge(
   client: DiscordClient,
