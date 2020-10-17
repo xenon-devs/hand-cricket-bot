@@ -1,6 +1,6 @@
 import DBL from 'dblapi.js';
 import { DiscordClient } from '../util/discord-client';
-import { SinglePlayerMatch } from '../game/single-player';
+import { SinglePlayerMatch } from '../game/single-player/single-player';
 import { MultiPlayerMatch } from '../game/multi-player/multi-player';
 
 import { setChallenge } from './commands/challenge';
