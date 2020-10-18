@@ -18,7 +18,7 @@ const changes = [
 
 export function setNew(client: DiscordClient) {
   client.onCommand(
-    'dm',
+    'new',
     '',
     (msg: Message) => {
       msg.channel.send(
