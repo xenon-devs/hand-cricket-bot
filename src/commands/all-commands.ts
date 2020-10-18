@@ -10,6 +10,7 @@ import { setPlay } from './commands/play';
 import { setRules } from './commands/rules';
 import { setStats } from './commands/stats';
 import { setOngoing } from './commands/ongoing';
+import { setNew } from './commands/new';
 
 import { setHelp } from './help';
 
@@ -54,6 +55,9 @@ export function setAllCommands(
     client,
     current1PMatches,
     current2PMatches
+  ))
+  commandList.push(setNew(
+    client
   ))
 
   setHelp(
