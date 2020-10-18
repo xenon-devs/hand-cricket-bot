@@ -1,4 +1,4 @@
-import { MessageEmbed } from 'discord.js';
+import { MessageEmbed, Message } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { version } from '../../../package.json';
 
@@ -19,17 +19,22 @@ const changes = [
 export function setNew(client: DiscordClient) {
   client.onCommand(
     'dm',
-    new MessageEmbed()
-    .setTitle(`What's New`)
-    .setDescription(`
+    '',
+    (msg: Message) => {
+      msg.channel.send(
+      new MessageEmbed()
+      .setTitle(`What's New`)
+      .setDescription(`
 **Last Updated**: ${lastUpdated}
 ${desc}
-`)
-    .addFields(changes)
-    .setThumbnail(client.user.displayAvatarURL())
-    .setColor('BLUE')
-    .setFooter(`Version: v${version}`)
-    .setTimestamp()
+      `)
+      .addFields(changes)
+      .setThumbnail(client.user.displayAvatarURL())
+      .setColor('BLUE')
+      .setFooter(`Version: v${version}`)
+      .setTimestamp()
+        )
+    }
   )
 
   return {
