@@ -24,14 +24,11 @@ export function setNew(client: DiscordClient) {
       msg.channel.send(
       new MessageEmbed()
       .setTitle(`What's New`)
-      .setDescription(`
-**Last Updated**: ${lastUpdated}
-${desc}
-      `)
+      .setDescription(desc)
       .addFields(changes)
       .setThumbnail(client.user.displayAvatarURL())
       .setColor('BLUE')
-      .setFooter(`Version: v${version}`)
+      .setFooter(`Version: v${version} | Last Updated: ${lastUpdated}`)
       .setTimestamp()
         )
     }
