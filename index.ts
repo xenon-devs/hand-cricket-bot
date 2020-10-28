@@ -17,7 +17,7 @@ if (process.env.DBL_TOKEN) {
 client.on('ready', () => {
   client.user.setPresence({
     activity: {
-      name: `New Updates!`,
+      name: `Bot Verified! It can join more than 100 servers now!`,
       type: 'LISTENING'
     }
   })
