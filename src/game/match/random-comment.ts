@@ -13,7 +13,7 @@ const OUT_COMMENTS = [
 ]
 
 const SIX_COMMENTS = [
-  (): string => `Six distance: ${Math.random() * 100}m`,
+  (): string => `Six distance: ${Math.min(Math.floor(Math.random() * 100), 65)}m`,
   (): string => `OUT OF THE STADIUM!!!`,
   (): string => `Now you can sign balls instead also instead of just documents.`
 ]
@@ -37,11 +37,11 @@ export interface IRandomCommentExtraOptions {
 }
 
 export const getRandomComment = (
-  commentCategory: COMMENT_CATEGRORIES,
+  commentCategory: COMMENT_CATEGORIES,
   extraOptions?: IRandomCommentExtraOptions
 ) => {
   switch(commentCategory) {
-    case COMMENT_CATEGRORIES.BOUNDARY:
+    case COMMENT_CATEGORIES.OUT:
       return OUT_COMMENTS[
         Math.min(
           OUT_COMMENTS.length - 1,
@@ -49,7 +49,7 @@ export const getRandomComment = (
         )
       ]()
 
-    case COMMENT_CATEGRORIES.SIX:
+    case COMMENT_CATEGORIES.SIX:
       return SIX_COMMENTS[
         Math.min(
           SIX_COMMENTS.length - 1,
@@ -57,7 +57,7 @@ export const getRandomComment = (
         )
       ]()
 
-    case COMMENT_CATEGRORIES.BOUNDARY:
+    case COMMENT_CATEGORIES.BOUNDARY:
       return BOUNDARY_COMMENTS[
         Math.min(
           BOUNDARY_COMMENTS.length - 1,
@@ -65,7 +65,7 @@ export const getRandomComment = (
         )
       ]()
 
-    case COMMENT_CATEGRORIES.FORFEIT:
+    case COMMENT_CATEGORIES.FORFEIT:
       return FORFEIT_COMMENTS[
         Math.min(
           FORFEIT_COMMENTS.length - 1,
