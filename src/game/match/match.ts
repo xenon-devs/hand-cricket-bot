@@ -5,6 +5,7 @@ import { ErrorMessages } from '../../util/ask';
 import { getScoreboard } from './scoreboard';
 import { play } from './play';
 import { forfeit } from './forfeit';
+import { getRandomComment, COMMENT_CATEGORIES } from './random-comment';
 
 export enum Players {
   CHALLENGER = 'challenger',
@@ -47,6 +48,8 @@ export class Match {
   protected getScoreBoard = getScoreboard;
   protected play = play;
   public forfeit = forfeit;
+  protected COMMENT_CATEGORIES = COMMENT_CATEGORIES;
+  protected getRandomComment = getRandomComment;
 
   constructor(
     client: DiscordClient,

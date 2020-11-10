@@ -16,7 +16,7 @@ export async function selectOpponent(this: MultiPlayerMatch) {
 
       if (potentialOpponent.id === this.challenger.id) {
         this.matchEndedCb();
-        return this.comment(`Challenger <@${this.challenger.id}> tried to battle themself.`); // randomize
+        return this.comment(`Challenger <@${this.challenger.id}> tried to battle themself.`);
       }
 
       try {
@@ -30,28 +30,28 @@ export async function selectOpponent(this: MultiPlayerMatch) {
 
         switch (doesAccept.answer.trim().toLowerCase()) {
           case 'yes':
-            this.comment(`<@${potentialOpponent.id}> has accepted the challenge!`); // randomize
+            this.comment(`<@${potentialOpponent.id}> has accepted the challenge!`);
             this.opponent = potentialOpponent;
             this.startMatch();
 
             break;
           default:
             this.matchEndedCb();
-            this.comment(`<@${potentialOpponent.id}> doesn't consider <@${this.challenger.id}> worthy of competing with.`); // randomize
+            this.comment(this.getRandomComment(this.COMMENT_CATEGORIES.FORFEIT, { forfeiterId: potentialOpponent.id }));
         }
       }
       catch (e) {
         this.matchEndedCb();
-        this.comment(`<@${potentialOpponent.id}> didn't have the courage to reply.`); // randomize
+        this.comment(this.getRandomComment(this.COMMENT_CATEGORIES.FORFEIT, { forfeiterId: potentialOpponent.id }));
       }
     }
     else {
       this.matchEndedCb();
-      this.comment(`Challenger <@${this.challenger.id}> either couldn't find a worthy opponent or got scared and ran away.`); // randomize
+      this.comment(this.getRandomComment(this.COMMENT_CATEGORIES.FORFEIT, { forfeiterId: this.challenger.id }));
     }
   }
   catch (e) {
     this.matchEndedCb();
-    this.comment(`Challenger <@${this.challenger.id}> did not reply at all.`); // randomize
+    this.comment(this.getRandomComment(this.COMMENT_CATEGORIES.FORFEIT, { forfeiterId: this.challenger.id }));
   }
 }
