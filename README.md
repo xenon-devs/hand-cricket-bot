@@ -1,16 +1,13 @@
-# hand-cricket-bot
-A discord bot that plays handcricket.
+# Hand Cricketer
+A [discord](https://discord.com) bot that plays Hand Cricket!
 
 [![servers](https://top.gg/api/widget/servers/709733907053936712.svg)](https://top.gg/bot/709733907053936712)
 [![votes](https://top.gg/api/widget/upvotes/709733907053936712.svg)](https://top.gg/bot/709733907053936712)
 
-### Custom Prefix
-You can use a custom prefix in a certain server by changing the nick name of the bot to `[prefix] Name`. Here the prefix can be anything such as `!`, `?` or `.` and the rest of the name doesn't matter and can be anything.
+### Add to your server
+This bot is hosted by [@Eniamza](https://github.com/Eniamza). Invite it from [top.gg](https://top.gg/bot/709733907053936712). Use the command `?help` for more info.
 
-### Hosted
-This bot is hosted by [@Eniamza](https://github.com/Eniamza). Invite it from [top.gg](https://top.gg/bot/709733907053936712)
-
-### Self Hosting
+### Self Hosting (or dev environment)
 1. Create a discord app on https://discord.com/developers/applications
 2. Add a bot to the application
 3. Get the token
@@ -25,9 +22,10 @@ This bot is hosted by [@Eniamza](https://github.com/Eniamza). Invite it from [to
 Your guild count will be posted on top.gg and vote count will be available in the stats command of the bot.
 
 ### Setting Up Locally
-Use yarn to install the required packages.
+1) Use yarn to install the required packages.
 ```bash
 yarn install
 ```
+2) Add the `.env` variables.
 
-`yarn start` will build and start the bot.
+3) `yarn start` to build and start the bot or `yarn dev` to 
