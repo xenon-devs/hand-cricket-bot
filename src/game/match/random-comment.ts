@@ -13,9 +13,9 @@ const OUT_COMMENTS = [
 ]
 
 const SIX_COMMENTS = [
-  (): string => `Six distance: ${Math.min(Math.floor(Math.random() * 100), 65)}m`,
+  (): string => `Six distance: ${65 + Math.floor(Math.random() * 60)}m`,
   (): string => `OUT OF THE STADIUM!!!`,
-  (): string => `Now you can sign balls instead also instead of just documents.`
+  (): string => `Now you get to sign cricket balls too.`
 ]
 
 const BOUNDARY_COMMENTS = [
