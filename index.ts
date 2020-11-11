@@ -17,10 +17,19 @@ if (process.env.DBL_TOKEN) {
 client.on('ready', () => {
   client.user.setPresence({
     activity: {
-      name: `${prefix}help`,
+      name: `${prefix}New Updates!`,
       type: 'LISTENING'
     }
   })
+
+  client.setTimeout(() => {
+    client.user.setPresence({
+      activity: {
+        name: `${prefix}help`,
+        type: 'LISTENING'
+      }
+    })
+  }, 3 * 24 * 60 * 60 * 1000) // 3 days
 })
 
 setAllCommands(client, dbl);
