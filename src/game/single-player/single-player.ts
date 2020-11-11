@@ -26,7 +26,13 @@ export class SinglePlayerMatch extends Match {
     bowlerPlayed: number
   ) {
     const opponentScore = (this.numInnings === 0 && this.opener === Players.OPPONENT || this.numInnings === 1 && this.opener === Players.CHALLENGER) ? batsmanPlayed : bowlerPlayed; // Bot's score
-    this.stadium.send(`${opponentScore}!`); // randomize
+    this.stadium.send(`${opponentScore}!`);
+
+    if (batsmanPlayed !== bowlerPlayed) {
+      if (batsmanPlayed === 6) this.comment(this.getRandomComment(this.COMMENT_CATEGORIES.SIX));
+      else if (batsmanPlayed === 4) this.comment(this.getRandomComment(this.COMMENT_CATEGORIES.BOUNDARY));
+    }
+    else this.comment(this.getRandomComment(this.COMMENT_CATEGORIES.OUT));
 
     super.calculateRoundResult(batsmanPlayed, bowlerPlayed);
   }

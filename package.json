@@ -1,13 +1,13 @@
 {
   "name": "hand-cricket-bot",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "dist/index.js",
   "license": "MIT",
   "private": false,
   "scripts": {
     "start": "yarn build && node .",
     "build": "tsc",
-    "dev": "concurrently 'tsc -w' 'nodemon . --watch dist/*'"
+    "dev": "concurrently 'tsc -w' 'nodemon . --watch dist'"
   },
   "dependencies": {
     "@hushyar-goenkar/discordjs-custom-bot-client": "^1.0.1",
