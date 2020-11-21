@@ -11,6 +11,7 @@ import { setRules } from './commands/rules';
 import { setStats } from './commands/stats';
 import { setOngoing } from './commands/ongoing';
 import { setNew } from './commands/new';
+import { setLeaderboard } from './commands/leaderboard';
 
 import { setHelp } from './help';
 
@@ -57,6 +58,9 @@ export function setAllCommands(
     current2PMatches
   ))
   commandList.push(setNew(
+    client
+  ))
+  commandList.push(setLeaderboard(
     client
   ))
 
