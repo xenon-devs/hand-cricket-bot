@@ -44,7 +44,7 @@ export class HighScoreDB {
     const currentList = currentDb[multiplayer ? 'multiPlayer' : 'singlePlayer'];
 
     currentList.push(newHigh);
-    const newList = currentList.sort((high1, high2) => high1.score - high2.score);
+    const newList = currentList.sort((high1, high2) => high2.score - high1.score);
 
     if (newList.length > MAX_SCORES_STORED) newList.pop();
 
