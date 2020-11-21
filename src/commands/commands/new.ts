@@ -8,7 +8,7 @@ If you have *absolutey any* suggestions, you can let us know in the support serv
 `
 
 const changes = [
-  { name: 'Commentary', value: 'Newer randomized comments have been added.' },
+  { name: 'Leaderboard', value: 'We added a `leaderboard` command that shows discord\'s top Hand Cricketers :wink:' },
   { name: 'Next', value: 'Someone suggested to add a feature to choose the number of overs, or test match. This feature is on our list.' }
 ]
 
