@@ -61,7 +61,7 @@ export class HighScoreDB {
     this.clearQueue();
   }
 
-  clearQueue() {
+  private clearQueue() {
     for (let i = 0; i < this.dbOpsQueue.length; i++) {
       (this.dbOpsQueue.shift())();
     }
