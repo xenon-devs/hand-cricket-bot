@@ -2,7 +2,7 @@ import { MessageEmbed, Message } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { version } from '../../../package.json';
 
-const lastUpdated = '10 Nov 2020';
+const lastUpdated = '22 Nov 2020';
 const desc = `\
 If you have *absolutey any* suggestions, you can let us know in the support server (link in help command) or on Github(link in help command).
 `
