@@ -61,6 +61,10 @@ export class HighScoreDB {
     this.clearQueue();
   }
 
+  getScores(): IHighScoreDB {
+    return JSON.parse(readFileSync(this.HIGH_SCORE_JSON).toString());
+  }
+
   private clearQueue() {
     for (let i = 0; i < this.dbOpsQueue.length; i++) {
       (this.dbOpsQueue.shift())();
