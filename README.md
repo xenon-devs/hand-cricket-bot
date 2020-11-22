@@ -13,7 +13,8 @@ This bot is hosted by [@Eniamza](https://github.com/Eniamza). Invite it from [to
 3. Get the token
 4. Clone this repo and host it
 5. Add a `.env` variable named `DISCORD_TOKEN` and put the token there.
-6. Add the bot to your server (this step is more difficult than you think so google it)
+6. Add a `.env` variable named `dbLoc` which is an **absolute path** to a **safe, secure, backed up** folder where the database will reside.
+7. Add the bot to your server (this step is more difficult than you think so google it)
 
 #### Optional top.gg integration
 1. List your bot on [top.gg](https://top.gg)
