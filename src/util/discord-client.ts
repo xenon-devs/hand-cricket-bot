@@ -1,6 +1,7 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
 import { prefix } from '../../config.json'
 import { getPrefix } from './get-prefix';
+import { HighScoreDB } from './high-score-db';
 
 export type onMessageHandler = {
   handler: (msg: Message) => void,
@@ -10,9 +11,12 @@ export type onMessageHandler = {
 
 export class DiscordClient extends Client {
   onMessageList: Map<string, onMessageHandler> = new Map();
+  highScoreDB: HighScoreDB;
 
   constructor(clientOptions?: any) {
     super(clientOptions);
+
+    this.highScoreDB = new HighScoreDB(process.env.dbLoc);
 
     this.on('message', msg  => {
       return this.onMessageList.forEach(onMsgHandler => {
