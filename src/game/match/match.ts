@@ -92,6 +92,10 @@ export class Match {
       }
     }
 
+    if(this.result == MatchResult.CHALLENGER_WON || this.result === MatchResult.OPPONENT_WON) {
+      this.client.matchesDB.addMatch(!this.opponent.bot /* Multiplayer if opponent is not bot*/);
+    }
+
     this.stadium.send(this.getScoreBoard());
     return this.matchEndedCb();
   }
