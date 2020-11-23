@@ -17,8 +17,7 @@ export function setHelp(
       .setDescription(`\
 **Custom Prefix**: You can use a custom prefix in a certain server by changing the nickname of the bot to \`[prefix] Name\`. Here the prefix can be anything such as \`!\`, \`?\` or \`.\` and the rest of the nickname doesn't matter and can be anything.
 
-In the first half of October, we hosted nearly 2000 single and multi player matches! Also the bot is in 100 servers now! Invite it to your server or recommend it to your friend too!
-The bot won't be able to join more than 100 servers before verification by discord and verification is going to take some time.`)
+In the first half of October, we hosted nearly 2000 single and multi player matches! Invite it to your server or recommend it to your friend too!`)
       .addField(`Following is a list of Hand Cricketer commands.`, '\u200b')
       .addFields(
         { name: `${prefix}help`, value: 'Help Command.' },
