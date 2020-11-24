@@ -1,12 +1,27 @@
 import { MessageEmbed, Message } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
+import { setCommand } from '../command';
+import { IHighScore } from '../../../src/db/high-score-db';
+
+const rankMappingFunction = (score: IHighScore, i: number) => {
+  return {
+    name: `#${i+1} ${score.tag}`,
+    value: `\`${score.score}\` runs.`,
+    inline: true
+  }
+}
 
 export function setLeaderboard(client: DiscordClient) {
-  client.onCommand(
+  return setCommand(
+    client,
     'leaderboard',
+    'Leaderboard of high scores.',
     '',
     (msg: Message) => {
       const scores = client.highScoreDB.getScores();
+
+      const singlePlayerRankFields = scores.singlePlayer.map(rankMappingFunction);
+      const multiPlayerRankFields = scores.multiPlayer.map(rankMappingFunction);
 
       msg.channel.send(
         new MessageEmbed()
@@ -15,18 +30,10 @@ export function setLeaderboard(client: DiscordClient) {
         .addField(
           'Single Player',
           scores.singlePlayer.length > 0 ?
-            'Following is the list of top single player batsmen.'
-            : 'No scores recorded yet.',
+            'Following is the list of top single player batsmen.' :
+            'No scores recorded yet.',
           false)
-        .addFields(
-          scores.singlePlayer.map((score, i) => {
-            return {
-              name: `#${i+1} ${score.tag}`,
-              value: `\`${score.score}\` runs.`,
-              inline: true
-            }
-          })
-        )
+        .addFields(singlePlayerRankFields)
         .addField(
           'Multi Player',
           scores.multiPlayer.length > 0 ?
@@ -34,24 +41,11 @@ export function setLeaderboard(client: DiscordClient) {
             'No scores recorded yet.',
           false
         )
-        .addFields(
-          scores.multiPlayer.map((score, i) => {
-            return {
-              name: `#${i+1} ${score.tag}`,
-              value: `\`${score.score}\` runs.`,
-              inline: true
-            }
-          })
-        )
+        .addFields(multiPlayerRankFields)
         .setThumbnail(client.user.displayAvatarURL())
         .setColor('GREEN')
         .setTimestamp()
       )
     }
   )
-
-  return {
-    name: 'leaderboard',
-    desc: `Leaderboard of high scores.`
-  }
 }

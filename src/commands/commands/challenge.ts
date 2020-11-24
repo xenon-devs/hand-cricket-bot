@@ -1,5 +1,6 @@
 import { Message, TextChannel } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
+import { setCommand } from '../command';
 import { SinglePlayerMatch } from '../../game/single-player/single-player';
 import { MultiPlayerMatch } from '../../game/multi-player/multi-player';
 
@@ -8,8 +9,10 @@ export function setChallenge(
   current1PMatches: Map<string, SinglePlayerMatch>,
   current2PMatches: Map<string, MultiPlayerMatch>
 ) {
-  client.onCommand(
+  return setCommand(
+    client,
     'challenge',
+    'Challenge a person to multiplayer battle (where each player answers in DM)',
     '',
     (msg: Message) => {
       if (msg.channel.type != 'dm') {
@@ -24,9 +27,4 @@ export function setChallenge(
       }
     }
   )
-
-  return {
-    name: 'challenge',
-    desc: `Challenge a person to multiplayer battle (where each player answers in DM)`
-  }
 }

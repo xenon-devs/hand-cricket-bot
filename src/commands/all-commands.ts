@@ -14,15 +14,13 @@ import { setNew } from './commands/new';
 import { setLeaderboard } from './commands/leaderboard';
 
 import { setHelp } from './help';
+import { ICommandMeta } from './command';
 
 export function setAllCommands(
   client: DiscordClient,
   dbl: DBL | null
 ) {
-  const commandList: {
-    name: string,
-    desc: string
-  }[] = []
+  const commandList: ICommandMeta[] = []
 
   const current1PMatches: Map<string, SinglePlayerMatch> = new Map(); // List of ongoing single player matches
   const current2PMatches: Map<string, MultiPlayerMatch> = new Map(); // List of ongoing multiplayer matches

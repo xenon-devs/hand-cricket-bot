@@ -1,5 +1,6 @@
 import { MessageEmbed, Message } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
+import { setCommand } from '../command';
 import { version } from '../../../package.json';
 
 const lastUpdated = '23 Nov 2020';
@@ -14,25 +15,22 @@ const changes = [
 ]
 
 export function setNew(client: DiscordClient) {
-  client.onCommand(
+  return setCommand(
+    client,
     'new',
+    'A list of changes to the bot.',
     '',
     (msg: Message) => {
       msg.channel.send(
-      new MessageEmbed()
-      .setTitle(`What's New`)
-      .setDescription(desc)
-      .addFields(changes)
-      .setThumbnail(client.user.displayAvatarURL())
-      .setColor('BLUE')
-      .setFooter(`Version: v${version} | Last Updated: ${lastUpdated}`)
-      .setTimestamp()
-        )
+        new MessageEmbed()
+        .setTitle(`What's New`)
+        .setDescription(desc)
+        .addFields(changes)
+        .setThumbnail(client.user.displayAvatarURL())
+        .setColor('BLUE')
+        .setFooter(`Version: v${version} | Last Updated: ${lastUpdated}`)
+        .setTimestamp()
+      )
     }
   )
-
-  return {
-    name: 'new',
-    desc: `A list of changes to the bot.`
-  }
 }
