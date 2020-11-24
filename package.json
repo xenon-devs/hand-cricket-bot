@@ -1,6 +1,6 @@
 {
   "name": "hand-cricket-bot",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "main": "dist/index.js",
   "license": "MIT",
   "private": false,
