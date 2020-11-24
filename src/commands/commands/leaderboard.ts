@@ -21,8 +21,9 @@ export function setLeaderboard(client: DiscordClient) {
         .addFields(
           scores.singlePlayer.map((score, i) => {
             return {
-              name: `#${i+1} `,
-              value: `**${score.tag}** with \`${score.score}\` runs.`
+              name: `#${i+1} ${score.tag}`,
+              value: `\`${score.score}\` runs.`,
+              inline: true
             }
           })
         )
@@ -36,8 +37,9 @@ export function setLeaderboard(client: DiscordClient) {
         .addFields(
           scores.multiPlayer.map((score, i) => {
             return {
-              name: `#${i+1} `,
-              value: `**${score.tag}** with \`${score.score}\` runs.`
+              name: `#${i+1} ${score.tag}`,
+              value: `\`${score.score}\` runs.`,
+              inline: true
             }
           })
         )

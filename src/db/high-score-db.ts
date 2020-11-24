@@ -11,6 +11,11 @@ export interface IHighScoreDB {
   multiPlayer: IHighScore[]
 }
 
+export const emptyHighScoreDB: IHighScoreDB = {
+  singlePlayer: [],
+  multiPlayer: []
+}
+
 export const MAX_SCORES_STORED = 10;
 
 export class HighScoreDB {
@@ -22,15 +27,12 @@ export class HighScoreDB {
     this.dbLoc = dbLoc;
     this.HIGH_SCORE_JSON = join(this.dbLoc, 'high-scores.json');
 
-    if (!existsSync(this.HIGH_SCORE_JSON)) writeFileSync(this.HIGH_SCORE_JSON, JSON.stringify({
-      singlePlayer: [],
-      multiPlayer: []
-    }))
+    if (!existsSync(this.HIGH_SCORE_JSON)) writeFileSync(this.HIGH_SCORE_JSON, JSON.stringify(emptyHighScoreDB));
     else {
       const currentDb = JSON.parse(readFileSync(this.HIGH_SCORE_JSON).toString());
 
-      if (typeof currentDb.singlePlayer === 'undefined') currentDb.singlePlayer = [];
-      else if (typeof currentDb.multiPlayer === 'undefined') currentDb.multiPlayer = [];
+      if (typeof currentDb.singlePlayer === 'undefined') currentDb.singlePlayer = emptyHighScoreDB.singlePlayer;
+      if (typeof currentDb.multiPlayer === 'undefined') currentDb.multiPlayer = emptyHighScoreDB.multiPlayer;
 
       writeFileSync(this.HIGH_SCORE_JSON, JSON.stringify(currentDb));
     }

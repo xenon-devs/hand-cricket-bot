@@ -7,10 +7,14 @@ export function setStats(
   dbl: DBL | null
 ) {
   client.onCommand('stats', '', async (msg: Message) => {
+    const matchesPlayed = client.matchesDB.getMatches();
+
     const statsEmbed = new MessageEmbed()
       .setTitle('Hand Cricketer Stats')
       .addField('Servers', `\`${client.guilds.cache.array().length}\``, true)
       .addField('Users', `\`${client.guilds.cache.array().map(guild => guild.memberCount).reduce((a, b) => a + b)}\``, true)
+      .addField('1P Matches Played', `\`${matchesPlayed.singlePlayer}\``)
+      .addField('2P Matches Played', `\`${matchesPlayed.multiPlayer}\``)
       .setThumbnail(client.user.displayAvatarURL())
       .setColor('RED');
 
