@@ -10,9 +10,8 @@
     "dev": "concurrently 'tsc -w' 'nodemon . --watch dist'"
   },
   "dependencies": {
-    "@hushyar-goenkar/discordjs-custom-bot-client": "^1.0.1",
     "dblapi.js": "^2.4.1",
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.5.0",
     "dotenv": "^8.2.0"
   },
   "devDependencies": {
