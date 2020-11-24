@@ -25,7 +25,8 @@ In the first half of October, we hosted nearly 2000 single and multi player matc
         ...commandList.map(command => {
           return {
             name: `${prefix}${command.name}`,
-            value: command.desc
+            value: command.desc,
+            inline: true
           }
         })
       )
