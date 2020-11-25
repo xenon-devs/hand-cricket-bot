@@ -32,7 +32,8 @@ In the first half of October, we hosted nearly 2000 single and multi player matc
       .addField(`It's Open Source`, `[Github](https://github.com/HarshKhandeparkar/hand-cricket-bot)`, true);
 
       if (client.dblIntegration) {
-        helpEmbed.addField('Vote and Invite', `[top.gg](https://top.gg/bot/${client.user.id})`, true);
+        helpEmbed.addField('Invite to your server', `[top.gg](https://top.gg/bot/${client.user.id})`, true);
+        helpEmbed.addField('Vote', `[top.gg](https://top.gg/bot/${client.user.id})/vote`, true);
         const botStats = await client.dbl.getBot(client.user.id);
 
         if (botStats.support) helpEmbed.addField('Support Server', `[Join It!](https://discord.gg/${botStats.support})`, true);

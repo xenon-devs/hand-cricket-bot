@@ -63,5 +63,9 @@ export function getScoreboard(
         break;
     }
 
+    if (this.client.dblIntegration) {
+      scoreboard.addField('If you enjoyed', `Please [vote](https://top.gg/bot/${this.client.user.id}).`);
+    }
+
     return scoreboard;
 }
