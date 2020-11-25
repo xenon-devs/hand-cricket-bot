@@ -17,8 +17,8 @@ export function setStats(
         .setTitle('Hand Cricketer Stats')
         .addField('Servers', `\`${client.guilds.cache.array().length}\``, true)
         .addField('Users', `\`${client.guilds.cache.array().map(guild => guild.memberCount).reduce((a, b) => a + b)}\``, true)
-        .addField('1P Matches Played', `\`${matchesPlayed.singlePlayer}\``)
-        .addField('2P Matches Played', `\`${matchesPlayed.multiPlayer}\``)
+        .addField('1P Matches Played', `\`${matchesPlayed.singlePlayer}\``, true)
+        .addField('2P Matches Played', `\`${matchesPlayed.multiPlayer}\``, true)
         .setThumbnail(client.user.displayAvatarURL())
         .setColor('RED');
 
@@ -26,7 +26,7 @@ export function setStats(
         const botStats = await client.dbl.getBot(client.user.id);
         statsEmbed.addField(`top.gg votes`, `\`${botStats.points}\``, true);
 
-        if (botStats.invite) statsEmbed.addField('Liked the bot?', `[Vote it!](https://top.gg/bot/${client.user.id}/vote)`, true);
+        if (botStats.invite) statsEmbed.addField('Liked the bot?', `[Vote it!](https://top.gg/bot/${client.user.id}/vote)`);
       }
 
       msg.channel.send(statsEmbed);
