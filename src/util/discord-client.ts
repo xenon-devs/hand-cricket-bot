@@ -1,4 +1,6 @@
 import { Client, Message, MessageEmbed } from 'discord.js';
+import DBL from 'dblapi.js';
+
 import { prefix } from '../../config.json'
 import { getPrefix } from './get-prefix';
 import { HighScoreDB } from '../db/high-score-db';
@@ -12,6 +14,8 @@ export type onMessageHandler = {
 
 export class DiscordClient extends Client {
   onMessageList: Map<string, onMessageHandler> = new Map();
+  dblIntegration: boolean = false;
+  dbl: DBL;
   highScoreDB: HighScoreDB;
   matchesDB: MatchesDB;
 
@@ -20,6 +24,13 @@ export class DiscordClient extends Client {
 
     this.highScoreDB = new HighScoreDB(process.env.dbLoc);
     this.matchesDB = new MatchesDB(process.env.dbLoc);
+
+    if (process.env.DBL_TOKEN) {
+      this.dblIntegration = true;
+      this.dbl = new DBL(process.env.DBL_TOKEN, this);
+      this.dbl.on('error', console.log);
+    }
+    else this.dblIntegration = false;
 
     this.on('message', msg  => {
       return this.onMessageList.forEach(onMsgHandler => {

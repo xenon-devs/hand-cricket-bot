@@ -1,4 +1,3 @@
-import DBL from 'dblapi.js';
 import { DiscordClient } from '../util/discord-client';
 import { SinglePlayerMatch } from '../game/single-player/single-player';
 import { MultiPlayerMatch } from '../game/multi-player/multi-player';
@@ -17,8 +16,7 @@ import { setHelp } from './help';
 import { ICommandMeta } from './command';
 
 export function setAllCommands(
-  client: DiscordClient,
-  dbl: DBL | null
+  client: DiscordClient
 ) {
   const commandList: ICommandMeta[] = []
 
@@ -47,8 +45,7 @@ export function setAllCommands(
     client,
   ))
   commandList.push(setStats(
-    client,
-    dbl
+    client
   ))
   commandList.push(setOngoing(
     client,
@@ -64,7 +61,6 @@ export function setAllCommands(
 
   setHelp(
     client,
-    dbl,
     commandList
   )
 }

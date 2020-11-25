@@ -1,18 +1,11 @@
 import { DiscordClient } from './src/util/discord-client';
 import { prefix } from './config.json';
-import DBL from 'dblapi.js';
 
 import { setAllCommands } from './src/commands/all-commands';
 import { config } from 'dotenv';
 config(); // Import .env environment variables
 
 const client = new DiscordClient();
-let dbl: DBL | null = null;
-
-if (process.env.DBL_TOKEN) {
-  dbl = new DBL(process.env.DBL_TOKEN, client)
-  dbl.on('error', console.log)
-}
 
 client.on('ready', () => {
   client.user.setPresence({
@@ -32,7 +25,7 @@ client.on('ready', () => {
   }, 3 * 24 * 60 * 60 * 1000) // 3 days
 })
 
-setAllCommands(client, dbl);
+setAllCommands(client);
 
 client.on('ready', () => console.log('Logged in as ', client.user.username));
 
