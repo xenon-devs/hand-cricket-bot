@@ -26,7 +26,7 @@ export function setStats(
         const botStats = await client.dbl.getBot(client.user.id);
         statsEmbed.addField(`top.gg votes`, `\`${botStats.points}\``, true);
 
-        if (botStats.invite) statsEmbed.addField('Vote', `[top.gg](https://top.gg/bot/${client.user.id}/vote)`, true);
+        if (botStats.invite) statsEmbed.addField('Liked the bot?', `[Vote it!](https://top.gg/bot/${client.user.id}/vote)`, true);
       }
 
       msg.channel.send(statsEmbed);
