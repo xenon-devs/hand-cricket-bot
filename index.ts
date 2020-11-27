@@ -10,19 +10,19 @@ const client = new DiscordClient();
 client.on('ready', () => {
   client.user.setPresence({
     activity: {
-      name: `Leaderboard! See the help command`,
+      name: `Upcoming Tournament! See the help command.`,
       type: 'LISTENING'
     }
   })
 
-  client.setTimeout(() => {
-    client.user.setPresence({
-      activity: {
-        name: `${prefix}help`,
-        type: 'LISTENING'
-      }
-    })
-  }, 3 * 24 * 60 * 60 * 1000) // 3 days
+  // client.setTimeout(() => {
+  //   client.user.setPresence({
+  //     activity: {
+  //       name: `${prefix}help`,
+  //       type: 'LISTENING'
+  //     }
+  //   })
+  // }, 3 * 24 * 60 * 60 * 1000) // 3 days
 })
 
 setAllCommands(client);
