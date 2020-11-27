@@ -5,6 +5,7 @@ import { prefix } from '../../config.json'
 import { getPrefix } from './get-prefix';
 import { HighScoreDB } from '../db/high-score-db';
 import { MatchesDB } from '../db/matches-db';
+import { getTournamentAdvertisementEmbed } from '../tournament/tournamentAdvertisement';
 
 export type onMessageHandler = {
   handler: (msg: Message) => void,
@@ -18,6 +19,7 @@ export class DiscordClient extends Client {
   dbl: DBL;
   highScoreDB: HighScoreDB;
   matchesDB: MatchesDB;
+  tourneyAd: MessageEmbed | null = null;
 
   constructor(clientOptions?: any) {
     super(clientOptions);
@@ -36,6 +38,10 @@ export class DiscordClient extends Client {
       return this.onMessageList.forEach(onMsgHandler => {
         onMsgHandler.handler(msg);
       })
+    })
+
+    this.on('ready', async () => {
+      if (this.dblIntegration) this.tourneyAd = await getTournamentAdvertisementEmbed(this);
     })
   }
 

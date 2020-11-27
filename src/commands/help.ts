@@ -40,5 +40,7 @@ In the first half of October, we hosted nearly 2000 single and multi player matc
       }
 
       msg.channel.send(helpEmbed);
+
+      if (client.tourneyAd !== null) msg.channel.send(client.tourneyAd);
   })
 }

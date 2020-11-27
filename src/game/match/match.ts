@@ -97,6 +97,7 @@ export class Match {
     }
 
     this.stadium.send(this.getScoreBoard());
+    if (this.client.tourneyAd !== null) this.stadium.send(this.client.tourneyAd);
     return this.matchEndedCb();
   }
 

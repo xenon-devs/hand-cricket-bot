@@ -46,6 +46,8 @@ export function setLeaderboard(client: DiscordClient) {
         .setColor('GREEN')
         .setTimestamp()
       )
+
+      if (client.tourneyAd !== null) msg.channel.send(client.tourneyAd);
     }
   )
 }
