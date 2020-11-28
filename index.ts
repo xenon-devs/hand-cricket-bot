@@ -10,7 +10,7 @@ const client = new DiscordClient();
 client.on('ready', () => {
   client.user.setPresence({
     activity: {
-      name: `Upcoming Tournament! See the help command.`,
+      name: `Tournament! See the help command.`,
       type: 'LISTENING'
     }
   })
