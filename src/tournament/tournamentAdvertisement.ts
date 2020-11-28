@@ -6,13 +6,13 @@ export async function getTournamentAdvertisementEmbed(client: DiscordClient) {
     const botInfo = await client.dbl.getBot(client.user.id);
 
     return new MessageEmbed()
-      .setTitle(`Hand Cricket Tournament :trophy:`)
+      .setTitle(`Crick-O-Dile League Season 1 :trophy:`)
       .setThumbnail(client.user.displayAvatarURL())
       .setFooter(`Hand Cricket Tournament`)
       .setTimestamp()
       .setColor('#4400cc')
       .setDescription(`
-We are hosting a global Hand Cricket <:handcric:763782166202417173> tournament!
+We are hosting a global Hand Cricket <:handcric:763782166202417173> tournament named the **Crick-O-Dile League**!
 If you love the bot or the game, please consider participating. (it's free!)
 If you are on the global leaderboard, PLEASE DO PARTICIPATE!
 [Click](https://discord.gg/${botInfo.support}) to join the support server for more details and to participate.
