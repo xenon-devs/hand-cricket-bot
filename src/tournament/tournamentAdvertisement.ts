@@ -15,8 +15,10 @@ export async function getTournamentAdvertisementEmbed(client: DiscordClient) {
 We are hosting a global Hand Cricket <:handcric:763782166202417173> tournament named the **Crick-O-Dile League**!
 If you love the bot or the game, please consider participating. (it's free!)
 If you are on the global leaderboard, PLEASE DO PARTICIPATE!
-[Click](https://discord.gg/${botInfo.support}) to join the support server for more details and to participate.
+The tournament will be held in the [Support Server](https://discord.gg/${botInfo.support}).
 `)
-      .addField('To participate', `[Click](https://discord.gg/${botInfo.support}) to join support server`)
+      .addField('Date', '5 Dec 2020', true)
+      .addField('Registration Deadline', '3 Dec 2020', true)
+      .addField('To participate', `[Click](https://discord.gg/${botInfo.support}) to join support server`, false)
   }
 }
