@@ -12,6 +12,7 @@ export enum Players {
   OPPONENT = 'opponent'
 }
 export enum MatchResult {
+  ONGOING = 'ongoing',
   TIE = 'tie',
   CHALLENGER_WON = 'challenger_won',
   OPPONENT_WON = 'opponent_won',
@@ -34,7 +35,7 @@ export class Match {
   matchEndedCb: () => void;
 
   opener: Players;
-  result: MatchResult;
+  result: MatchResult = MatchResult.ONGOING;
   /** Balls played in each innings */
   ballsPlayed: [number, number] = [0, 0];
   /** Number of innings that were completed */
