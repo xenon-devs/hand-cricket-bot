@@ -61,6 +61,10 @@ export class SinglePlayerMatch extends Match {
 
                 if (hasVoted) {
                   this.comment('FREE HIT! The player will continue playing.');
+
+                  if (this.opener === Players.OPPONENT && this.numInnings === 0) this.openerScore -= this.lastOpponentFingers;
+                  if (this.opener === Players.CHALLENGER && this.numInnings === 1) this.chaserScore -= this.lastOpponentFingers;
+
                   this.result === MatchResult.ONGOING;
                   this.play();
                 }

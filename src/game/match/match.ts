@@ -43,6 +43,8 @@ export class Match {
 
   openerScore: number = 0;
   chaserScore: number = 0;
+  lastChallengerFingers: number = 0; // last play
+  lastOpponentFingers: number = 0;
 
   associatedListeners: string[] = []; // Array of all associated onMsg listener names
 
