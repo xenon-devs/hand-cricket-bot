@@ -84,6 +84,7 @@ export class SinglePlayerMatch extends Match {
           super.inningsOver();
         }
       }
+      else super.inningsOver();
     }
     else super.inningsOver();
   }
