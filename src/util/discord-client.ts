@@ -40,9 +40,9 @@ export class DiscordClient extends Client {
       })
     })
 
-    this.on('ready', async () => {
-      if (this.dblIntegration) this.tourneyAd = await getTournamentAdvertisementEmbed(this);
-    })
+    // this.on('ready', async () => {
+    //   if (this.dblIntegration) this.tourneyAd = await getTournamentAdvertisementEmbed(this);
+    // })
   }
 
   /**
