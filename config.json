@@ -1,3 +1,8 @@
 {
-  "prefix": "?"
+  "prefix": "?",
+  "customStatus": {
+    "name": "",
+    "type": ""
+  },
+  "useCustomStatus": false
 }

@@ -1,5 +1,5 @@
 import { DiscordClient } from './src/util/discord-client';
-import { prefix } from './config.json';
+import { prefix, useCustomStatus, customStatus } from './config.json';
 
 import { setAllCommands } from './src/commands/all-commands';
 import { config } from 'dotenv';
@@ -8,21 +8,23 @@ config(); // Import .env environment variables
 const client = new DiscordClient();
 
 client.on('ready', () => {
-  client.user.setPresence({
-    activity: {
-      name: `Tournament! See the help command.`,
-      type: 'LISTENING'
-    }
-  })
+  if (useCustomStatus) {
+    client.user.setPresence({
+      activity: {
+        name: customStatus.name,
+        type: <'WATCHING' | 'LISTENING' | 'PLAYING'>customStatus.type
+      }
+    })
+  }
 
-  // client.setTimeout(() => {
-  //   client.user.setPresence({
-  //     activity: {
-  //       name: `${prefix}help`,
-  //       type: 'LISTENING'
-  //     }
-  //   })
-  // }, 3 * 24 * 60 * 60 * 1000) // 3 days
+  client.setTimeout(() => {
+    client.user.setPresence({
+      activity: {
+        name: `${prefix}help`,
+        type: 'LISTENING'
+      }
+    })
+  }, useCustomStatus ? 3 * 24 * 60 * 60 * 1000 : 0) // 3 days or 0
 })
 
 setAllCommands(client);
