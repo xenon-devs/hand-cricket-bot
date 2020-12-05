@@ -25,6 +25,11 @@ export enum RoundResult {
   BATSMAN_SCORED = 'batsman_scored',
   BATSMAN_OUT = 'batsman_out'
 }
+export enum GameMode {
+  TEST_MATCH = 'test_match',
+  SUPER_OVER = 'super_over',
+  SET_OVERS = 'set_overs' // A defined number of overs eg: T20 or 50-50
+}
 
 export class Match {
   challenger: User;
@@ -34,6 +39,7 @@ export class Match {
   /** Fired when the match ended, whether due to an error or otherwise */
   matchEndedCb: () => void;
 
+  gameMode: GameMode;
   opener: Players;
   result: MatchResult = MatchResult.ONGOING;
   /** Balls played in each innings */
@@ -80,7 +86,10 @@ export class Match {
     else if (this.openerScore < this.chaserScore) this.result = this.opener === Players.CHALLENGER ? MatchResult.OPPONENT_WON : MatchResult.CHALLENGER_WON;
 
     // Handle high scores leaderboard
-    if (this.result == MatchResult.CHALLENGER_WON || this.result === MatchResult.OPPONENT_WON) {
+    if (
+      (this.result == MatchResult.CHALLENGER_WON || this.result === MatchResult.OPPONENT_WON) &&
+      this.gameMode === GameMode.TEST_MATCH
+    ) {
       const winnerScore = Math.max(this.openerScore, this.chaserScore);
       const winner = this.result === MatchResult.CHALLENGER_WON ? this.challenger : this.opponent;
 
