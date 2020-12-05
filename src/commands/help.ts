@@ -29,7 +29,7 @@ In the first half of October, we hosted nearly 2000 single and multi player matc
       )
       .setThumbnail(client.user.displayAvatarURL())
       .setFooter(`Version: v${version}`)
-      .addField(`It's Open Source`, `[Github](https://github.com/HarshKhandeparkar/hand-cricket-bot)`, true);
+      .addField(`It's Open Source`, `[Github](https://github.com/xenon-devs/hand-cricket-bot)`, true);
 
       if (client.dblIntegration) {
         helpEmbed.addField('Invite to your server', `[Invite Link](https://top.gg/bot/${client.user.id})`, true);
