@@ -1,9 +1,19 @@
 {
   "name": "hand-cricket-bot",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "main": "dist/index.js",
-  "license": "MIT",
+  "license": "GPL-3.0",
+  "description": "A Discord bot that plays Handcricket!",
+  "author": "Team Xenon",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xenon-devs/hand-cricket-bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xenon-devs/hand-cricket-bot/issues"
+  },
+  "homepage": "https://github.com/xenon-devs/hand-cricket-bot#readme",
   "scripts": {
     "start": "yarn build && node .",
     "build": "tsc",
