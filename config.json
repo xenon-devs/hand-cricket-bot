@@ -1,8 +1,8 @@
 {
   "prefix": "?",
   "customStatus": {
-    "name": "",
-    "type": ""
+    "name": "Leaderboard fixed!",
+    "type": "WATCHING"
   },
   "useCustomStatus": false
 }
