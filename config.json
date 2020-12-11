@@ -4,5 +4,5 @@
     "name": "Leaderboard fixed!",
     "type": "WATCHING"
   },
-  "useCustomStatus": true
+  "useCustomStatus": false
 }

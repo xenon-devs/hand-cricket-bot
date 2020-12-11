@@ -9,9 +9,6 @@ If you have *absolutey any* suggestions, you can let us know in the support serv
 `
 
 const changes = [
-  { name: 'Global Tournament!!!', value: 'We are hosting a global Hand Cricket tournament. See the help command.' },
-  { name: 'Matches Played', value: 'You can find out the number of matches played using the `stats` command.' },
-  { name: 'Leaderboard', value: 'We added a `leaderboard` command that shows discord\'s top Hand Cricketers :wink:' },
   { name: 'Next', value: 'Someone suggested to add a feature to choose the number of overs, or test match. This feature is on our list.' }
 ]
 
