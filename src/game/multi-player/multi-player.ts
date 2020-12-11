@@ -44,8 +44,8 @@ export class MultiPlayerMatch extends Match {
 
     const bowler = batsman === this.challenger ? this.opponent : this.challenger;
 
-    batsman.send(`${bowlerPlayed}!`); // randomize
-    bowler.send(`${batsmanPlayed}!`); // randomize
+    batsman.send(`Bowler: ${bowlerPlayed}!`); // randomize
+    bowler.send(`Batsman: ${batsmanPlayed}!`); // randomize
 
     if (batsmanPlayed !== bowlerPlayed) {
       if (batsmanPlayed === 6) {

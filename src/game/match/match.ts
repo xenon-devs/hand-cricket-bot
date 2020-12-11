@@ -39,7 +39,7 @@ export class Match {
   /** Fired when the match ended, whether due to an error or otherwise */
   matchEndedCb: () => void;
 
-  gameMode: GameMode;
+  gameMode: GameMode = GameMode.TEST_MATCH;
   opener: Players;
   result: MatchResult = MatchResult.ONGOING;
   /** Balls played in each innings */
