@@ -19,6 +19,7 @@ export function setStats(
         .addField('Users', `\`${client.guilds.cache.array().map(guild => guild.memberCount).reduce((a, b) => a + b)}\``, true)
         .setThumbnail(client.user.displayAvatarURL())
         .setFooter('By Team Xenon', 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
+        .setTimestamp()
         .setColor('RED');
 
       if (client.dblIntegration) {

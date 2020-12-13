@@ -19,7 +19,6 @@ export function setRules(client: DiscordClient) {
           { name: '3. ', value: 'All rules of cricket apply.', inline: true }
         )
         .setThumbnail(client.user.displayAvatarURL())
-        .setTimestamp()
         .setFooter('By Team Xenon', 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
 
       msg.channel.send(rulesEmbed);
