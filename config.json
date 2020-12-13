@@ -1,8 +1,8 @@
 {
   "prefix": "?",
   "customStatus": {
-    "name": "Leaderboard fixed!",
+    "name": "5k Matches pPayed!",
     "type": "WATCHING"
   },
-  "useCustomStatus": false
+  "useCustomStatus": true
 }
