@@ -28,15 +28,15 @@ In the first half of October, we hosted nearly 2000 single and multi player matc
         })
       )
       .setThumbnail(client.user.displayAvatarURL())
-      .setFooter(`Version: v${version}`)
-      .addField(`It's Open Source`, `[Github](https://github.com/xenon-devs/hand-cricket-bot)`, true);
+      .setFooter(`Version: v${version} | By Team Xenon`, 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
+      .addField(`It's Open Source`, `[Github Link](https://github.com/xenon-devs/hand-cricket-bot)`, true);
 
       if (client.dblIntegration) {
-        helpEmbed.addField('Invite to your server', `[Invite Link](https://top.gg/bot/${client.user.id})`, true);
-        helpEmbed.addField('Liked it?', `[Vote](https://top.gg/bot/${client.user.id}/vote)`, true);
+        helpEmbed.addField('Add bot to your server', `[Click to Add](https://top.gg/bot/${client.user.id})`, true);
+        helpEmbed.addField('Liked it?', `[Click to Vote](https://top.gg/bot/${client.user.id}/vote)`, true);
         const botStats = await client.dbl.getBot(client.user.id);
 
-        if (botStats.support) helpEmbed.addField('Support Server', `[Join It!](https://discord.gg/${botStats.support})`, true);
+        if (botStats.support) helpEmbed.addField('Support Server', `[Click to Join](https://discord.gg/${botStats.support})`, true);
       }
 
       msg.channel.send(helpEmbed);

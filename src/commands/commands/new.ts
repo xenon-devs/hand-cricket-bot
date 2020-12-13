@@ -26,7 +26,7 @@ export function setNew(client: DiscordClient) {
         .addFields(changes)
         .setThumbnail(client.user.displayAvatarURL())
         .setColor('BLUE')
-        .setFooter(`Version: v${version} | Last Updated: ${lastUpdated}`)
+        .setFooter(`Version: v${version} | Last Updated: ${lastUpdated}`, 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
         .setTimestamp()
       )
     }

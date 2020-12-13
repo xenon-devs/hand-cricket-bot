@@ -45,6 +45,7 @@ export function setLeaderboard(client: DiscordClient) {
         .setThumbnail(client.user.displayAvatarURL())
         .setColor('GREEN')
         .setTimestamp()
+        .setFooter('By Team Xenon', 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
       )
 
       if (client.tourneyAd !== null) msg.channel.send(client.tourneyAd);

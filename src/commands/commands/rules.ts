@@ -20,6 +20,7 @@ export function setRules(client: DiscordClient) {
         )
         .setThumbnail(client.user.displayAvatarURL())
         .setTimestamp()
+        .setFooter('By Team Xenon', 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
 
       msg.channel.send(rulesEmbed);
     }
