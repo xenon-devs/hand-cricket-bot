@@ -4,6 +4,8 @@ import { toss } from '../../util/toss';
 import { askBatBowl, BatBowl } from '../../util/ask-bat-bowl';
 
 export async function startMatch(this: SinglePlayerMatch) {
+  await this.askGameMode();
+
   try {
     const tossAnswer = await toss(this.challenger, this.client, this.stadium, (handlerName) => this.associatedListeners.push(handlerName));
 
