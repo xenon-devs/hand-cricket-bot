@@ -81,6 +81,7 @@ export class Match {
 Which game mode do you want to play?
 1) ${GameMode.TEST_MATCH}
 2) ${GameMode.SUPER_OVER}
+(Enter the number ONLY)
         `,
         20000,
         (handlerName) => {this.associatedListeners.push(handlerName)}
