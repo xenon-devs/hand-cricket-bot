@@ -30,14 +30,14 @@ export function setLeaderboard(client: DiscordClient) {
         .addField(
           'Single Player',
           scores.singlePlayer.length > 0 ?
-            'Following is the list of top single player high scores.' :
+            'Following is the list of top single player high scores (in test match).' :
             'No scores recorded yet.',
           false)
         .addFields(singlePlayerRankFields)
         .addField(
           'Multi Player',
           scores.multiPlayer.length > 0 ?
-            'Following is the list of top multi player high scores.' :
+            'Following is the list of top multi player high scores (in test match).' :
             'No scores recorded yet.',
           false
         )

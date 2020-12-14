@@ -9,7 +9,8 @@ If you have *absolutey any* suggestions, you can let us know in the support serv
 `
 
 const changes = [
-  { name: 'Next', value: 'Someone suggested to add a feature to choose the number of overs, or test match. This feature is on our list.' }
+  { name: 'Game Modes', value: 'Player can choose a game mode from Test Match, Super Over or T-5 now!' }
+  { name: 'Next', value: 'Expansion of Leaderboard - More stats, stats for different game modes.' }
 ]
 
 export function setNew(client: DiscordClient) {
