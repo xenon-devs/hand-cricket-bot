@@ -2,6 +2,8 @@ import { MultiPlayerMatch } from './multi-player';
 import { ask } from '../../util/ask';
 
 export async function selectOpponent(this: MultiPlayerMatch) {
+  this.askGameMode();
+
   try {
     const opponentAnswer = await ask(
       this.client,
