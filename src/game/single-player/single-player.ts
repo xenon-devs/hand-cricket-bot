@@ -1,4 +1,4 @@
-import { Match, Players, MatchResult } from '../match/match';
+import { Match, Players, MatchResult, GameMode } from '../match/match';
 import { DiscordClient } from '../../util/discord-client';
 import { TextChannel, User, DMChannel } from 'discord.js';
 import { ErrorMessages, ask } from '../../util/ask';
@@ -28,6 +28,10 @@ export class SinglePlayerMatch extends Match {
         (this.opener === Players.CHALLENGER && this.numInnings === 0) ||
         (this.opener === Players.CHALLENGER && this.numInnings === 1 && this.chaserScore >= this.openerScore) ||
         (this.opener === Players.OPPONENT && this.numInnings === 1 && this.chaserScore <= this.openerScore)
+      )
+      && (
+        this.gameMode === GameMode.TEST_MATCH ||
+        this.gameMode === GameMode.SUPER_OVER && this.ballsPlayed[this.numInnings] < 6
       )
     ) {
       const hasVoted = await this.client.dbl.hasVoted(this.challenger.id);
