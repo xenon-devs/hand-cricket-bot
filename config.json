@@ -1,7 +1,7 @@
 {
   "prefix": "?",
   "customStatus": {
-    "name": "5k Matches pPayed!",
+    "name": "5k Matches Played!",
     "type": "WATCHING"
   },
   "useCustomStatus": true
