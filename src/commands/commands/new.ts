@@ -9,7 +9,7 @@ If you have *absolutey any* suggestions, you can let us know in the support serv
 `
 
 const changes = [
-  { name: 'Game Modes', value: 'Player can choose a game mode from Test Match, Super Over or T-5 now!' }
+  { name: 'Game Modes', value: 'Player can choose a game mode from Test Match, Super Over or T-5 now!' },
   { name: 'Next', value: 'Expansion of Leaderboard - More stats, stats for different game modes.' }
 ]
 
