@@ -31,7 +31,8 @@ export class SinglePlayerMatch extends Match {
       )
       && (
         this.gameMode === GameMode.TEST_MATCH ||
-        this.gameMode === GameMode.SUPER_OVER && this.ballsPlayed[this.numInnings] < 6
+        (this.gameMode === GameMode.SUPER_OVER && this.ballsPlayed[this.numInnings] < 6) ||
+        (this.gameMode === GameMode.T_5 && this.ballsPlayed[this.numInnings] < 6 * 5)
       )
     ) {
       const hasVoted = await this.client.dbl.hasVoted(this.challenger.id);

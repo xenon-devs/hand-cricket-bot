@@ -27,7 +27,8 @@ export enum RoundResult {
 }
 export enum GameMode {
   TEST_MATCH = 'Test Match',
-  SUPER_OVER = 'Super Over'
+  SUPER_OVER = 'Super Over',
+  T_5 = 'T-5'
 }
 
 export class Match {
@@ -79,8 +80,9 @@ export class Match {
         this.stadium,
         `
 Which game mode do you want to play?
-1) ${GameMode.TEST_MATCH}
-2) ${GameMode.SUPER_OVER}
+1) ${GameMode.TEST_MATCH} - No over limit.
+2) ${GameMode.SUPER_OVER} - Innings ends at the end of one over or when the batsman is out.
+3) ${GameMode.T_5} - Innings ends at the end of 5 overs or when the batsman is out.
 (Enter the number ONLY)
         `,
         20000,
@@ -96,6 +98,10 @@ Which game mode do you want to play?
           case 2:
             this.comment(`Challenger chose ${GameMode.SUPER_OVER} game mode.`);
             this.gameMode = GameMode.SUPER_OVER;
+            break;
+          case 3:
+            this.comment(`Challenger chose ${GameMode.T_5} game mode.`);
+            this.gameMode = GameMode.T_5;
             break;
           default:
             this.stadium.send(`Invalid answer. Choosing ${GameMode.TEST_MATCH} by default.`);
@@ -179,7 +185,11 @@ Which game mode do you want to play?
     batsmanPlayed: number,
     bowlerPlayed: number
   ) {
-    if (batsmanPlayed === bowlerPlayed || (this.gameMode === GameMode.SUPER_OVER && this.ballsPlayed[this.numInnings] >= 6)) this.inningsOver();
+    if (
+      batsmanPlayed === bowlerPlayed ||
+      (this.gameMode === GameMode.SUPER_OVER && this.ballsPlayed[this.numInnings] >= 6) ||
+      (this.gameMode === GameMode.T_5 && this.ballsPlayed[this.numInnings] >= 6 * 5)
+    ) this.inningsOver();
     else {
       if (this.numInnings === 1) this.chaserScore += batsmanPlayed; // randomize
       else this.openerScore += batsmanPlayed; // 6s and 4s need msgs
