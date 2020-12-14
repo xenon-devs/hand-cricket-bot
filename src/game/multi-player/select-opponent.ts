@@ -20,9 +20,10 @@ export async function selectOpponent(this: MultiPlayerMatch) {
       }
 
       try {
-        this.comment(`Challenger <@${this.challenger.id}> challenged <@${this.opponent.id}> to a ${this.gameMode}`);
+        this.comment(`Challenger <@${this.challenger.id}> challenged <@${potentialOpponent.id}> to a ${this.gameMode}`);
         const doesAccept = await ask(
-          this.client, potentialOpponent,
+          this.client,
+          potentialOpponent,
           this.stadium,
           `Do you accept the challenge? (yes/no)`,
           20000,

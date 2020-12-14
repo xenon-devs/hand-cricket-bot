@@ -4,6 +4,8 @@ import { MultiPlayerMatch } from './multi-player';
 import { askBatBowl, BatBowl } from '../../util/ask-bat-bowl';
 
 export async function startMatch(this: MultiPlayerMatch) {
+  // await this.askGameMode();
+
   try {
     const tossAnswer = await toss(this.opponent, this.client, this.stadium, (handlerName) => this.associatedListeners.push(handlerName));
 
