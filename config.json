@@ -1,8 +1,8 @@
 {
   "prefix": "?",
   "customStatus": {
-    "name": "5k Matches Played!",
-    "type": "WATCHING"
+    "name": "New Update!",
+    "type": "LISTENING"
   },
   "useCustomStatus": true
 }
