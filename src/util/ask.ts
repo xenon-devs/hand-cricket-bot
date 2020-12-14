@@ -35,7 +35,7 @@ export async function askAQuestion(
     let notAnsweredTimeout: NodeJS.Timeout = client.setTimeout(notAnsweredHandler, timeout);
 
     const finalAnswerHandler = (msg: Message) => {
-      if (msg.author.id === askTo.id && msg.channel.id === channel.id) {
+      if (msg.author.id === askTo.id && msg.channel.id === channel.id && !msg.author.bot) {
         const answer = msg.content;
 
         client.offMsg(handlerName);
