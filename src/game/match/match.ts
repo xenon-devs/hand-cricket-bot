@@ -26,9 +26,8 @@ export enum RoundResult {
   BATSMAN_OUT = 'batsman_out'
 }
 export enum GameMode {
-  TEST_MATCH = 'test_match',
-  SUPER_OVER = 'super_over',
-  SET_OVERS = 'set_overs' // A defined number of overs eg: T20 or 50-50
+  TEST_MATCH = 'Test Match',
+  SUPER_OVER = 'Super Over'
 }
 
 export class Match {
