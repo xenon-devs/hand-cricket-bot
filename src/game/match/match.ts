@@ -179,7 +179,7 @@ Which game mode do you want to play?
     batsmanPlayed: number,
     bowlerPlayed: number
   ) {
-    if (batsmanPlayed === bowlerPlayed) this.inningsOver();
+    if (batsmanPlayed === bowlerPlayed || (this.gameMode === GameMode.SUPER_OVER && this.ballsPlayed[this.numInnings] >= 6)) this.inningsOver();
     else {
       if (this.numInnings === 1) this.chaserScore += batsmanPlayed; // randomize
       else this.openerScore += batsmanPlayed; // 6s and 4s need msgs
