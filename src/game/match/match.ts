@@ -1,6 +1,6 @@
 import { User, TextChannel, ClientUser, DMChannel } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
-import { ErrorMessages } from '../../util/ask';
+import { ErrorMessages, ask } from '../../util/ask';
 
 import { getScoreboard } from './scoreboard';
 import { play } from './play';
@@ -69,6 +69,48 @@ export class Match {
     this.challenger = challenger;
     this.stadium = stadium;
     this.matchEndedCb = matchEndedCb;
+  }
+
+  protected async askGameMode() {
+    try {
+      const gameModeAns = await ask(
+        this.client,
+        this.challenger,
+        this.stadium,
+        `
+Which game mode do you want to play?
+1) ${GameMode.TEST_MATCH}
+2) ${GameMode.SUPER_OVER}
+        `,
+        20000,
+        (handlerName) => {this.associatedListeners.push(handlerName)}
+      )
+
+      if (parseInt(gameModeAns.answer) !== NaN) {
+        switch (parseInt(gameModeAns.answer)) {
+          case 1:
+            this.comment(`Challenger chose ${GameMode.TEST_MATCH} game mode.`);
+            this.gameMode = GameMode.TEST_MATCH;
+            break;
+          case 2:
+            this.comment(`Challenger chose ${GameMode.SUPER_OVER} game mode.`);
+            this.gameMode = GameMode.SUPER_OVER;
+            break;
+          default:
+            this.stadium.send(`Invalid answer. Choosing ${GameMode.TEST_MATCH} by default.`);
+            this.gameMode = GameMode.TEST_MATCH;
+            break;
+        }
+      }
+      else {
+        this.stadium.send(`Invalid answer. Choosing ${GameMode.TEST_MATCH} by default.`);
+        this.gameMode = GameMode.TEST_MATCH;
+      }
+    }
+    catch(e) {
+      this.stadium.send(`Did not answer. Choosing ${GameMode.TEST_MATCH} by default.`);
+      this.gameMode = GameMode.TEST_MATCH;
+    }
   }
 
   protected async getChallengerFingers(): Promise<ErrorMessages | number> { // To be overriden
