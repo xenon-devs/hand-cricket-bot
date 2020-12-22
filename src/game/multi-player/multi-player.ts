@@ -1,4 +1,4 @@
-import { TextChannel, User } from 'discord.js';
+import { TextChannel, User, MessageEmbed } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { getPlayerFingersDM } from '../../util/get-player-fingers';
 import { Match, Players } from '../match/match';
@@ -22,8 +22,8 @@ export class MultiPlayerMatch extends Match {
   }
 
   inningsOver() {
-    this.opponent.send(`Innings over, see score board in <#${this.stadium.id}>`);
-    this.challenger.send(`Innings over, see score board in <#${this.stadium.id}>`);
+    this.opponent.send(`Innings over.`);
+    this.challenger.send(`Innings over.`);
 
     super.inningsOver();
   }
@@ -74,5 +74,13 @@ export class MultiPlayerMatch extends Match {
 
   async getOpponentFingers() {
     return getPlayerFingersDM(this.client, this.opponent, (handlerName) => this.associatedListeners.push(handlerName));
+  }
+
+  protected getScoreBoard() {
+    super.getScoreBoard();
+    this.challenger.send(this.scoreboard);
+    this.opponent.send(this.scoreboard);
+
+    return this.scoreboard;
   }
 }

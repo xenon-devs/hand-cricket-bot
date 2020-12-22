@@ -1,8 +1,8 @@
-import { User, TextChannel, ClientUser, DMChannel } from 'discord.js';
+import { User, TextChannel, ClientUser, DMChannel, MessageEmbed } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { ErrorMessages, ask } from '../../util/ask';
 
-import { getScoreboard } from './scoreboard';
+import { generateScoreBoard } from './scoreboard';
 import { play } from './play';
 import { forfeit } from './forfeit';
 import { getRandomComment, COMMENT_CATEGORIES } from './random-comment';
@@ -51,14 +51,15 @@ export class Match {
   chaserScore: number = 0;
   lastChallengerFingers: number = 0; // last play
   lastOpponentFingers: number = 0;
+  scoreboard: MessageEmbed;
 
   associatedListeners: string[] = []; // Array of all associated onMsg listener names
 
-  protected getScoreBoard = getScoreboard;
   protected play = play;
   public forfeit = forfeit;
   protected COMMENT_CATEGORIES = COMMENT_CATEGORIES;
   protected getRandomComment = getRandomComment;
+  protected generateScoreBoard = generateScoreBoard;
 
   constructor(
     client: DiscordClient,
@@ -70,6 +71,10 @@ export class Match {
     this.challenger = challenger;
     this.stadium = stadium;
     this.matchEndedCb = matchEndedCb;
+  }
+
+  protected getScoreBoard() {
+    return this.generateScoreBoard();
   }
 
   protected async askGameMode() {

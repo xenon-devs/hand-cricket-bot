@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import { Players, MatchResult, Match } from './match';
 
-export function getScoreboard(
+export function generateScoreBoard(
   this: Match
 ) {
   const scoreboard = new MessageEmbed()
@@ -67,5 +67,5 @@ export function getScoreboard(
       if(this.result === MatchResult.CHALLENGER_WON || this.result === MatchResult.OPPONENT_WON || this.result === MatchResult.TIE) scoreboard.addField('If you enjoyed', `Please [vote](https://top.gg/bot/${this.client.user.id}).`);
     }
 
-    return scoreboard;
+    return this.scoreboard = scoreboard;
 }
