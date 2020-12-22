@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from 'discord.js';
+import { Client, Message, MessageEmbed, ClientOptions } from 'discord.js';
 import DBL from 'dblapi.js';
 
 import { prefix } from '../../config.json'
@@ -21,7 +21,7 @@ export class DiscordClient extends Client {
   matchesDB: MatchesDB;
   tourneyAd: MessageEmbed | null = null;
 
-  constructor(clientOptions?: any) {
+  constructor(clientOptions?: ClientOptions) {
     super(clientOptions);
 
     this.highScoreDB = new HighScoreDB(process.env.dbLoc);

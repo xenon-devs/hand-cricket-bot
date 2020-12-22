@@ -5,7 +5,11 @@ import { setAllCommands } from './src/commands/all-commands';
 import { config } from 'dotenv';
 config(); // Import .env environment variables
 
-const client = new DiscordClient();
+const client = new DiscordClient({
+  messageCacheLifetime: 2,
+  messageCacheMaxSize: 2,
+  messageSweepInterval: 30
+})
 
 client.on('ready', () => {
   if (useCustomStatus) {
