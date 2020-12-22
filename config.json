@@ -4,5 +4,5 @@
     "name": "New Update!",
     "type": "LISTENING"
   },
-  "useCustomStatus": true
+  "useCustomStatus": false
 }
