@@ -1,4 +1,4 @@
-import { TextChannel, User, MessageEmbed } from 'discord.js';
+import { TextChannel, User } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { getPlayerFingersDM } from '../../util/get-player-fingers';
 import { Match, Players } from '../match/match';
@@ -7,7 +7,7 @@ import { selectOpponent } from './select-opponent';
 import { startMatch } from './start-match';
 
 export class MultiPlayerMatch extends Match {
-  private selectOpponent = selectOpponent;
+  protected selectOpponent = selectOpponent;
   protected startMatch = startMatch;
 
   constructor(
@@ -18,6 +18,10 @@ export class MultiPlayerMatch extends Match {
   ) {
     super(client, stadium, challenger, matchEndedCb);
 
+    this.start();
+  }
+
+  start() {
     this.selectOpponent();
   }
 

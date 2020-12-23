@@ -1,6 +1,7 @@
 import { DiscordClient } from '../util/discord-client';
 import { SinglePlayerMatch } from '../game/single-player/single-player';
 import { MultiPlayerMatch } from '../game/multi-player/multi-player';
+import { GlobalMatch } from '../game/global/global';
 
 import { setChallenge } from './commands/challenge';
 import { setDM } from './commands/dm';
@@ -11,6 +12,7 @@ import { setStats } from './commands/stats';
 import { setOngoing } from './commands/ongoing';
 import { setNew } from './commands/new';
 import { setLeaderboard } from './commands/leaderboard';
+import { setGlobal } from './commands/global-match';
 
 import { setHelp } from './help';
 import { ICommandMeta } from './command';
@@ -22,6 +24,7 @@ export function setAllCommands(
 
   const current1PMatches: Map<string, SinglePlayerMatch> = new Map(); // List of ongoing single player matches
   const current2PMatches: Map<string, MultiPlayerMatch> = new Map(); // List of ongoing multiplayer matches
+  const currentGlobalMatches: Map<string, GlobalMatch> = new Map(); // List of ongoing global multiplayer matches
 
   commandList.push(setChallenge(
     client,
@@ -57,6 +60,10 @@ export function setAllCommands(
   ))
   commandList.push(setLeaderboard(
     client
+  ))
+  commandList.push(setGlobal(
+    client,
+    currentGlobalMatches
   ))
 
   setHelp(
