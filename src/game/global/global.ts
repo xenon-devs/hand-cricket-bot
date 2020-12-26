@@ -30,4 +30,9 @@ export class GlobalMatch extends MultiPlayerMatch {
     this.opponent.send(`**Commentator**: ${commentry}`);
     this.challenger.send(`**Commentator**: ${commentry}`);
   }
+
+  protected sendScoreBoard() {
+    this.challenger.send(this.generateScoreBoard());
+    this.opponent.send(this.generateScoreBoard());
+  }
 }

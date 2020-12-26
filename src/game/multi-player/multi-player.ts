@@ -54,19 +54,16 @@ export class MultiPlayerMatch extends Match {
     if (batsmanPlayed !== bowlerPlayed) {
       if (batsmanPlayed === 6) {
         const randomSixComment = this.getRandomComment(this.COMMENT_CATEGORIES.SIX);
-        bowler.send(randomSixComment);
-        batsman.send(randomSixComment);
+        this.comment(randomSixComment);
       }
       else if (batsmanPlayed === 4) {
         const randomBoundaryComment = this.getRandomComment(this.COMMENT_CATEGORIES.BOUNDARY);
-        bowler.send(randomBoundaryComment);
-        batsman.send(randomBoundaryComment);
+        this.comment(randomBoundaryComment);
       }
     }
     else {
       const outComment = this.getRandomComment(this.COMMENT_CATEGORIES.OUT);
-      batsman.send(outComment);
-      bowler.send(outComment);
+      this.comment(outComment);
     }
 
     super.calculateRoundResult(batsmanPlayed, bowlerPlayed);

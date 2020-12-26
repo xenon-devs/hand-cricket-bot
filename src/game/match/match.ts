@@ -157,7 +157,7 @@ Which game mode do you want to play?
       this.client.matchesDB.addMatch(!this.opponent.bot /* Multiplayer if opponent is not bot*/);
     }
 
-    this.stadium.send(this.generateScoreBoard());
+    this.sendScoreBoard();
     if (this.client.tourneyAd !== null) this.stadium.send(this.client.tourneyAd);
     return this.matchEndedCb();
   }
@@ -174,7 +174,7 @@ Which game mode do you want to play?
   }
 
   protected sendScoreBoard() {
-    this.stadium.send(this.getScoreBoard());
+    this.stadium.send(this.generateScoreBoard());
   }
 
   protected comment(commentry: string) {
