@@ -48,7 +48,7 @@ export function setLeaderboard(client: DiscordClient) {
         .setFooter('By Team Xenon', 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
       )
 
-      if (client.tourneyAd !== null) msg.channel.send(client.tourneyAd);
+      if (client.advertisement !== null) msg.channel.send(client.advertisement);
     }
   )
 }

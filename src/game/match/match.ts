@@ -158,7 +158,7 @@ Which game mode do you want to play?
     }
 
     this.sendScoreBoard();
-    if (this.client.tourneyAd !== null) this.stadium.send(this.client.tourneyAd);
+    if (this.client.advertisement !== null) this.stadium.send(this.client.advertisement);
     return this.matchEndedCb();
   }
 

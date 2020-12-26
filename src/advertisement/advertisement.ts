@@ -1,7 +1,7 @@
 import { MessageEmbed } from 'discord.js';
 import { DiscordClient } from '../util/discord-client';
 
-export async function getTournamentAdvertisementEmbed(client: DiscordClient) {
+export async function getAdvertisementEmbed(client: DiscordClient) {
   if (client.dblIntegration) {
     const botInfo = await client.dbl.getBot(client.user.id);
 

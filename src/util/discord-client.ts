@@ -5,7 +5,7 @@ import { prefix } from '../../config.json'
 import { getPrefix } from './get-prefix';
 import { HighScoreDB } from '../db/high-score-db';
 import { MatchesDB } from '../db/matches-db';
-import { getTournamentAdvertisementEmbed } from '../tournament/tournamentAdvertisement';
+import { getAdvertisementEmbed } from '../advertisement/advertisement';
 
 export type onMessageHandler = {
   handler: (msg: Message) => void,
@@ -19,7 +19,7 @@ export class DiscordClient extends Client {
   dbl: DBL;
   highScoreDB: HighScoreDB;
   matchesDB: MatchesDB;
-  tourneyAd: MessageEmbed | null = null;
+  advertisement: MessageEmbed | null = null;
 
   constructor(clientOptions?: ClientOptions) {
     super(clientOptions);
@@ -40,9 +40,9 @@ export class DiscordClient extends Client {
       })
     })
 
-    // this.on('ready', async () => {
-    //   if (this.dblIntegration) this.tourneyAd = await getTournamentAdvertisementEmbed(this);
-    // })
+    this.on('ready', async () => {
+      if (this.dblIntegration) this.advertisement = await getAdvertisementEmbed(this);
+    })
   }
 
   /**
