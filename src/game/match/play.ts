@@ -6,12 +6,12 @@ export async function play(this: Match) {
 
   if (challengerFingers === ErrorMessages.DID_NOT_ANSWER) {
     this.result = MatchResult.CHALLENGER_LEFT;
-    this.stadium.send(this.generateScoreBoard());
+    this.sendScoreBoard();
     return this.matchEndedCb();
   }
   if (opponentFingers === ErrorMessages.DID_NOT_ANSWER) {
     this.result = MatchResult.CHALLENGER_LEFT;
-    this.stadium.send(this.generateScoreBoard());
+    this.sendScoreBoard();
     return this.matchEndedCb();
   }
 

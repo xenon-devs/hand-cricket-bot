@@ -158,8 +158,12 @@ Which game mode do you want to play?
     }
 
     this.sendScoreBoard();
-    if (this.client.advertisement !== null) this.stadium.send(this.client.advertisement);
+    if (this.client.advertisement !== null) this.sendAdvertisement();
     return this.matchEndedCb();
+  }
+
+  protected sendAdvertisement() {
+    this.stadium.send(this.client.advertisement);
   }
 
   protected addMatchToDB() {}

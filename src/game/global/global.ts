@@ -39,4 +39,6 @@ export class GlobalMatch extends MultiPlayerMatch {
   addMatchToDB() {
     this.client.matchesDB.addMatch('global');
   }
+
+  sendAdvertisement() {} // Current advertisement is about global matches so don't send.
 }
