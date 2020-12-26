@@ -80,11 +80,9 @@ export class MultiPlayerMatch extends Match {
     return getPlayerFingersDM(this.client, this.opponent, (handlerName) => this.associatedListeners.push(handlerName));
   }
 
-  protected getScoreBoard() {
-    super.getScoreBoard();
-    this.challenger.send(this.scoreboard);
+  protected sendScoreBoard() {
+    this.stadium.send(this.generateScoreBoard());
     this.opponent.send(this.scoreboard);
-
-    return this.scoreboard;
+    this.challenger.send(this.scoreboard);
   }
 }

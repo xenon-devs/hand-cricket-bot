@@ -73,10 +73,6 @@ export class Match {
     this.matchEndedCb = matchEndedCb;
   }
 
-  protected getScoreBoard() {
-    return this.generateScoreBoard();
-  }
-
   protected async askGameMode() {
     try {
       const gameModeAns = await ask(
@@ -161,7 +157,7 @@ Which game mode do you want to play?
       this.client.matchesDB.addMatch(!this.opponent.bot /* Multiplayer if opponent is not bot*/);
     }
 
-    this.stadium.send(this.getScoreBoard());
+    this.stadium.send(this.generateScoreBoard());
     if (this.client.tourneyAd !== null) this.stadium.send(this.client.tourneyAd);
     return this.matchEndedCb();
   }
@@ -171,10 +167,14 @@ Which game mode do you want to play?
 
     if (this.numInnings === 2) this.matchOver();
     if (this.numInnings === 1) {
-      this.stadium.send(this.getScoreBoard());
+      this.sendScoreBoard();
       this.comment(`Next innings starting in 5s`);
       setTimeout(() => this.play(), 5000);
     }
+  }
+
+  protected sendScoreBoard() {
+    this.stadium.send(this.getScoreBoard());
   }
 
   protected comment(commentry: string) {
