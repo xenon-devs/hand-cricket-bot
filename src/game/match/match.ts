@@ -154,13 +154,15 @@ Which game mode do you want to play?
     }
 
     if(this.result == MatchResult.CHALLENGER_WON || this.result === MatchResult.OPPONENT_WON) {
-      this.client.matchesDB.addMatch(!this.opponent.bot /* Multiplayer if opponent is not bot*/);
+      this.addMatchToDB();
     }
 
     this.sendScoreBoard();
     if (this.client.advertisement !== null) this.stadium.send(this.client.advertisement);
     return this.matchEndedCb();
   }
+
+  protected addMatchToDB() {}
 
   protected inningsOver() {
     this.numInnings++;

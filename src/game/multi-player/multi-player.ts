@@ -85,4 +85,8 @@ export class MultiPlayerMatch extends Match {
     this.opponent.send(this.scoreboard);
     this.challenger.send(this.scoreboard);
   }
+
+  addMatchToDB() {
+    this.client.matchesDB.addMatch('multiPlayer');
+  }
 }

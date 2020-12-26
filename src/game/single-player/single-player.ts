@@ -119,4 +119,8 @@ export class SinglePlayerMatch extends Match {
 
     return fingers;
   }
+
+  addMatchToDB() {
+    this.client.matchesDB.addMatch('singlePlayer');
+  }
 }

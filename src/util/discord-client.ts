@@ -41,7 +41,7 @@ export class DiscordClient extends Client {
     })
 
     this.on('ready', async () => {
-      if (this.dblIntegration) this.advertisement = await getAdvertisementEmbed(this);
+      this.advertisement = await getAdvertisementEmbed(this);
     })
   }
 

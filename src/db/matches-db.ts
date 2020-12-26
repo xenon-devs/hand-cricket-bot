@@ -3,12 +3,14 @@ import { join } from 'path';
 
 export interface IMatchesDBStructure {
   singlePlayer: number,
-  multiPlayer: number
+  multiPlayer: number,
+  global: number
 }
 
 export const emptyMatchesDB: IMatchesDBStructure = {
   singlePlayer: 0,
-  multiPlayer: 0
+  multiPlayer: 0,
+  global: 0
 }
 
 export class MatchesDB {
@@ -26,28 +28,29 @@ export class MatchesDB {
 
       if (typeof currentDb.singlePlayer === 'undefined') currentDb.singlePlayer = emptyMatchesDB.singlePlayer;
       if (typeof currentDb.multiPlayer === 'undefined') currentDb.multiPlayer = emptyMatchesDB.multiPlayer;
+      if (typeof currentDb.global === 'undefined') currentDb.global = emptyMatchesDB.global;
 
       writeFileSync(this.MATCHES_JSON, JSON.stringify(currentDb));
     }
   }
 
   private addNewMatch(
-    multiplayer: boolean
+    matchType: 'singlePlayer' | 'multiPlayer' | 'global'
   ) {
     const currentDb: IMatchesDBStructure = JSON.parse(readFileSync(this.MATCHES_JSON).toString());
-    const currentMatches = currentDb[multiplayer ? 'multiPlayer' : 'singlePlayer'];
+    const currentMatches = currentDb[matchType];
 
     const newMatches = currentMatches + 1;
 
-    currentDb[multiplayer ? 'multiPlayer' : 'singlePlayer'] = newMatches;
+    currentDb[matchType] = newMatches;
 
     writeFileSync(this.MATCHES_JSON, JSON.stringify(currentDb));
   }
 
   addMatch(
-    multiplayer: boolean
+    matchType: 'singlePlayer' | 'multiPlayer' | 'global'
   ) {
-    this.dbOpsQueue.push(() => this.addNewMatch(multiplayer));
+    this.dbOpsQueue.push(() => this.addNewMatch(matchType));
     this.clearQueue();
   }
 
