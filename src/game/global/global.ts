@@ -23,6 +23,8 @@ export class GlobalMatch extends MultiPlayerMatch {
 
   start() {} // Overridden
   protected startGlobal() {
+    this.opponent.send(`Match found. Your opponent is **${this.challenger.username}**`);
+    this.challenger.send(`Match found. Your opponent is **${this.opponent.username}**`);
     this.startMatch();
   }
 
