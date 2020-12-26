@@ -1,8 +1,8 @@
 {
   "prefix": "?",
   "customStatus": {
-    "name": "New Update!",
+    "name": "Global Matches! Use ?global command",
     "type": "LISTENING"
   },
-  "useCustomStatus": false
+  "useCustomStatus": true
 }
