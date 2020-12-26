@@ -11,7 +11,7 @@ export function setGlobal(
 ) {
   return setCommand(
     client,
-    'globe',
+    'global',
     'Find a global multiplayer match. You will be matched up against global discord players if a player is found.',
     '',
     (msg: Message) => {
