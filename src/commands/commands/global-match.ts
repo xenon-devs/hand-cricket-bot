@@ -1,4 +1,4 @@
-import { Message,  User, TextChannel } from 'discord.js';
+import { Message,  User, TextChannel, MessageEmbed } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { setCommand } from '../command';
 import { GlobalMatch } from '../../game/global/global';
@@ -28,7 +28,16 @@ export function setGlobal(
         else {
           if (matchQueue.length === 0) {
             matchQueue.push(msg.author);
-            msg.channel.send('You have been added to the queue.');
+            msg.channel.send(
+              new MessageEmbed()
+              .setTitle('Finding a Match')
+              .setColor('RED')
+              .setThumbnail(client.user.displayAvatarURL())
+              .setImage('https://raw.githubusercontent.com/xenon-devs/hand-cricket-bot/master/assets/searching.gif')
+              .setDescription('You have been added to the queue. This might take a while. You will get a DM from the bot as soon as a match is found.')
+              .setFooter('By Team Xenon', 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
+              .setTimestamp()
+            )
           }
           else {
             const opponent = matchQueue.pop();
