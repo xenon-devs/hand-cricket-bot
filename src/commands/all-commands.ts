@@ -29,7 +29,8 @@ export function setAllCommands(
   commandList.push(setChallenge(
     client,
     current1PMatches,
-    current2PMatches
+    current2PMatches,
+    currentGlobalMatches
   ))
   commandList.push(setDM(
     client
@@ -37,12 +38,14 @@ export function setAllCommands(
   commandList.push(setForfeit(
     client,
     current1PMatches,
-    current2PMatches
+    current2PMatches,
+    currentGlobalMatches
   ))
   commandList.push(setPlay(
     client,
     current1PMatches,
-    current2PMatches
+    current2PMatches,
+    currentGlobalMatches
   ))
   commandList.push(setRules(
     client,
@@ -53,7 +56,8 @@ export function setAllCommands(
   commandList.push(setOngoing(
     client,
     current1PMatches,
-    current2PMatches
+    current2PMatches,
+    currentGlobalMatches
   ))
   commandList.push(setNew(
     client
@@ -63,6 +67,8 @@ export function setAllCommands(
   ))
   commandList.push(setGlobal(
     client,
+    current1PMatches,
+    current2PMatches,
     currentGlobalMatches
   ))
 
