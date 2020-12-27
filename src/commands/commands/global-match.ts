@@ -5,13 +5,12 @@ import { GlobalMatch } from '../../game/global/global';
 import { MultiPlayerMatch } from '../../game/multi-player/multi-player';
 import { SinglePlayerMatch } from '../../game/single-player/single-player';
 
-const matchQueue: User[] = [];
-
 export function setGlobal(
   client: DiscordClient,
   current1PMatches: Map<string, SinglePlayerMatch>,
   current2PMatches: Map<string, MultiPlayerMatch>,
-  currentGlobalMatches: Map<string, GlobalMatch>
+  currentGlobalMatches: Map<string, GlobalMatch>,
+  matchmakingQueue: User[]
 ) {
   return setCommand(
     client,
@@ -35,10 +34,10 @@ export function setGlobal(
       if (!noOtherMatch) msg.channel.send(`Want to play two matches at once? Hahaha, your sense of humor is good.`);
 
       if (eligibleToPlay) {
-        if (matchQueue.includes(msg.author)) msg.channel.send('You are already in the queue.');
+        if (matchmakingQueue.includes(msg.author)) msg.channel.send('You are already in the queue.');
         else {
-          if (matchQueue.length === 0) {
-            matchQueue.push(msg.author);
+          if (matchmakingQueue.length === 0) {
+            matchmakingQueue.push(msg.author);
             msg.channel.send(
               new MessageEmbed()
               .setTitle('Finding a Match')
@@ -51,7 +50,7 @@ export function setGlobal(
             )
           }
           else {
-            const opponent = matchQueue.pop();
+            const opponent = matchmakingQueue.pop();
 
             currentGlobalMatches.set(
               msg.author.id,
