@@ -34,8 +34,8 @@ export class GlobalMatch extends MultiPlayerMatch {
       .addField('Player 1', `**${this.challenger.username}**`)
       .addField('Player 2', `**${this.opponent.username}**`)
       .addField('Game Mode', this.gameMode)
-    this.opponent.send(`Match found. Your opponent is **${this.challenger.username}**`);
-    this.challenger.send(`Match found. Your opponent is **${this.opponent.username}**`);
+    this.opponent.send(versusEmbed);
+    this.challenger.send(versusEmbed);
     this.startMatch();
   }
 
