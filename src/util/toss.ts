@@ -13,7 +13,7 @@ const doToss = async (
   onHandlerAdd: (handlerName: string) => void
 ): Promise<TossResult> => {
   try {
-    const tossAnswer = await ask(client, player, channel, tossMsg, 20000, onHandlerAdd);
+    const tossAnswer = await ask(client, player, channel, tossMsg, 120000, onHandlerAdd);
     switch (tossAnswer.answer.trim().toLowerCase()) {
       case 'heads':
         return TossResult.HEADS;

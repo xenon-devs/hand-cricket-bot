@@ -2,8 +2,7 @@ import { MultiPlayerMatch } from '../multi-player/multi-player';
 import { GameMode, Players, MatchResult } from '../match/match';
 import { startMatch } from './start-match';
 import { DiscordClient } from '../../util/discord-client';
-import { TextChannel, User } from 'discord.js';
-import { runInThisContext } from 'vm';
+import { TextChannel, User, MessageEmbed } from 'discord.js';
 
 export class GlobalMatch extends MultiPlayerMatch {
   gameMode: GameMode.TEST_MATCH;
@@ -24,6 +23,17 @@ export class GlobalMatch extends MultiPlayerMatch {
 
   start() {} // Overridden
   protected startGlobal() {
+    const versusEmbed = new MessageEmbed()
+      .setTitle('Global Hand Cricket Match')
+      .setImage('https://raw.githubusercontent.com/xenon-devs/hand-cricket-bot/master/assets/versus.gif')
+      .setThumbnail(this.client.user.displayAvatarURL())
+      .setTimestamp()
+      .setColor('GOLD')
+      .setFooter('By Team Xenon', 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
+      .setDescription('Found a global match. Be ready in the DM and answer ASAP.')
+      .addField('Player 1', `**${this.challenger.username}**`)
+      .addField('Player 2', `**${this.opponent.username}**`)
+      .addField('Game Mode', this.gameMode)
     this.opponent.send(`Match found. Your opponent is **${this.challenger.username}**`);
     this.challenger.send(`Match found. Your opponent is **${this.opponent.username}**`);
     this.startMatch();
