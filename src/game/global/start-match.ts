@@ -6,7 +6,7 @@ import { DMChannel } from 'discord.js';
 
 export async function startMatch(this: GlobalMatch) {
   try {
-    const challengerChannel = <DMChannel>(await this.challenger.send(`Opponent, ${this.opponent.username} is playing the toss.`)).channel;
+    const challengerChannel = <DMChannel>(await this.challenger.send(`Your opponent, ${this.opponent.username} is playing the toss.`)).channel;
     const opponentChannel = <DMChannel>(await this.opponent.send(`You will play the toss.`)).channel;
 
     const tossAnswer = await toss(
@@ -20,6 +20,8 @@ export async function startMatch(this: GlobalMatch) {
     if (tossAnswer === Math.floor(Math.random()*2)) tossWinner = Players.OPPONENT;
     else tossWinner = Players.CHALLENGER;
 
+    this.comment(`**${tossWinner === Players.CHALLENGER ? this.challenger.username : this.opponent.username}** won the toss.`);
+
     try {
       const batBowl = await askBatBowl(
         tossWinner === Players.CHALLENGER ? this.challenger : this.opponent,
@@ -31,20 +33,19 @@ export async function startMatch(this: GlobalMatch) {
       if (batBowl === BatBowl.BAT) this.opener = tossWinner;
       else this.opener = tossWinner === Players.CHALLENGER ? Players.OPPONENT : Players.CHALLENGER;
 
-      this.comment(`${tossWinner === Players.CHALLENGER ? 'Challenger' : 'Opponent'}\
-<@${tossWinner === Players.CHALLENGER ? this.challenger.id : this.opponent.id}> won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
+      this.comment(`**${tossWinner === Players.CHALLENGER ? this.challenger.username : this.opponent.username}** won the toss and chose to ${batBowl === BatBowl.BAT ? 'bat' : 'bowl'}`);
       this.comment(`Match starting in 2s`);
       setTimeout(() => this.play(), 2000);
     }
     catch (e) {
       this.matchEndedCb();
-      this.comment(`The challenger walked out of the stadium.`); // randomize
+      this.comment(`**${this.challenger.username}** walked out of the stadium. The match ended.`); // randomize
       return e;
     }
   }
   catch (e) {
     this.matchEndedCb();
-    this.comment(`The challenger never entered the stadium.`); // randomize
+    this.comment(`**${this.challenger.username}** never entered the stadium. The match ended.`); // randomize
     return e;
   }
 }
