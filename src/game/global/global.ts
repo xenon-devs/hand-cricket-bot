@@ -66,8 +66,8 @@ export class GlobalMatch extends MultiPlayerMatch {
         break;
     }
 
-    this.challenger.send(this.generateScoreBoard());
-    this.opponent.send(this.generateScoreBoard());
+    this.challenger.send(this.scoreboard);
+    this.opponent.send(this.scoreboard);
   }
 
   addMatchToDB() {
