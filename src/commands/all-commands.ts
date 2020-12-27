@@ -33,7 +33,8 @@ export function setAllCommands(
     client,
     current1PMatches,
     current2PMatches,
-    currentGlobalMatches
+    currentGlobalMatches,
+    matchmakingQueue
   ))
   commandList.push(setDM(
     client
@@ -48,7 +49,8 @@ export function setAllCommands(
     client,
     current1PMatches,
     current2PMatches,
-    currentGlobalMatches
+    currentGlobalMatches,
+    matchmakingQueue
   ))
   commandList.push(setRules(
     client,
