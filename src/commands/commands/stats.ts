@@ -29,6 +29,7 @@ export function setStats(
         statsEmbed
           .addField('1P Matches Played', `\`${matchesPlayed.singlePlayer}\``, true)
           .addField('2P Matches Played', `\`${matchesPlayed.multiPlayer}\``, true)
+          .addField('Global Matches Played', `\`${matchesPlayed.global}\``, true)
 
         if (botStats.invite) statsEmbed.addField('Liked the bot?', `[Vote it!](https://top.gg/bot/${client.user.id}/vote)`);
       }
@@ -36,6 +37,7 @@ export function setStats(
         statsEmbed
           .addField('1P Matches Played', `\`${matchesPlayed.singlePlayer}\``, true)
           .addField('2P Matches Played', `\`${matchesPlayed.multiPlayer}\``, true)
+          .addField('Global Matches Played', `\`${matchesPlayed.global}\``, true)
       }
 
       msg.channel.send(statsEmbed);
