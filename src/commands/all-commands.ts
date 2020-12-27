@@ -12,7 +12,7 @@ import { setStats } from './commands/stats';
 import { setOngoing } from './commands/ongoing';
 import { setNew } from './commands/new';
 import { setLeaderboard } from './commands/leaderboard';
-import { setGlobal } from './commands/global-match';
+import { setGlobal, setQuit } from './commands/global-match';
 
 import { setHelp } from './help';
 import { ICommandMeta } from './command';
@@ -74,6 +74,10 @@ export function setAllCommands(
     current1PMatches,
     current2PMatches,
     currentGlobalMatches,
+    matchmakingQueue
+  ))
+  commandList.push(setQuit(
+    client,
     matchmakingQueue
   ))
 

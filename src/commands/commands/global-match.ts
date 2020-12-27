@@ -68,3 +68,26 @@ export function setGlobal(
     }
   )
 }
+
+export function setQuit(
+  client: DiscordClient,
+  matchmakingQueue: User[]
+) {
+  return setCommand(
+    client,
+    'quit',
+    'Removes you from the global matchmaking queue.',
+    '',
+    (msg) => {
+      if (matchmakingQueue.includes(msg.author)) {
+        matchmakingQueue.splice(
+          matchmakingQueue.indexOf(msg.author),
+          1
+        )
+
+        msg.channel.send('Removed from the global matchmaking queue.')
+      }
+      else msg.channel.send('You are not present in the global matchmaking queue.');
+    }
+  )
+}
