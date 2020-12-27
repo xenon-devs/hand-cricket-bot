@@ -3,11 +3,13 @@ import { DiscordClient } from '../../util/discord-client';
 import { setCommand } from '../command';
 import { SinglePlayerMatch } from '../../game/single-player/single-player';
 import { MultiPlayerMatch } from '../../game/multi-player/multi-player';
+import { GlobalMatch } from '../../game/global/global';
 
 export function setOngoing(
   client: DiscordClient,
   current1PMatches: Map<string, SinglePlayerMatch>,
-  current2PMatches: Map<string, MultiPlayerMatch>
+  current2PMatches: Map<string, MultiPlayerMatch>,
+  currentGlobalMatches: Map<string, GlobalMatch>
 ) {
   return setCommand(
     client,
@@ -23,7 +25,8 @@ export function setOngoing(
         .setColor('RED')
         .addFields([
           { name: 'Single Player', value: `\`${current1PMatches.size}\``, inline: true},
-          { name: 'Multi Player', value: `\`${current2PMatches.size}\``, inline: true}
+          { name: 'Multi Player', value: `\`${current2PMatches.size}\``, inline: true},
+          { name: 'Global Matches', value: `\`${currentGlobalMatches.size}\``, inline: true}
         ])
       )
     }
