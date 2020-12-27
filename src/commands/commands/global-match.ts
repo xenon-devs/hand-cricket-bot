@@ -2,11 +2,15 @@ import { Message,  User, TextChannel, MessageEmbed } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { setCommand } from '../command';
 import { GlobalMatch } from '../../game/global/global';
+import { MultiPlayerMatch } from '../../game/multi-player/multi-player';
+import { SinglePlayerMatch } from '../../game/single-player/single-player';
 
 const matchQueue: User[] = [];
 
 export function setGlobal(
   client: DiscordClient,
+  current1PMatches: Map<string, SinglePlayerMatch>,
+  current2PMatches: Map<string, MultiPlayerMatch>,
   currentGlobalMatches: Map<string, GlobalMatch>
 ) {
   return setCommand(
@@ -22,6 +26,13 @@ export function setGlobal(
 
         if (!eligibleToPlay) msg.channel.send(`Currently this feature is only available to those who have voted for Hand Cricketer on top.gg. You can vote using your discord account at https://top.gg/bot/${client.user.id}/vote.`);
       }
+
+      let noOtherMatch = true;
+      current1PMatches.forEach(match => noOtherMatch = eligibleToPlay = !(match.challenger.id === msg.author.id));
+      current2PMatches.forEach(match => noOtherMatch = eligibleToPlay = !(match.challenger.id === msg.author.id || match.opponent.id === msg.author.id));
+      currentGlobalMatches.forEach(match => noOtherMatch = eligibleToPlay = !(match.challenger.id === msg.author.id || match.opponent.id === msg.author.id));
+
+      if (!noOtherMatch) msg.channel.send(`Want to play two matches at once? Hahaha, your sense of humor is good.`);
 
       if (eligibleToPlay) {
         if (matchQueue.includes(msg.author)) msg.channel.send('You are already in the queue.');
