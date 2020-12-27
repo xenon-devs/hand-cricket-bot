@@ -9,7 +9,7 @@ export async function getAdvertisementEmbed(client: DiscordClient) {
       .setTimestamp()
       .setColor('#4400cc')
       .setDescription(`
-Now you can play matches against any player in any server globally! Just use the \`global\` command and see the magic!
+Now you can play matches against any player in any server globally! Just use the \`?global\` command and see the magic!
 You might have to wait for a while for a match to be found but as the popularity of this feature grows, you will find a match almost instantly.
 `)
 }
