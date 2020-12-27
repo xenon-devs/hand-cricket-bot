@@ -27,10 +27,11 @@ In the first half of October, we hosted nearly 2000 single and multi player matc
           }
         })
       )
+      .addField('\u200b', '\u200b')
       .setThumbnail(client.user.displayAvatarURL())
       .setFooter(`Version: v${version} | By Team Xenon`, 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
       .addField(`It's Open Source`, `[Github Link](https://github.com/xenon-devs/hand-cricket-bot)`, true)
-      .addField(`Play Among Us?`, `[Click to Add Among Us Bot Made by Team Xenon](https://top.gg/bot/757272442820362281)`, false);
+      .addField(`Play Among Us?`, `[Click to Add Among Us Bot Made by Team Xenon](https://top.gg/bot/757272442820362281)`, true);
 
       if (client.dblIntegration) {
         helpEmbed.addField('Add bot to your server', `[Click to Add](https://top.gg/bot/${client.user.id})`, true);
