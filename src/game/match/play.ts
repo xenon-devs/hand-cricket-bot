@@ -10,7 +10,7 @@ export async function play(this: Match) {
     return this.matchEndedCb();
   }
   if (opponentFingers === ErrorMessages.DID_NOT_ANSWER) {
-    this.result = MatchResult.CHALLENGER_LEFT;
+    this.result = MatchResult.OPPONENT_LEFT;
     this.sendScoreBoard();
     return this.matchEndedCb();
   }
