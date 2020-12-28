@@ -40,10 +40,10 @@
   dependencies:
     "@types/node" "*"
 
-"@xenon-devs/discordjs-reaction-menu@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@xenon-devs/discordjs-reaction-menu/-/discordjs-reaction-menu-1.0.1.tgz#0d7f1e957206c9e8a90220e08c1a9b68b598a259"
-  integrity sha512-AWQgIp1yCzOykdXivrmaeexp8lNW8c/G4plIqY7faqBXY5WpfOMAwW/uMgYG7HQAHZu1Gt74hbt0/nTyQQjB6g==
+"@xenon-devs/discordjs-reaction-menu@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@xenon-devs/discordjs-reaction-menu/-/discordjs-reaction-menu-1.0.2.tgz#5d913ad43718575cfb5d59f5e14416d56d46d99e"
+  integrity sha512-73mu48+sYP/hhBCQK6IyGgg3n5/uapQzQ+gQC8+oO84V0wgUtXFxGRdp16acAZl+2tG6BQ5No9pKHRs1UJyjvQ==
 
 abbrev@1:
   version "1.1.1"
