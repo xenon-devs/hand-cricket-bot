@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
-export class MatchesDB<IDBStructure> {
+export class BaseDB<IDBStructure> {
   dbLoc: string;
   dbFileName: string; // Override
   DB_JSON: string;
