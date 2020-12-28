@@ -22,7 +22,12 @@ export function setLeaderboard(client: DiscordClient) {
       const scores = client.highScoreDB.getScores();
 
       const singlePlayerRankFields = scores.singlePlayer.map(rankMappingFunction);
+      const singlePlayerSuperRankFields = scores.singleSuperOver.map(rankMappingFunction);
+      const singlePlayerT5RankFields = scores.singleT5.map(rankMappingFunction);
       const multiPlayerRankFields = scores.multiPlayer.map(rankMappingFunction);
+      const multiPlayerSuperRankFields = scores.multiSuperOver.map(rankMappingFunction);
+      const multiPlayerT5RankFields = scores.multiT5.map(rankMappingFunction);
+
 
       const leaderboardMenu = new ReactionMenu(
         [
@@ -31,8 +36,9 @@ export function setLeaderboard(client: DiscordClient) {
               .setTitle(`Hand Cricketer Leaderboard`)
               .setDescription(`Leaderboard of all Hand Cricketer players on discord. Click on the emojis below to navigate.`)
               .addFields([
-                {name: '1.', value: 'Single Player High Scores'},
-                {name: '2.', value: 'Multi Player High Scores'}
+                {name: '1.', value: 'Test Match High Scores'},
+                {name: '2.', value: 'Super Over High Scores'},
+                {name: '3.', value: 'T-5 High Scores'}
               ])
               .setThumbnail(client.user.displayAvatarURL())
               .setColor('GREEN')
@@ -41,13 +47,16 @@ export function setLeaderboard(client: DiscordClient) {
           },
           {
             pageEmbed:  new MessageEmbed()
-              .setTitle(`Hand Cricket Singleplayer High Scores`)
+              .setTitle(`Hand Cricket Test Match High Scores`)
               .setDescription(
-                scores.singlePlayer.length > 0 ?
-                  'Following is the list of top single player high scores (in test match).' :
+                scores.singlePlayer.length > 0 || scores.multiPlayer.length > 0 ?
+                  'Following is the list of top test match high scores.' :
                   'No scores recorded yet.'
               )
+              .addField('Single Player', singlePlayerRankFields.length > 0 ? '\u200b' : 'No scores recorded')
               .addFields(singlePlayerRankFields)
+              .addField('Multi Player', multiPlayerRankFields.length > 0 ? '\u200b' : 'No scores recorded')
+              .addFields(multiPlayerRankFields)
               .setThumbnail(client.user.displayAvatarURL())
               .setColor('GREEN')
               .setTimestamp()
@@ -55,13 +64,33 @@ export function setLeaderboard(client: DiscordClient) {
           },
           {
             pageEmbed:  new MessageEmbed()
-              .setTitle(`Hand Cricket Multiplayer High Scores`)
+              .setTitle(`Hand Cricket Super Over High Scores`)
               .setDescription(
-                scores.multiPlayer.length > 0 ?
-                  'Following is the list of top multi player high scores (in test match).' :
+                scores.singleSuperOver.length > 0 || scores.multiSuperOver.length > 0 ?
+                  'Following is the list of top super over high scores.' :
                   'No scores recorded yet.'
               )
-              .addFields(multiPlayerRankFields)
+              .addField('Single Player', singlePlayerSuperRankFields.length > 0 ? '\u200b' : 'No scores recorded')
+              .addFields(singlePlayerRankFields)
+              .addField('Multi Player', multiPlayerSuperRankFields.length > 0 ? '\u200b' : 'No scores recorded')
+              .addFields(multiPlayerSuperRankFields)
+              .setThumbnail(client.user.displayAvatarURL())
+              .setColor('GREEN')
+              .setTimestamp()
+              .setFooter('By Team Xenon', 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
+          },
+          {
+            pageEmbed:  new MessageEmbed()
+              .setTitle(`Hand Cricket T-5 High Scores`)
+              .setDescription(
+                scores.singleT5.length > 0 || scores.multiT5.length > 0 ?
+                  'Following is the list of top T-5 high scores.' :
+                  'No scores recorded yet.'
+              )
+              .addField('Single Player', singlePlayerT5RankFields.length > 0 ? '\u200b' : 'No scores recorded')
+              .addFields(singlePlayerT5RankFields)
+              .addField('Multi Player', multiPlayerT5RankFields.length > 0 ? '\u200b' : 'No scores recorded')
+              .addFields(multiPlayerT5RankFields)
               .setThumbnail(client.user.displayAvatarURL())
               .setColor('GREEN')
               .setTimestamp()
