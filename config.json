@@ -1,8 +1,8 @@
 {
   "prefix": "?",
   "customStatus": {
-    "name": "Global Matches! Use ?global command",
-    "type": "LISTENING"
+    "name": "Leaderboard has Super Over and T-5 high scores now",
+    "type": "WATCHING"
   },
   "useCustomStatus": true
 }
