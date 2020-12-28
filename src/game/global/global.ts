@@ -3,6 +3,7 @@ import { GameMode, Players, MatchResult } from '../match/match';
 import { startMatch } from './start-match';
 import { DiscordClient } from '../../util/discord-client';
 import { TextChannel, User, MessageEmbed } from 'discord.js';
+import { HighScoreType } from '../../db/high-score-db';
 
 export class GlobalMatch extends MultiPlayerMatch {
   gameMode: GameMode.TEST_MATCH;
@@ -80,7 +81,18 @@ export class GlobalMatch extends MultiPlayerMatch {
     this.opponent.send(this.scoreboard);
   }
 
-  addMatchToDB() {
+  updateDB(
+    winner: User,
+    winnerScore: number
+  ) {
+    this.client.highScoreDB.addHighScore(
+      {
+        score: winnerScore,
+        tag: winner.tag
+      },
+      HighScoreType.MULTI_TEST
+    )
+
     this.client.matchesDB.addMatch('global');
   }
 

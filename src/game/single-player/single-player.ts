@@ -5,6 +5,7 @@ import { ErrorMessages, ask } from '../../util/ask';
 import { getPlayerFingers } from '../../util/get-player-fingers';
 
 import { startMatch } from './start-match';
+import { HighScoreType } from '../../db/high-score-db';
 
 export class SinglePlayerMatch extends Match {
   private startMatch = startMatch;
@@ -120,7 +121,34 @@ export class SinglePlayerMatch extends Match {
     return fingers;
   }
 
-  addMatchToDB() {
+  updateDB(
+    winner: User,
+    winnerScore: number
+  ) {
+    if (!winner.bot) {
+      let highScoreType: HighScoreType;
+
+      switch (this.gameMode) {
+        case GameMode.SUPER_OVER:
+          highScoreType = HighScoreType.SINGLE_SUPER_OVER;
+          break;
+        case GameMode.T_5:
+          highScoreType = HighScoreType.SINGLE_T5;
+          break;
+        case GameMode.TEST_MATCH:
+          highScoreType = HighScoreType.SINGLE_TEST;
+          break;
+      }
+
+      this.client.highScoreDB.addHighScore(
+        {
+          score: winnerScore,
+          tag: winner.tag
+        },
+        highScoreType
+      )
+    }
+
     this.client.matchesDB.addMatch('singlePlayer');
   }
 }

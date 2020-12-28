@@ -142,19 +142,7 @@ Which game mode do you want to play?
       const winnerScore = Math.max(this.openerScore, this.chaserScore);
       const winner = this.result === MatchResult.CHALLENGER_WON ? this.challenger : this.opponent;
 
-      if (!winner.bot) {
-        this.client.highScoreDB.addHighScore(
-          {
-            score: winnerScore,
-            tag: winner.tag
-          },
-          !this.opponent.bot // Multiplayer if opponent is not bot
-        )
-      }
-    }
-
-    if(this.result == MatchResult.CHALLENGER_WON || this.result === MatchResult.OPPONENT_WON) {
-      this.addMatchToDB();
+      this.updateDB(winner, winnerScore);
     }
 
     this.sendScoreBoard();
@@ -166,7 +154,10 @@ Which game mode do you want to play?
     this.stadium.send(this.client.advertisement);
   }
 
-  protected addMatchToDB() {}
+  protected updateDB(
+    winner: User,
+    winnerScore: number
+  ) {}
 
   protected inningsOver() {
     this.numInnings++;

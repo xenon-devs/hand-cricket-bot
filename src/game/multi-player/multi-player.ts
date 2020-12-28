@@ -1,7 +1,8 @@
 import { TextChannel, User } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
+import { HighScoreType } from '../../db/high-score-db';
 import { getPlayerFingersDM } from '../../util/get-player-fingers';
-import { Match, Players } from '../match/match';
+import { Match, Players, GameMode } from '../match/match';
 
 import { selectOpponent } from './select-opponent';
 import { startMatch } from './start-match';
@@ -86,7 +87,32 @@ export class MultiPlayerMatch extends Match {
     this.challenger.send(this.scoreboard);
   }
 
-  addMatchToDB() {
+  updateDB(
+    winner: User,
+    winnerScore: number
+  ) {
+    let highScoreType: HighScoreType;
+
+    switch (this.gameMode) {
+      case GameMode.SUPER_OVER:
+        highScoreType = HighScoreType.MULTI_SUPER_OVER;
+        break;
+      case GameMode.T_5:
+        highScoreType = HighScoreType.MULTI_T5;
+        break;
+      case GameMode.TEST_MATCH:
+        highScoreType = HighScoreType.MULTI_TEST;
+        break;
+    }
+
+    this.client.highScoreDB.addHighScore(
+      {
+        score: winnerScore,
+        tag: winner.tag
+      },
+      highScoreType
+    )
+
     this.client.matchesDB.addMatch('multiPlayer');
   }
 }
