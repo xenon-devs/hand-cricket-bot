@@ -71,7 +71,7 @@ export function setLeaderboard(client: DiscordClient) {
                   'No scores recorded yet.'
               )
               .addField('Single Player', singlePlayerSuperRankFields.length > 0 ? '\u200b' : 'No scores recorded')
-              .addFields(singlePlayerRankFields)
+              .addFields(singlePlayerSuperRankFields)
               .addField('Multi Player', multiPlayerSuperRankFields.length > 0 ? '\u200b' : 'No scores recorded')
               .addFields(multiPlayerSuperRankFields)
               .setThumbnail(client.user.displayAvatarURL())
