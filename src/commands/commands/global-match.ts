@@ -20,11 +20,11 @@ export function setGlobal(
     async (msg: Message) => {
       let eligibleToPlay = true;
 
-      if (client.dblIntegration) {
-        eligibleToPlay = await client.dbl.hasVoted(msg.author.id);
+      // if (client.dblIntegration) {
+      //   eligibleToPlay = await client.dbl.hasVoted(msg.author.id);
 
-        if (!eligibleToPlay) msg.channel.send(`Currently this feature is only available to those who have voted for Hand Cricketer on top.gg. You can vote using your discord account at https://top.gg/bot/${client.user.id}/vote.`);
-      }
+      //   if (!eligibleToPlay) msg.channel.send(`Currently this feature is only available to those who have voted for Hand Cricketer on top.gg. You can vote using your discord account at https://top.gg/bot/${client.user.id}/vote.`);
+      // }
 
       let noOtherMatch = true;
       current1PMatches.forEach(match => noOtherMatch = eligibleToPlay = !(match.challenger.id === msg.author.id));
