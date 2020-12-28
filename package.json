@@ -20,7 +20,7 @@
     "dev": "concurrently 'tsc -w' 'nodemon . --watch dist'"
   },
   "dependencies": {
-    "@xenon-devs/discordjs-reaction-menu": "^0.0.2",
+    "@xenon-devs/discordjs-reaction-menu": "^1.0.1",
     "dblapi.js": "^2.4.1",
     "discord.js": "^12.5.0",
     "dotenv": "^8.2.0"
