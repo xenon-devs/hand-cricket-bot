@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join } from 'path';
+import { BaseDB } from './base-db';
 
 export interface IHighScore {
   score: number,
@@ -18,31 +19,15 @@ export const emptyHighScoreDB: IHighScoreDB = {
 
 export const MAX_SCORES_STORED = 10;
 
-export class HighScoreDB {
-  dbLoc: string;
-  HIGH_SCORE_JSON: string;
-  dbOpsQueue: (() => void)[] = [];
-
-  constructor(dbLoc: string) {
-    this.dbLoc = dbLoc;
-    this.HIGH_SCORE_JSON = join(this.dbLoc, 'high-scores.json');
-
-    if (!existsSync(this.HIGH_SCORE_JSON)) writeFileSync(this.HIGH_SCORE_JSON, JSON.stringify(emptyHighScoreDB));
-    else {
-      const currentDb = JSON.parse(readFileSync(this.HIGH_SCORE_JSON).toString());
-
-      if (typeof currentDb.singlePlayer === 'undefined') currentDb.singlePlayer = emptyHighScoreDB.singlePlayer;
-      if (typeof currentDb.multiPlayer === 'undefined') currentDb.multiPlayer = emptyHighScoreDB.multiPlayer;
-
-      writeFileSync(this.HIGH_SCORE_JSON, JSON.stringify(currentDb));
-    }
-  }
+export class HighScoreDB extends BaseDB<IHighScoreDB> {
+  dbDefaults = emptyHighScoreDB;
+  dbFileName = 'high-scores';
 
   private addNewHighScore(
+    currentDb: IHighScoreDB,
     newHigh: IHighScore,
     multiplayer: boolean
   ) {
-    const currentDb: IHighScoreDB = JSON.parse(readFileSync(this.HIGH_SCORE_JSON).toString());
     const currentList = currentDb[multiplayer ? 'multiPlayer' : 'singlePlayer'];
 
     currentList.push(newHigh);
@@ -52,24 +37,18 @@ export class HighScoreDB {
 
     currentDb[multiplayer ? 'multiPlayer' : 'singlePlayer'] = newList;
 
-    writeFileSync(this.HIGH_SCORE_JSON, JSON.stringify(currentDb));
+    return currentDb;
   }
 
   addHighScore(
     newHigh: IHighScore,
     multiplayer: boolean
   ) {
-    this.dbOpsQueue.push(() => this.addNewHighScore(newHigh, multiplayer));
-    this.clearQueue();
+    this.dbOpsQueue.push((currentDb: IHighScoreDB) => this.addNewHighScore(currentDb, newHigh, multiplayer));
+    this.clearOPQueue();
   }
 
   getScores(): IHighScoreDB {
-    return JSON.parse(readFileSync(this.HIGH_SCORE_JSON).toString());
-  }
-
-  private clearQueue() {
-    for (let i = 0; i < this.dbOpsQueue.length; i++) {
-      (this.dbOpsQueue.shift())();
-    }
+    return this.readDB();
   }
 }
