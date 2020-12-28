@@ -7,29 +7,29 @@ export class MatchesDB<IDBStructure> {
   DB_JSON: string;
 
   dbDefaults: IDBStructure;
-  dbOpsQueue: (() => void)[] = [];
+  dbOpsQueue: ((currentDB: IDBStructure) => IDBStructure)[] = [];
 
   constructor(dbLoc: string) {
     this.dbLoc = dbLoc;
     this.DB_JSON = join(this.dbLoc, `${this.dbFileName}.json`);
 
-    if (!existsSync(this.DB_JSON)) writeFileSync(this.DB_JSON, JSON.stringify(this.dbDefaults));
+    if (!existsSync(this.DB_JSON)) this.writeDB(this.dbDefaults);
     else {
-      const currentDb = JSON.parse(readFileSync(this.DB_JSON).toString());
+      const currentDb = this.readDB();
 
       for (let property in this.dbDefaults) {
         if (typeof currentDb[property] === 'undefined') currentDb[property] = this.dbDefaults[property];
       }
 
-      writeFileSync(this.DB_JSON, JSON.stringify(currentDb));
+      this.writeDB(currentDb);
     }
   }
 
-  protected queueOperation(operation: () => void) {
+  protected queueOperation(operation: (currentDB: IDBStructure) => IDBStructure) {
     this.dbOpsQueue.push(operation);
   }
 
-  protected writeDB(newDB: IDBStructure) {
+  private writeDB(newDB: IDBStructure) {
     writeFileSync(this.DB_JSON, JSON.stringify(newDB));
   }
 
@@ -37,9 +37,11 @@ export class MatchesDB<IDBStructure> {
     return JSON.parse(readFileSync(this.DB_JSON).toString());
   }
 
-  protected clearQueue() {
+  protected clearOPQueue() {
     for (let i = 0; i < this.dbOpsQueue.length; i++) {
-      (this.dbOpsQueue.shift())();
+      this.writeDB(
+        this.dbOpsQueue.shift()(this.readDB())
+      )
     }
   }
 }
