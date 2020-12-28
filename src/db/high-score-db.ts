@@ -1,5 +1,3 @@
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { join } from 'path';
 import { BaseDB } from './base-db';
 
 export interface IHighScore {
@@ -20,8 +18,8 @@ export const emptyHighScoreDB: IHighScoreDB = {
 export const MAX_SCORES_STORED = 10;
 
 export class HighScoreDB extends BaseDB<IHighScoreDB> {
-  dbDefaults = emptyHighScoreDB;
-  dbFileName = 'high-scores';
+  getDBFileName() {return 'high-scores'}
+  getDBDefaults() {return emptyHighScoreDB}
 
   private addNewHighScore(
     currentDb: IHighScoreDB,

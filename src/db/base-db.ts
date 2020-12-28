@@ -3,14 +3,26 @@ import { join } from 'path';
 
 export class BaseDB<IDBStructure> {
   dbLoc: string;
-  dbFileName: string; // Override
   DB_JSON: string;
 
+  dbFileName: string;
   dbDefaults: IDBStructure;
+
   dbOpsQueue: ((currentDB: IDBStructure) => IDBStructure)[] = [];
+
+  getDBFileName() { // Override
+    return this.dbFileName;
+  }
+
+  getDBDefaults() { // Override
+    return this.dbDefaults;
+  }
 
   constructor(dbLoc: string) {
     this.dbLoc = dbLoc;
+    this.dbFileName = this.getDBFileName();
+    this.dbDefaults = this.getDBDefaults();
+
     this.DB_JSON = join(this.dbLoc, `${this.dbFileName}.json`);
 
     if (!existsSync(this.DB_JSON)) this.writeDB(this.dbDefaults);

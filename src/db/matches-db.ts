@@ -13,8 +13,8 @@ export const emptyMatchesDB: IMatchesDBStructure = {
 }
 
 export class MatchesDB extends BaseDB<IMatchesDBStructure> {
-  dbDefaults = emptyMatchesDB;
-  dbFileName = 'matches';
+  getDBFileName() {return 'matches'}
+  getDBDefaults() {return emptyMatchesDB}
 
   private addNewMatch(
     currentDb: IMatchesDBStructure,
