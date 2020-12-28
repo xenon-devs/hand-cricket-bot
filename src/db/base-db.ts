@@ -50,11 +50,13 @@ export class BaseDB<IDBStructure> {
   }
 
   protected clearOPQueue() {
+    let currentDB = this.readDB();
+
     for (let i = 0; i < this.dbOpsQueue.length; i++) {
-      this.writeDB(
-        this.dbOpsQueue.shift()(this.readDB())
-      )
+        currentDB = this.dbOpsQueue.shift()(currentDB)
     }
+
+    this.writeDB(currentDB);
   }
 }
 
