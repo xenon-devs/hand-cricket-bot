@@ -32,7 +32,7 @@ export function setLeaderboard(client: DiscordClient) {
               .setDescription(`Leaderboard of all Hand Cricketer players on discord. Click on the emojis below to navigate.`)
               .addFields([
                 {name: '1.', value: 'Single Player High Scores'},
-                {name: '2.', value: 'Multu Player High Scores'}
+                {name: '2.', value: 'Multi Player High Scores'}
               ])
               .setThumbnail(client.user.displayAvatarURL())
               .setColor('GREEN')
@@ -68,10 +68,11 @@ export function setLeaderboard(client: DiscordClient) {
               .setFooter('By Team Xenon', 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
           }
         ],
-        <TextChannel | DMChannel>msg.channel
+        <TextChannel | DMChannel>msg.channel,
+        120
       )
 
-      leaderboardMenu.start(0);
+      leaderboardMenu.start([msg.author.id])
 
       if (client.advertisement !== null) msg.channel.send(client.advertisement);
     }
