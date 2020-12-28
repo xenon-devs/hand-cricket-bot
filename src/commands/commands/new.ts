@@ -9,7 +9,8 @@ If you have *absolutey any* suggestions, you can let us know in the support serv
 `
 
 const changes = [
-  { name: 'Game Modes', value: 'Player can choose a game mode from Test Match, Super Over or T-5 now!' },
+  { name: 'Global Matches!', value: 'Now you can play against any player globally! See the help command' },
+  { name: 'Leaderboard Reaction Menu', value: 'The leaderboard is now a reaction menu to allow for us to expand it later.' },
   { name: 'Next', value: 'Expansion of Leaderboard - More stats, stats for different game modes.' }
 ]
 
