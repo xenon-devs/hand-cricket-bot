@@ -1,6 +1,6 @@
 {
   "name": "hand-cricket-bot",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "main": "dist/index.js",
   "license": "GPL-3.0",
   "description": "A Discord bot that plays Handcricket!",
