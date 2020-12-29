@@ -135,10 +135,7 @@ Which game mode do you want to play?
     else if (this.openerScore < this.chaserScore) this.result = this.opener === Players.CHALLENGER ? MatchResult.OPPONENT_WON : MatchResult.CHALLENGER_WON;
 
     // Handle high scores leaderboard
-    if (
-      (this.result == MatchResult.CHALLENGER_WON || this.result === MatchResult.OPPONENT_WON) &&
-      this.gameMode === GameMode.TEST_MATCH
-    ) {
+    if (this.result == MatchResult.CHALLENGER_WON || this.result === MatchResult.OPPONENT_WON) {
       const winnerScore = Math.max(this.openerScore, this.chaserScore);
       const winner = this.result === MatchResult.CHALLENGER_WON ? this.challenger : this.opponent;
 
