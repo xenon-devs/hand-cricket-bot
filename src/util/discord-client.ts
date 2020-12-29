@@ -78,7 +78,7 @@ onCommand(
     name: command,
     handler: msg => {
       const customPrefix: string = (msg.channel.type === 'dm') ? prefix : getPrefix(msg.guild);
-      if (msg.content.toLowerCase() === `${customPrefix}${command}` && !msg.author.bot) {
+      if (msg.content.toLowerCase().startsWith(`${customPrefix}${command}`) && !msg.author.bot) {
         if (output !== '') msg.channel.send(output);
         if (cb) cb(msg, customPrefix);
       }
