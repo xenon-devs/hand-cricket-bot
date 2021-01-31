@@ -40,9 +40,9 @@ export class DiscordClient extends Client {
       })
     })
 
-    this.on('ready', async () => {
-      this.advertisement = await getAdvertisementEmbed(this);
-    })
+    // this.on('ready', async () => {
+    //   this.advertisement = await getAdvertisementEmbed(this);
+    // })
   }
 
   /**
