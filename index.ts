@@ -34,6 +34,7 @@ client.on('ready', () => {
 setAllCommands(client);
 
 client.on('ready', () => console.log('Logged in as ', client.user.username));
+client.on('rateLimit', console.log);
 
 const tryLogin = () => {
   console.log('Login failed. Trying again');
