@@ -1,6 +1,7 @@
-import { MessageEmbed, Message } from 'discord.js';
+import { MessageEmbed, Message, TextChannel } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { setCommand } from '../command';
+import { send } from '../../util/rate-limited-send';
 
 export function setRules(client: DiscordClient) {
   return setCommand(
@@ -21,7 +22,7 @@ export function setRules(client: DiscordClient) {
         .setThumbnail(client.user.displayAvatarURL())
         .setFooter('By Team Xenon', 'https://raw.githubusercontent.com/xenon-devs/xen-assets/main/xen-inc/logo/xen-logo-black-bg.png')
 
-      msg.channel.send(rulesEmbed);
+      send(<TextChannel>msg.channel, rulesEmbed);
     }
   )
 }

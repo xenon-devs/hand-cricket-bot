@@ -1,9 +1,10 @@
-import { Message, MessageEmbed, User } from 'discord.js';
+import { Message, MessageEmbed, User, TextChannel } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { setCommand } from '../command';
 import { SinglePlayerMatch } from '../../game/single-player/single-player';
 import { MultiPlayerMatch } from '../../game/multi-player/multi-player';
 import { GlobalMatch } from '../../game/global/global';
+import { send } from '../../util/rate-limited-send';
 
 export function setOngoing(
   client: DiscordClient,
@@ -18,7 +19,8 @@ export function setOngoing(
     'Lists the number of currently ongoing single and multi player matches.',
     '',
     (msg: Message) => {
-      msg.channel.send(
+      send(
+        <TextChannel>msg.channel,
         new MessageEmbed()
         .setTitle(`Ongoing Matches`)
         .setThumbnail(client.user.displayAvatarURL())

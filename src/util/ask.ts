@@ -1,5 +1,6 @@
 import { User, TextChannel, DMChannel, Message } from 'discord.js';
 import { DiscordClient } from './discord-client';
+import { send } from './rate-limited-send';
 
 export enum ErrorMessages {
   DID_NOT_ANSWER = 'did_not_answer'
@@ -23,11 +24,11 @@ export async function askAQuestion(
   onHandlerAdd: (handlerName: string) => void
 ) {
   return new Promise(async (resolve: (value: {answer: string, msg: Message}) => void, reject: (error: ErrorMessages) => void) => {
-    const channel = (await sendTo.send(`<@${askTo.id}> ${question}`)).channel;
+    const channel = (await send(sendTo, `<@${askTo.id}> ${question}`)).channel;
     const handlerName = `${question}@${askTo.id}#${channel.id}`;
 
     const notAnsweredHandler = async () => {
-      sendTo.send(`<@${askTo.id}> You didn't answer in ${timeout / 1000}s, now your chance is gone.`);
+      send(sendTo, `<@${askTo.id}> You didn't answer in ${timeout / 1000}s, now your chance is gone.`);
       client.offMsg(handlerName);
 
       reject(ErrorMessages.DID_NOT_ANSWER);

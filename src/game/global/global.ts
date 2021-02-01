@@ -4,6 +4,7 @@ import { startMatch } from './start-match';
 import { DiscordClient } from '../../util/discord-client';
 import { TextChannel, User, MessageEmbed } from 'discord.js';
 import { HighScoreType } from '../../db/high-score-db';
+import { send } from '../../util/rate-limited-send';
 
 export class GlobalMatch extends MultiPlayerMatch {
   gameMode: GameMode.TEST_MATCH;
@@ -35,14 +36,14 @@ export class GlobalMatch extends MultiPlayerMatch {
       .addField('Player 1', `**${this.challenger.username}**`)
       .addField('Player 2', `**${this.opponent.username}**`)
       .addField('Game Mode', this.gameMode)
-    this.opponent.send(versusEmbed);
-    this.challenger.send(versusEmbed);
+    send(this.opponent, versusEmbed);
+    send(this.challenger, versusEmbed);
     this.startMatch();
   }
 
   protected comment(commentry: string) {
-    this.opponent.send(`**Commentator**: ${commentry}`);
-    this.challenger.send(`**Commentator**: ${commentry}`);
+    send(this.opponent, `**Commentator**: ${commentry}`);
+    send(this.opponent, `**Commentator**: ${commentry}`);
   }
 
   protected sendScoreBoard() {
@@ -77,8 +78,8 @@ export class GlobalMatch extends MultiPlayerMatch {
         break;
     }
 
-    this.challenger.send(this.scoreboard);
-    this.opponent.send(this.scoreboard);
+    send(this.opponent, this.scoreboard);
+    send(this.opponent, this.scoreboard);
   }
 
   updateDB(

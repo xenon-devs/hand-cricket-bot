@@ -4,6 +4,7 @@ import { setCommand } from '../command';
 import { SinglePlayerMatch } from '../../game/single-player/single-player';
 import { MultiPlayerMatch } from '../../game/multi-player/multi-player';
 import { GlobalMatch } from '../../game/global/global';
+import { send } from '../../util/rate-limited-send';
 
 export function setPlay(
   client: DiscordClient,
@@ -20,7 +21,7 @@ export function setPlay(
     (msg: Message, prefix: string) => {
       let eligibleToPlay = true;
 
-      if (matchmakingQueue.includes(msg.author)) return msg.channel.send(`You are already present in the global matchmaking queue. To play a match, first quit the queue using \`${prefix}quit\` command.`)
+      if (matchmakingQueue.includes(msg.author)) return send(<TextChannel>msg.channel, `You are already present in the global matchmaking queue. To play a match, first quit the queue using \`${prefix}quit\` command.`)
 
       current1PMatches.forEach(match => eligibleToPlay = !(match.challenger.id === msg.author.id));
       current2PMatches.forEach(match => eligibleToPlay = !(match.challenger.id === msg.author.id || match.opponent.id === msg.author.id));
@@ -37,7 +38,7 @@ export function setPlay(
           () => current1PMatches.delete(matchId)
         )
       )
-      else msg.channel.send(`Want to play two matches at once? Hahaha, your sense of humor is good.`);
+      else send(<TextChannel>msg.channel, `Want to play two matches at once? Hahaha, your sense of humor is good.`);
     }
   )
 }

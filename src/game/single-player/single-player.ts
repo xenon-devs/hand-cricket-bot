@@ -3,6 +3,7 @@ import { DiscordClient } from '../../util/discord-client';
 import { TextChannel, User, DMChannel } from 'discord.js';
 import { ErrorMessages, ask } from '../../util/ask';
 import { getPlayerFingers } from '../../util/get-player-fingers';
+import { send } from '../../util/rate-limited-send';
 
 import { startMatch } from './start-match';
 import { HighScoreType } from '../../db/high-score-db';
@@ -50,7 +51,7 @@ export class SinglePlayerMatch extends Match {
           )
 
           if (answer.answer.trim().toLowerCase() === 'yes') {
-            this.stadium.send(`<@${this.challenger.id}> Click on the link below. Sign in with your discord account, vote and come back in 5 min. \n https://top.gg/bot/${this.client.user.id}/vote`);
+            send(this.stadium, `<@${this.challenger.id}> Click on the link below. Sign in with your discord account, vote and come back in 5 min. \n https://top.gg/bot/${this.client.user.id}/vote`);
 
             try {
               const answer = await ask(
@@ -74,7 +75,7 @@ export class SinglePlayerMatch extends Match {
                   this.play();
                 }
                 else {
-                  this.stadium.send('Looks like you did not vote.');
+                  send(this.stadium, 'Looks like you did not vote.');
                   super.inningsOver();
                 }
               }
@@ -100,7 +101,7 @@ export class SinglePlayerMatch extends Match {
     bowlerPlayed: number
   ) {
     const opponentScore = (this.numInnings === 0 && this.opener === Players.OPPONENT || this.numInnings === 1 && this.opener === Players.CHALLENGER) ? batsmanPlayed : bowlerPlayed; // Bot's score
-    this.stadium.send(`${opponentScore}!`);
+    send(this.stadium, `${opponentScore}!`);
 
     if (batsmanPlayed !== bowlerPlayed) {
       if (batsmanPlayed === 6) this.comment(this.getRandomComment(this.COMMENT_CATEGORIES.SIX));

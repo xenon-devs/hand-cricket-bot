@@ -4,6 +4,7 @@ import { setCommand } from '../command';
 import { GlobalMatch } from '../../game/global/global';
 import { MultiPlayerMatch } from '../../game/multi-player/multi-player';
 import { SinglePlayerMatch } from '../../game/single-player/single-player';
+import { send } from '../../util/rate-limited-send';
 
 export function setGlobal(
   client: DiscordClient,
@@ -23,7 +24,7 @@ export function setGlobal(
       // if (client.dblIntegration) {
       //   eligibleToPlay = await client.dbl.hasVoted(msg.author.id);
 
-      //   if (!eligibleToPlay) msg.channel.send(`Currently this feature is only available to those who have voted for Hand Cricketer on top.gg. You can vote using your discord account at https://top.gg/bot/${client.user.id}/vote.`);
+      //   if (!eligibleToPlay) send(<TextChannel>msg.channel, `Currently this feature is only available to those who have voted for Hand Cricketer on top.gg. You can vote using your discord account at https://top.gg/bot/${client.user.id}/vote.`);
       // }
 
       let noOtherMatch = true;
@@ -31,14 +32,15 @@ export function setGlobal(
       current2PMatches.forEach(match => noOtherMatch = eligibleToPlay = !(match.challenger.id === msg.author.id || match.opponent.id === msg.author.id));
       currentGlobalMatches.forEach(match => noOtherMatch = eligibleToPlay = !(match.challenger.id === msg.author.id || match.opponent.id === msg.author.id));
 
-      if (!noOtherMatch) msg.channel.send(`Want to play two matches at once? Hahaha, your sense of humor is good.`);
+      if (!noOtherMatch) send(<TextChannel>msg.channel, `Want to play two matches at once? Hahaha, your sense of humor is good.`);
 
       if (eligibleToPlay) {
-        if (matchmakingQueue.includes(msg.author)) msg.channel.send('You are already in the queue.');
+        if (matchmakingQueue.includes(msg.author)) send(<TextChannel>msg.channel, 'You are already in the queue.');
         else {
           if (matchmakingQueue.length === 0) {
             matchmakingQueue.push(msg.author);
-            msg.channel.send(
+            send(
+              <TextChannel>msg.channel,
               new MessageEmbed()
               .setTitle('Finding a Match')
               .setColor('RED')
@@ -85,9 +87,9 @@ export function setQuit(
           1
         )
 
-        msg.channel.send('Removed from the global matchmaking queue.')
+        send(<TextChannel>msg.channel, 'Removed from the global matchmaking queue.')
       }
-      else msg.channel.send('You are not present in the global matchmaking queue.');
+      else send(<TextChannel>msg.channel, 'You are not present in the global matchmaking queue.');
     }
   )
 }

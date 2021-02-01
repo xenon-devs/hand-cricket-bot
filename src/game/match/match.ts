@@ -6,6 +6,7 @@ import { generateScoreBoard } from './scoreboard';
 import { play } from './play';
 import { forfeit } from './forfeit';
 import { getRandomComment, COMMENT_CATEGORIES } from './random-comment';
+import { send } from '../../util/rate-limited-send';
 
 export enum Players {
   CHALLENGER = 'challenger',
@@ -105,18 +106,18 @@ Which game mode do you want to play?
             this.gameMode = GameMode.T_5;
             break;
           default:
-            this.stadium.send(`Invalid answer. Choosing ${GameMode.TEST_MATCH} by default.`);
+            send(this.stadium, `Invalid answer. Choosing ${GameMode.TEST_MATCH} by default.`);
             this.gameMode = GameMode.TEST_MATCH;
             break;
         }
       }
       else {
-        this.stadium.send(`Invalid answer. Choosing ${GameMode.TEST_MATCH} by default.`);
+        send(this.stadium, `Invalid answer. Choosing ${GameMode.TEST_MATCH} by default.`);
         this.gameMode = GameMode.TEST_MATCH;
       }
     }
     catch(e) {
-      this.stadium.send(`Did not answer. Choosing ${GameMode.TEST_MATCH} by default.`);
+      send(this.stadium, `Did not answer. Choosing ${GameMode.TEST_MATCH} by default.`);
       this.gameMode = GameMode.TEST_MATCH;
     }
   }
@@ -148,7 +149,7 @@ Which game mode do you want to play?
   }
 
   protected sendAdvertisement() {
-    this.stadium.send(this.client.advertisement);
+    send(this.stadium, this.client.advertisement);
   }
 
   protected updateDB(
@@ -168,11 +169,11 @@ Which game mode do you want to play?
   }
 
   protected sendScoreBoard() {
-    this.stadium.send(this.generateScoreBoard());
+    send(this.stadium, this.generateScoreBoard());
   }
 
   protected comment(commentry: string) {
-    this.stadium.send(`**Commentator**: ${commentry}`);
+    send(this.stadium, `**Commentator**: ${commentry}`);
   }
 
   /**

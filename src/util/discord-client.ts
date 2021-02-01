@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed, ClientOptions } from 'discord.js';
+import { Client, Message, MessageEmbed, ClientOptions, TextChannel, DMChannel } from 'discord.js';
 import DBL from 'dblapi.js';
 
 import { prefix } from '../../config.json'
@@ -6,6 +6,7 @@ import { getPrefix } from './get-prefix';
 import { HighScoreDB } from '../db/high-score-db';
 import { MatchesDB } from '../db/matches-db';
 import { getAdvertisementEmbed } from '../advertisement/advertisement';
+import { send } from './rate-limited-send';
 
 export type onMessageHandler = {
   handler: (msg: Message) => void,
@@ -79,7 +80,7 @@ onCommand(
     handler: msg => {
       const customPrefix: string = (msg.channel.type === 'dm') ? prefix : getPrefix(msg.guild);
       if (msg.content.toLowerCase().startsWith(`${customPrefix}${command}`) && !msg.author.bot) {
-        if (output !== '') msg.channel.send(output);
+        if (output !== '') send(<TextChannel | DMChannel>msg.channel, output);
         if (cb) cb(msg, customPrefix);
       }
     }

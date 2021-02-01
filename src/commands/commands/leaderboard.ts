@@ -3,6 +3,7 @@ import { DiscordClient } from '../../util/discord-client';
 import { setCommand } from '../command';
 import { IHighScore } from '../../../src/db/high-score-db';
 import { ReactionMenu } from '@xenon-devs/discordjs-reaction-menu';
+import { send } from '../../util/rate-limited-send';
 
 const rankMappingFunction = (score: IHighScore, i: number) => {
   return {
@@ -103,7 +104,7 @@ export function setLeaderboard(client: DiscordClient) {
 
       leaderboardMenu.start([msg.author.id])
 
-      if (client.advertisement !== null) msg.channel.send(client.advertisement);
+      if (client.advertisement !== null) send(<TextChannel>msg.channel, client.advertisement);
     }
   )
 }

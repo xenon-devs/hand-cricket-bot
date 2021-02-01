@@ -1,7 +1,8 @@
 import { DiscordClient } from '../util/discord-client';
 import { version } from '../../package.json';
-import { MessageEmbed, Message } from 'discord.js';
+import { MessageEmbed, Message, TextChannel } from 'discord.js';
 import { ICommandMeta } from './command';
+import { send } from '../util/rate-limited-send';
 
 export function setHelp(
   client: DiscordClient,
@@ -42,8 +43,8 @@ In the first half of October, we hosted nearly 2000 single and multi player matc
         if (botStats.support) helpEmbed.addField('Support Server', `[Click to Join](https://discord.gg/${botStats.support})`, true);
       }
 
-      msg.channel.send(helpEmbed);
+      send(<TextChannel>msg.channel, helpEmbed);
 
-      if (client.advertisement !== null) msg.channel.send(client.advertisement);
+      if (client.advertisement !== null) send(<TextChannel>msg.channel, client.advertisement);
   })
 }

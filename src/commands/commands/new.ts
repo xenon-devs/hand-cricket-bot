@@ -1,7 +1,8 @@
-import { MessageEmbed, Message } from 'discord.js';
+import { MessageEmbed, Message, TextChannel } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { setCommand } from '../command';
 import { version } from '../../../package.json';
+import { send } from '../../util/rate-limited-send';
 
 const lastUpdated = '27 Nov 2020';
 const desc = `\
@@ -22,7 +23,8 @@ export function setNew(client: DiscordClient) {
     'A list of changes to the bot.',
     '',
     (msg: Message) => {
-      msg.channel.send(
+      send(
+        <TextChannel>msg.channel,
         new MessageEmbed()
         .setTitle(`What's New`)
         .setDescription(desc)

@@ -3,6 +3,7 @@ import { DiscordClient } from '../../util/discord-client';
 import { HighScoreType } from '../../db/high-score-db';
 import { getPlayerFingersDM } from '../../util/get-player-fingers';
 import { Match, Players, GameMode } from '../match/match';
+import { send } from '../../util/rate-limited-send';
 
 import { selectOpponent } from './select-opponent';
 import { startMatch } from './start-match';
@@ -27,8 +28,8 @@ export class MultiPlayerMatch extends Match {
   }
 
   inningsOver() {
-    this.opponent.send(`Innings over.`);
-    this.challenger.send(`Innings over.`);
+    send(this.opponent, `Innings over.`);
+    send(this.challenger, `Innings over.`);
 
     super.inningsOver();
   }
@@ -49,25 +50,25 @@ export class MultiPlayerMatch extends Match {
 
     const bowler = batsman === this.challenger ? this.opponent : this.challenger;
 
-    batsman.send(`Bowler: ${bowlerPlayed}!`); // randomize
-    bowler.send(`Batsman: ${batsmanPlayed}!`); // randomize
+    send(batsman, `Bowler: ${bowlerPlayed}!`); // randomize
+    send(bowler, `Batsman: ${batsmanPlayed}!`); // randomize
 
     if (batsmanPlayed !== bowlerPlayed) {
       if (batsmanPlayed === 6) {
         const randomSixComment = this.getRandomComment(this.COMMENT_CATEGORIES.SIX);
-        this.challenger.send(`**Commentator**: ${randomSixComment}`);
-        this.opponent.send(`**Commentator**: ${randomSixComment}`);
+        send(this.challenger, `**Commentator**: ${randomSixComment}`);
+        send(this.opponent, `**Commentator**: ${randomSixComment}`);
       }
       else if (batsmanPlayed === 4) {
         const randomBoundaryComment = this.getRandomComment(this.COMMENT_CATEGORIES.BOUNDARY);
-        this.challenger.send(`**Commentator**: ${randomBoundaryComment}`);
-        this.opponent.send(`**Commentator**: ${randomBoundaryComment}`);
+        send(this.challenger, `**Commentator**: ${randomBoundaryComment}`);
+        send(this.opponent, `**Commentator**: ${randomBoundaryComment}`);
       }
     }
     else {
       const outComment = this.getRandomComment(this.COMMENT_CATEGORIES.OUT);
-      this.challenger.send(`**Commentator**: ${outComment}`);
-      this.opponent.send(`**Commentator**: ${outComment}`);
+      send(this.challenger, `**Commentator**: ${outComment}`);
+      send(this.opponent, `**Commentator**: ${outComment}`);
     }
 
     super.calculateRoundResult(batsmanPlayed, bowlerPlayed);
@@ -82,9 +83,9 @@ export class MultiPlayerMatch extends Match {
   }
 
   protected sendScoreBoard() {
-    this.stadium.send(this.generateScoreBoard());
-    this.opponent.send(this.scoreboard);
-    this.challenger.send(this.scoreboard);
+    send(this.stadium, this.generateScoreBoard());
+    send(this.opponent, this.scoreboard);
+    send(this.challenger, this.scoreboard);
   }
 
   updateDB(

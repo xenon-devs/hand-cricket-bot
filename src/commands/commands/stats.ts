@@ -1,6 +1,7 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { Message, MessageEmbed, TextChannel } from 'discord.js';
 import { DiscordClient } from '../../util/discord-client';
 import { setCommand } from '../command';
+import { send } from '../../util/rate-limited-send';
 
 export function setStats(
   client: DiscordClient
@@ -40,7 +41,7 @@ export function setStats(
           .addField('Global Matches Played', `\`${matchesPlayed.global}\``, true)
       }
 
-      msg.channel.send(statsEmbed);
+      send(<TextChannel>msg.channel, statsEmbed);
     }
   )
 }

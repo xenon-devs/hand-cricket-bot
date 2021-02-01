@@ -3,11 +3,12 @@ import { toss } from '../../util/toss';
 import { GlobalMatch } from './global';
 import { askBatBowl, BatBowl } from '../../util/ask-bat-bowl';
 import { DMChannel } from 'discord.js';
+import { send } from '../../util/rate-limited-send';
 
 export async function startMatch(this: GlobalMatch) {
   try {
-    const challengerChannel = <DMChannel>(await this.challenger.send(`Your opponent, ${this.opponent.username} is playing the toss.`)).channel;
-    const opponentChannel = <DMChannel>(await this.opponent.send(`You will play the toss.`)).channel;
+    const challengerChannel = <DMChannel>(await send(this.challenger, `Your opponent, ${this.opponent.username} is playing the toss.`)).channel;
+    const opponentChannel = <DMChannel>(await send(this.opponent, `You will play the toss.`)).channel;
 
     const tossAnswer = await toss(
       this.opponent,

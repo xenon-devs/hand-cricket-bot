@@ -1,6 +1,7 @@
 import { ask, ErrorMessages } from './ask';
 import { TextChannel, User, DMChannel } from 'discord.js';
 import { DiscordClient } from './discord-client';
+import { send } from './rate-limited-send';
 
 export enum TossResult { HEADS, TAILS };
 export { ErrorMessages } from './ask';
@@ -40,7 +41,7 @@ export const toss = async (
   channel: TextChannel | DMChannel,
   onHandlerAdd: (handlerName: string) => void
 ) => {
-  channel.send('TOSS:');
+  send(channel, 'TOSS:');
   try {
     return await doToss(player, client, channel, 'Heads or Tails?', onHandlerAdd);
   }
