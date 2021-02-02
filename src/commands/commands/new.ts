@@ -10,9 +10,7 @@ If you have *absolutey any* suggestions, you can let us know in the support serv
 `
 
 const changes = [
-  { name: 'Global Matches!', value: 'Now you can play against any player globally! See the help command' },
-  { name: 'Leaderboard Reaction Menu', value: 'The leaderboard is now a reaction menu.' },
-  { name: 'Leaderboard Expansion', value: 'The leaderboard now contains high scores for each of the three game modes - Test Match, Super Over and T-5' },
+  { name: 'Rate Limits', value: 'Aparently we ovewhelmed Discord. Hand Cricketer was sending messages too fast. We have now limited this rate. You might see that the bot\'s response time is very slightly slower but it prevents us from getting banned :person_shrugging:.' },
   { name: 'Next', value: 'Further Expansion of Leaderboard - More stats.' }
 ]
 
