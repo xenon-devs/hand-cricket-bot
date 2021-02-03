@@ -4,12 +4,13 @@ import { setCommand } from '../command';
 import { version } from '../../../package.json';
 import { send } from '../../util/rate-limited-send';
 
-const lastUpdated = '27 Nov 2020';
+const lastUpdated = '03 Feb 2021';
 const desc = `\
 If you have *absolutey any* suggestions, you can let us know in the support server (link in help command) or on Github(link in help command).
 `
 
 const changes = [
+  { name: 'Multiplayer Fixed', value: 'Multiplayer matches were not working after the rate limits were implemented. That has been fixed.' },
   { name: 'Rate Limits', value: 'Aparently we ovewhelmed Discord. Hand Cricketer was sending messages too fast. We have now limited this rate. You might see that the bot\'s response time is very slightly slower but it prevents us from getting banned :person_shrugging:.' },
   { name: 'Next', value: 'Further Expansion of Leaderboard - More stats.' }
 ]

@@ -1,8 +1,3 @@
 {
-  "prefix": "?",
-  "customStatus": {
-    "name": "Leaderboard has Super Over and T-5 high scores now",
-    "type": "WATCHING"
-  },
-  "useCustomStatus": false
+  "prefix": "?"
 }
