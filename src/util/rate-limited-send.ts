@@ -1,5 +1,4 @@
 import { TextChannel, MessageEmbed, User, Message, DMChannel } from 'discord.js';
-import { resolve } from 'path';
 
 export type SendTo = TextChannel | DMChannel | User;
 export type Content = string | number | MessageEmbed;
@@ -70,7 +69,7 @@ export async function send(
   }
   else if ('username' in sendTo) { // It is a user
     queue = dmMessageQueue;
-    idInQueue = sendTo.dmChannel.id;
+    idInQueue = sendTo.id;
   }
 
   if (!queue.has(idInQueue)) {
