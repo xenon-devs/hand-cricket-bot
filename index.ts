@@ -28,8 +28,15 @@ client.on('rateLimit', console.log);
 client.onCommand('set_status', '', async (msg) => {
   if (client.dblIntegration) {
     const botInfo = await client.dbl.getBot(client.user.id);
+    let isOwner = false;
 
-    if (!botInfo.owners.includes(Number(msg.author.id))) return;
+    botInfo.owners.forEach(ownerId => {
+      // Need to do this because topgg API is broken. It says ownerId is a number but it is a string.
+
+      if (ownerId.toString() === msg.author.id.toString()) isOwner = true;
+    })
+
+    if (!isOwner) return;
   }
 
   const statusType = msg.content.toUpperCase().split(' ')[1].trim();
