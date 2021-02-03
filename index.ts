@@ -1,5 +1,5 @@
 import { DiscordClient } from './src/util/discord-client';
-import { prefix, useCustomStatus, customStatus } from './config.json';
+import { prefix } from './config.json';
 
 import { setAllCommands } from './src/commands/all-commands';
 import { config } from 'dotenv';
@@ -12,29 +12,47 @@ const client = new DiscordClient({
 })
 
 client.on('ready', () => {
-  if (useCustomStatus) {
-    client.user.setPresence({
-      activity: {
-        name: customStatus.name,
-        type: <'WATCHING' | 'LISTENING' | 'PLAYING'>customStatus.type
-      }
-    })
-  }
-
-  client.setTimeout(() => {
-    client.user.setPresence({
-      activity: {
-        name: `${prefix}help`,
-        type: 'LISTENING'
-      }
-    })
-  }, useCustomStatus ? 3 * 24 * 60 * 60 * 1000 : 0) // 3 days or 0
+  client.user.setPresence({
+    activity: {
+      name: `${prefix}help`,
+      type: 'LISTENING'
+    }
+  })
 })
 
 setAllCommands(client);
 
 client.on('ready', () => console.log('Logged in as ', client.user.username));
 client.on('rateLimit', console.log);
+
+client.onCommand('set_status', '', async (msg) => {
+  if (client.dblIntegration) {
+    const botInfo = await client.dbl.getBot(client.user.id);
+
+    if (!botInfo.owners.includes(Number(msg.author.id))) return;
+  }
+
+  const statusType = msg.content.toUpperCase().split(' ')[1].trim();
+  const statusMsg = msg.content.split(' ').slice(2).join(' ');
+
+  if ((statusType === 'LISTENING' || statusType === 'WATCHING') && statusMsg !== '') {
+    client.user.setPresence({
+      activity: {
+        name: statusMsg,
+        type: <'LISTENING' | 'WATCHING'>statusType
+      }
+    })
+
+    client.setTimeout(() => {
+      client.user.setPresence({
+        activity: {
+          name: `${prefix}help`,
+          type: 'LISTENING'
+        }
+      })
+    }, 3 * 24 * 60 * 60 * 1000) // 3 days
+  }
+})
 
 const tryLogin = () => {
   console.log('Login failed. Trying again');
