@@ -37,7 +37,7 @@ In the first half of October, we hosted nearly 2000 single and multi player matc
       if (client.dblIntegration) {
         helpEmbed.addField('Add bot to your server', `[Click to Add](https://top.gg/bot/${client.user.id})`, true);
         helpEmbed.addField('Liked it?', `[Click to Vote](https://top.gg/bot/${client.user.id}/vote)`, true);
-        helpEmbed.addField('Want to help us?', `[Click to Donate](https://donatebot.io/checkout/674324110653784104)`, true);
+        helpEmbed.addField('Want to Swap cryptos with ease?', `[Try SwapCC](https://discordbotlist.com/bots/swapcc)`, true);
 
         const botStats = await client.dbl.getBot(client.user.id);
         if (botStats.support) helpEmbed.addField('Support Server', `[Click to Join](https://discord.gg/${botStats.support})`, true);
