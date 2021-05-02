@@ -185,16 +185,16 @@ Which game mode do you want to play?
     batsmanPlayed: number,
     bowlerPlayed: number
   ) {
-    if (
-      batsmanPlayed === bowlerPlayed ||
-      (this.gameMode === GameMode.SUPER_OVER && this.ballsPlayed[this.numInnings] >= 6) ||
-      (this.gameMode === GameMode.T_5 && this.ballsPlayed[this.numInnings] >= 6 * 5)
-    ) this.inningsOver();
+    if (batsmanPlayed === bowlerPlayed) this.inningsOver();
     else {
       if (this.numInnings === 1) this.chaserScore += batsmanPlayed; // randomize
       else this.openerScore += batsmanPlayed; // 6s and 4s need msgs
 
-      if (this.numInnings === 1 && this.chaserScore > this.openerScore) this.inningsOver();
+      if (
+        this.numInnings === 1 && this.chaserScore > this.openerScore ||
+        (this.gameMode === GameMode.SUPER_OVER && this.ballsPlayed[this.numInnings] >= 6) ||
+        (this.gameMode === GameMode.T_5 && this.ballsPlayed[this.numInnings] >= 6 * 5)
+      ) this.inningsOver();
       else this.play();
     }
   }
