@@ -43,7 +43,7 @@ export class GlobalMatch extends MultiPlayerMatch {
 
   protected comment(commentry: string) {
     send(this.opponent, `**Commentator**: ${commentry}`);
-    send(this.opponent, `**Commentator**: ${commentry}`);
+    send(this.challenger, `**Commentator**: ${commentry}`);
   }
 
   protected sendScoreBoard() {
@@ -79,7 +79,7 @@ export class GlobalMatch extends MultiPlayerMatch {
     }
 
     send(this.opponent, this.scoreboard);
-    send(this.opponent, this.scoreboard);
+    send(this.challenger, this.scoreboard);
   }
 
   updateDB(
