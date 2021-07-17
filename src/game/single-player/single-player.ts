@@ -51,7 +51,7 @@ export class SinglePlayerMatch extends Match {
           )
 
           if (answer.answer.trim().toLowerCase() === 'yes') {
-            send(this.stadium, `<@${this.challenger.id}> Click on the link below. Sign in with your discord account, vote and come back in 5 min. \n https://top.gg/bot/${this.client.user.id}/vote`);
+            send(this.stadium, `<@${this.challenger.id}> Click on the link below. Sign in with your discord account, vote for SwapCC and come back in 5 min. \n https://top.gg/bot/812942138622345277/vote`);
 
             try {
               const answer = await ask(
