@@ -1,5 +1,5 @@
 import { Client, Message, MessageEmbed, ClientOptions, TextChannel, DMChannel } from 'discord.js';
-import { Api as DBL } from '@top-gg/sdk'
+import { Api as DBL } from '@top-gg/sdk';
 
 import { prefix } from '../../config.json'
 import { getPrefix } from './get-prefix';
