@@ -32,6 +32,16 @@ export class DiscordClient extends Client {
       this.dblIntegration = true;
       this.dbl = new DBL(process.env.DBL_TOKEN, this);
       this.dbl.on('error', console.log);
+
+      this.dbl.postStats({
+        serverCount: this.guilds.cache.size
+      })
+
+      this.setInterval(() => {
+        this.dbl.postStats({
+          serverCount: this.guilds.cache.size
+        })
+      }, 1000 * 60 * 60)
     }
     else this.dblIntegration = false;
 
